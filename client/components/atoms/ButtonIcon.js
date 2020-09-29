@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 
 const ButtonIcon = styled.button`
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 42px;
   height: 42px;
   border: 0;
-  border-radius: 25%;
+  border-radius: ${({ circle }) => (circle ? '21px' : '25%')};
   cursor: pointer;
   outline: 0;
   transition: all 0.2s;
@@ -19,7 +19,8 @@ const ButtonIcon = styled.button`
   );
 
   &:hover {
-    transform: translateY(-3px);
+    transform: ${({ circle }) =>
+      circle ? 'translateY(0px)' : 'translateY(-10px)'};
   }
 `;
 
