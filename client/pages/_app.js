@@ -1,27 +1,6 @@
-import { createGlobalStyle, ThemeProvider } from 'styled-components';
-import { theme } from '../theme';
-
-const GlobalStyle = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@300;400;700&display=swap');
-
-  *, *::before, *::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  html {
-    font-size: 62.5%; 
-  }
-  
-  body {
-    font-size: 1.6rem;
-    font-family: 'Kumbh Sans', sans-serif;
-    color: #1a1a1a;
-  }
-`;
+import { ThemeProvider } from 'styled-components';
+import { theme } from '../styles/theme';
+import GlobalStyle from '../styles/GlobalStyle';
 
 function App({ Component, pageProps }) {
   return (

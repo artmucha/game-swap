@@ -9,7 +9,7 @@ const CardWrapper = styled.article`
   box-shadow: 0 10px 30px -10px hsla(0, 0%, 0%, 0.1);
   border-radius: 8px;
   overflow: hidden;
-  min-width: 280px;
+  min-width: 270px;
   position: relative;
 `;
 
