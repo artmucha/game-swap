@@ -20,7 +20,7 @@ const ButtonIcon = styled.button`
 
   &:hover {
     transform: ${({ circle }) =>
-      circle ? 'translateY(0px)' : 'translateY(-10px)'};
+      circle ? 'translateY(0px)' : 'translateY(-5px)'};
   }
 `;
 
