@@ -5,9 +5,9 @@ export const theme = {
   pc: '#f4f4f4',
   black: '#1a1a1a',
   white: '#ffffff',
-  grey100: 'hsl(0, 0%, 96%)',
-  grey200: 'hsl(0, 0%, 90%)',
-  grey300: 'hsl(0, 0%, 70%)',
+  grey100: '#f5f5f5',
+  grey200: '#E6E6E6',
+  grey300: '#B3B3B3',
 
   light: 300,
   regular: 400,

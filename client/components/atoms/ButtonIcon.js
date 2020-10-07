@@ -11,7 +11,8 @@ const ButtonIcon = styled.button`
   cursor: pointer;
   outline: 0;
   transition: all 0.2s;
-  box-shadow: 2px 2px 16px rgba(0, 0, 0, 0.15);
+  box-shadow: ${({ flat }) =>
+    flat ? 'none' : '2px 2px 16px rgba(0, 0, 0, 0.15)'};
 
   background: linear-gradient(
     60deg,

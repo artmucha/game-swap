@@ -6,7 +6,7 @@ import Badge from '../atoms/Badge';
 import Avatar from '../atoms/Avatar';
 
 const CardWrapper = styled.article`
-  box-shadow: 0 10px 30px -10px hsla(0, 0%, 0%, 0.1);
+  box-shadow: inset 0 0 0 1px #ebebf0, 0 10px 20px 0 rgba(0, 0, 0, 0.2);
   border-radius: 8px;
   overflow: hidden;
   min-width: 270px;

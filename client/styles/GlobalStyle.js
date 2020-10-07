@@ -19,6 +19,14 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Kumbh Sans', sans-serif;
     color: #1a1a1a;
   }
+
+  ul {
+    list-style-type: none;
+  }
+
+  a {
+    text-decoration: none;
+  }
 `;
 
 export default GlobalStyle;
