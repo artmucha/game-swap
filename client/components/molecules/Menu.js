@@ -61,16 +61,17 @@ const Menu = () => {
               <span>{text}</span>
             )}
 
-            <NavigationSubList>
-              {sub &&
-                sub.map((item) => (
+              {sub ? (
+                <NavigationSubList>
+                { sub.map((item) => (
                   <li>
                     <Link href={`/ogloszenia/gry/${item.link}`}>
                       <a>{item.text}</a>
                     </Link>
                   </li>
-                ))}
-            </NavigationSubList>
+                )) }
+                </NavigationSubList>
+              ) : null }
           </li>
         ))}
       </NavigationList>

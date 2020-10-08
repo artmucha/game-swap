@@ -9,7 +9,7 @@ function App({ Component, pageProps }) {
       <GlobalStyle />
       <ThemeProvider theme={theme}>
         <>
-          <Header platform='playstation' />
+          <Header />
           <Component {...pageProps} />
         </>
       </ThemeProvider>

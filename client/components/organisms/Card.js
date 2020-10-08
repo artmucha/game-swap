@@ -6,11 +6,12 @@ import Badge from '../atoms/Badge';
 import Avatar from '../atoms/Avatar';
 
 const CardWrapper = styled.article`
-  box-shadow: inset 0 0 0 1px #ebebf0, 0 10px 20px 0 rgba(0, 0, 0, 0.2);
+  min-width: 50%;
+  max-width: 240px;
+  position: relative;
   border-radius: 8px;
   overflow: hidden;
-  min-width: 270px;
-  position: relative;
+  box-shadow: inset 0 0 0 1px #ebebf0, 0 10px 20px 0 rgba(0, 0, 0, 0.2);
 `;
 
 const Cover = styled.div`
@@ -65,9 +66,6 @@ const Card = () => {
         </Heading>
       </Cover>
       <ActionButtons>
-        <ButtonIcon colors={['#0072ff', '#00c6ff']}>
-          <img src='./list.svg' alt='Dodaj do swojej listy' />
-        </ButtonIcon>
         <ButtonIcon colors={['#F50057', '#FF8A80']}>
           <img src='./favorite.svg' alt='Dodaj do listy chcę zagrać' />
         </ButtonIcon>

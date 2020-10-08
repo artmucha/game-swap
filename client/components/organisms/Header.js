@@ -3,11 +3,12 @@ import Link from 'next/link';
 import PropTypes from 'prop-types';
 
 import Container from '../atoms/Container';
+import Row from '../atoms/Row';
 import SearchForm from '../molecules/SearchForm';
 import ButtonIcon from '../atoms/ButtonIcon';
 import Menu from '../molecules/Menu';
 
-const Wrapper = styled.div`
+const Wrapper = styled.header`
   background-color: ${({ platform, theme }) =>
     platform ? theme[platform] : theme.white};
   color: ${({ theme }) => theme.black};

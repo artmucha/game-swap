@@ -1,6 +1,6 @@
 export default [
   {
-    text: 'playstation',
+    text: 'Playstation',
     sub: [
       {
         text: 'PlayStation 4',
@@ -25,7 +25,7 @@ export default [
     ],
   },
   {
-    text: 'xbox',
+    text: 'Xbox',
     sub: [
       {
         text: 'Xbox One',
@@ -42,7 +42,7 @@ export default [
     ],
   },
   {
-    text: 'nintendo',
+    text: 'Nintendo',
     sub: [
       {
         text: 'Switch',
