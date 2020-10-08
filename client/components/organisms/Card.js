@@ -6,8 +6,6 @@ import Badge from '../atoms/Badge';
 import Avatar from '../atoms/Avatar';
 
 const CardWrapper = styled.article`
-  min-width: 50%;
-  max-width: 240px;
   position: relative;
   border-radius: 8px;
   overflow: hidden;
@@ -24,10 +22,15 @@ const Cover = styled.div`
 `;
 
 const ActionButtons = styled.div`
-  margin: -15px 15px 0 15px;
-  padding: 0 0 15px 0;
+  margin: -15px 10px 0 10px;
+  padding: 0 0 10px 0;
   border-bottom: 1px solid ${({ theme }) => theme.grey200};
   position: relative;
+
+  @media (min-width: 768px) {
+    margin: -15px 15px 0 15px;
+    padding: 0 0 15px 0;
+  }
 
   button {
     margin-right: 10px;
@@ -36,20 +39,31 @@ const ActionButtons = styled.div`
 `;
 
 const ContentWrapper = styled.div`
-  padding: 15px;
+  padding: 10px;
   background-color: ${({ theme }) => theme.white};
+
+  @media (min-width: 768px) {
+    padding: 15px;
+  }
 `;
 
 const Heading = styled.header`
   width: 100%;
-  padding: 15px 15px 25px;
+  padding: 10px 10px 20px;
   position: absolute;
   bottom: 0;
   box-sizing: border-box;
   background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8));
 
+  @media (min-width: 768px) {
+    padding: 15px 15px 25px;
+  }
+
   h2 {
     margin-top: 5px;
+    @media (max-width: 576px) {
+      font-size: ${({ theme }) => theme.fontSize.s};
+    }
   }
 `;
 

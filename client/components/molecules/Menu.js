@@ -9,9 +9,9 @@ const NavigationList = styled.ul`
     position: relative;
 
     &:hover {
+      background-color: ${({ theme }) => theme.grey100};
       ul {
-        visibility: visible;
-        opacity: 1;
+        display: block;
       }
     }
   }
@@ -27,15 +27,15 @@ const NavigationList = styled.ul`
 `;
 
 const NavigationSubList = styled.ul`
+  display: none;
   position: absolute;
   top: 35px;
   left: 0;
   min-width: 220px;
-  visibility: 0;
-  opacity: 0;
   box-shadow: 2px 3px 0 rgba(0, 0, 0, 0.1);
   z-index: 99;
   transition: all linear 0.2s;
+
   a {
     display: block;
     padding: 10px 15px;
@@ -44,6 +44,10 @@ const NavigationSubList = styled.ul`
     background-color: ${({ theme }) => theme.white};
     font-weight: ${({ theme }) => theme.bold};
     border-bottom: 1px solid ${({ theme }) => theme.grey200};
+
+    &:hover {
+      background-color: ${({ theme }) => theme.grey100};
+    }
   }
 `;
 
@@ -61,17 +65,17 @@ const Menu = () => {
               <span>{text}</span>
             )}
 
-              {sub ? (
-                <NavigationSubList>
-                { sub.map((item) => (
+            {sub ? (
+              <NavigationSubList>
+                {sub.map((item) => (
                   <li>
                     <Link href={`/ogloszenia/gry/${item.link}`}>
                       <a>{item.text}</a>
                     </Link>
                   </li>
-                )) }
-                </NavigationSubList>
-              ) : null }
+                ))}
+              </NavigationSubList>
+            ) : null}
           </li>
         ))}
       </NavigationList>
