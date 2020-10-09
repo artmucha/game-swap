@@ -55,10 +55,10 @@ const Menu = () => {
   return (
     <nav>
       <NavigationList>
-        {menu.map(({ text, link, sub }) => (
+        {menu.map(({ text, link, sub, platform }) => (
           <li>
             {link ? (
-              <Link href={`/ogloszenia/gry/${link}`}>
+              <Link href={`/ogloszenia/${platform}/${link}`}>
                 <a>{text}</a>
               </Link>
             ) : (
@@ -67,10 +67,10 @@ const Menu = () => {
 
             {sub ? (
               <NavigationSubList>
-                {sub.map((item) => (
+                {sub.map(({text, link, platform}) => (
                   <li>
-                    <Link href={`/ogloszenia/gry/${item.link}`}>
-                      <a>{item.text}</a>
+                    <Link href={`/ogloszenia/${platform}/${link}`}>
+                      <a>{text}</a>
                     </Link>
                   </li>
                 ))}
