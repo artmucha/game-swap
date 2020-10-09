@@ -4,8 +4,8 @@ const ButtonIcon = styled.button`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 42px;
-  height: 42px;
+  width: 34px;
+  height: 34px;
   border: 0;
   border-radius: ${({ circle }) => (circle ? '21px' : '25%')};
   cursor: pointer;
@@ -22,6 +22,11 @@ const ButtonIcon = styled.button`
   &:hover {
     transform: ${({ circle }) =>
       circle ? 'translateY(0px)' : 'translateY(-5px)'};
+  }
+
+  @media (min-width: 768px) {
+    width: 42px;
+    height: 42px;
   }
 `;
 

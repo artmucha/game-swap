@@ -9,7 +9,7 @@ const CardWrapper = styled.article`
   position: relative;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: inset 0 0 0 1px #ebebf0, 0 10px 20px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .1);
 `;
 
 const Cover = styled.div`
@@ -27,14 +27,18 @@ const ActionButtons = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.grey200};
   position: relative;
 
+  button {
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+
   @media (min-width: 768px) {
     margin: -15px 15px 0 15px;
     padding: 0 0 15px 0;
-  }
 
-  button {
-    margin-right: 10px;
+    button {
     margin-bottom: 15px;
+  }
   }
 `;
 
@@ -44,6 +48,8 @@ const ContentWrapper = styled.div`
 
   @media (min-width: 768px) {
     padding: 15px;
+    display: flex;
+    align-items: center;
   }
 `;
 
@@ -84,21 +90,19 @@ const Card = () => {
           <img src='./favorite.svg' alt='Dodaj do listy chcę zagrać' />
         </ButtonIcon>
         <Paragraph small>Język: Angielski</Paragraph>
-        <Paragraph small>Stan: Idealny (jak nowa)</Paragraph>
+        <Paragraph small>Stan: Jak nowa</Paragraph>
       </ActionButtons>
       <ContentWrapper>
-        <Avatar>
+        <Avatar small>
           <img src='./ArturMucha.jpg' alt='Dodaj do swojej listy' />
         </Avatar>
-        <Avatar>
+        <Avatar small>
           <img src='./ArturMucha.jpg' alt='Dodaj do swojej listy' />
         </Avatar>
-        <Avatar>
+        <Avatar small>
           <img src='./ArturMucha.jpg' alt='Dodaj do swojej listy' />
         </Avatar>
-        <Avatar>
-          <img src='./ArturMucha.jpg' alt='Dodaj do swojej listy' />
-        </Avatar>
+        <Paragraph small>+10 ma tę grę</Paragraph>
       </ContentWrapper>
     </CardWrapper>
   );

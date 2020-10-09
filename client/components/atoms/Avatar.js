@@ -11,10 +11,12 @@ const Avatar = styled.div`
   background: ${({ theme }) => theme.grey200};
   overflow: hidden;
 
-  img {
-    width: 100%;
-    height: auto;
-  }
+  ${({ small }) =>
+    small &&
+    css`
+      width: 34px;
+      height: 34px;
+    `}
 
   ${({ big }) =>
     big &&
@@ -23,6 +25,15 @@ const Avatar = styled.div`
       height: 84px;
       border: 4px solid ${({ theme }) => theme.white};
     `}
+
+  &:not(:first-child) {
+    margin-left: -10px;
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+  }
 `;
 
 export default Avatar;
