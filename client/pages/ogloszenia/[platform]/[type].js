@@ -13,7 +13,7 @@ const Products = ({products}) => {
       <p>Post: {type}</p>
       <Container>
         <Grid s={2} m={3} l={4}>
-            {products.map(product => <div>{product.title}</div>)}
+            {products.map(product => <div>{product.results}</div>)}
         </Grid>
       </Container>
     </>
