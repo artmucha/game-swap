@@ -1,47 +1,44 @@
+import { useState } from 'react';
 import styled from 'styled-components';
-import Link from 'next/link';
-import PropTypes from 'prop-types';
 
 import Container from '../atoms/Container';
-import SearchForm from '../molecules/SearchForm';
 import ButtonIcon from '../atoms/ButtonIcon';
-import Menu from '../molecules/Menu';
+import Navigation from '../molecules/Navigation';
 
 const Wrapper = styled.header`
-  background-color: ${({ platform, theme }) =>
-    platform ? theme[platform] : theme.white};
+  background-color: ${({ theme }) => theme.white};
   color: ${({ theme }) => theme.black};
   padding-top: 10px;
+  padding-bottom: 10px;
 `;
 
-const Header = ({ platform }) => {
+const Header = () => {
+  const [open, setOpen] = useState(false);
+
   return (
-    <Wrapper platform={platform}>
+    <Wrapper>
       <Container flex spaceBetween alignCenter>
+        <ButtonIcon 
+          flat
+          circle 
+          colors={['transparent', 'transparent']}
+          onClick={() => setOpen(!open)}
+        >
+          <img src='./menu-button.svg' alt="Hamburger menu" />
+        </ButtonIcon>
         <h1>Logo</h1>
-        <SearchForm />
         <div>
-          <Link href='#'>
-            <a>Zaloguj</a>
-          </Link>
+          <ButtonIcon flat circle colors={['transparent', 'transparent']}>
+            <img src="./user.svg" alt="Użytkownik" />
+          </ButtonIcon>
           <ButtonIcon circle colors={['#43A047', '#FFEB3B']}>
-            +
+            <img src="./add-button.svg" alt="Dodaj ogłoszenie" />
           </ButtonIcon>
         </div>
       </Container>
-      <Container flex>
-        <Menu />
-      </Container>
+        <Navigation open={open} setOpen={setOpen} />
     </Wrapper>
-  );
-};
-
-Header.propTypes = {
-  platform: PropTypes.oneOf(['playstation', 'xbox', 'nintendo', 'pc', 'white']),
-};
-
-Header.defaultProps = {
-  platform: 'white',
+  )
 };
 
 export default Header;
