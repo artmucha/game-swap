@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import Link from 'next/link';
 
-import SearchForm from './SearchForm';
-import menu from '../../constans/menu';
-import ButtonIcon from '../atoms/ButtonIcon';
+import SearchForm from 'components/molecules/SearchForm';
+import menu from 'constans/menu';
+import ButtonIcon from 'components/atoms/ButtonIcon';
 
 const NavigationOverlay = styled.div`
   position: fixed;
@@ -73,7 +73,7 @@ const Navigation = ({open, setOpen}) => (
         colors={['transparent', 'transparent']}
         onClick={() => setOpen(!open)}
       >
-        <img src='./close-button.svg' alt='Cofnij' />
+        <img src='./icons/close-button.svg' alt='Cofnij' />
       </CloseButton>
       <SearchForm />
       <NavigationList>

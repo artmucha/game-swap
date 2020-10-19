@@ -1,7 +1,7 @@
 import { ThemeProvider } from 'styled-components';
-import { theme } from '../styles/theme';
-import GlobalStyle from '../styles/GlobalStyle';
-import Header from '../components/organisms/Header';
+import { theme } from 'styles/theme';
+import GlobalStyle from 'styles/GlobalStyle';
+import Header from 'components/organisms/Header';
 
 const App = ({ Component, pageProps }) => (
   <>

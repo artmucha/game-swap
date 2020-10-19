@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import Input from '../atoms/Input';
-import ButtonIcon from '../atoms/ButtonIcon';
+
+import Input from 'components/atoms/Input';
+import ButtonIcon from 'components/atoms/ButtonIcon';
 
 const SearchWrapper = styled.form`
   display: flex;

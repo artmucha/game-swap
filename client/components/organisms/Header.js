@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 
-import Container from '../atoms/Container';
-import ButtonIcon from '../atoms/ButtonIcon';
-import Navigation from '../molecules/Navigation';
+import Container from 'components/atoms/Container';
+import ButtonIcon from 'components/atoms/ButtonIcon';
+import Navigation from 'components/molecules/Navigation';
 
 const Wrapper = styled.header`
   background-color: ${({ theme }) => theme.white};

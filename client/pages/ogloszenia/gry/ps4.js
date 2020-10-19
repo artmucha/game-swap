@@ -1,5 +1,5 @@
-import Container from '../../../components/atoms/Container';
-import Card from '../../../components/organisms/Card';
+import Container from 'components/atoms/Container';
+import Card from 'components/organisms/Card';
 
 const Home = () => (
   <>

@@ -1,9 +1,10 @@
 import styled from 'styled-components';
-import Typography from '../atoms/Typography';
-import ButtonIcon from '../atoms/ButtonIcon';
-import Paragraph from '../atoms/Paragraph';
-import Badge from '../atoms/Badge';
-import Avatar from '../atoms/Avatar';
+
+import Typography from 'components/atoms/Typography';
+import ButtonIcon from 'components/atoms/ButtonIcon';
+import Paragraph from 'components/atoms/Paragraph';
+import Badge from 'components/atoms/Badge';
+import Avatar from 'components/atoms/Avatar';
 
 const CardWrapper = styled.article`
   position: relative;
