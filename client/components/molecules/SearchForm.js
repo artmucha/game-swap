@@ -5,16 +5,15 @@ import ButtonIcon from '../atoms/ButtonIcon';
 const SearchWrapper = styled.form`
   display: flex;
   align-items: center;
-  width: 100%;
-  max-width: 400px;
   border: 1px solid ${({ theme }) => theme.grey200};
   border-radius: 50px;
-  margin: 0 15px;
+  margin: 15px;
   background-color: ${({ theme }) => theme.white};
 `;
 
 const SearchInput = styled(Input)`
   border: 0;
+  width: 90%;
 `;
 
 const SearchForm = () => {
@@ -22,7 +21,7 @@ const SearchForm = () => {
     <SearchWrapper>
       <SearchInput placeholder='szukaj' type='search' />
       <ButtonIcon flat circle colors={['transparent', 'transparent']}>
-        <img src='./search.svg' alt='Szukaj' />
+        <img src='./search-button.svg' alt='Szukaj' />
       </ButtonIcon>
     </SearchWrapper>
   );

@@ -67,7 +67,7 @@ export default [
     ],
   },
   {
-    text: 'pc',
+    text: 'PC',
     link: 'pc',
   },
 ];
