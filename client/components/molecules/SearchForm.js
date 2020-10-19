@@ -21,7 +21,7 @@ const SearchForm = () => {
     <SearchWrapper>
       <SearchInput placeholder='szukaj' type='search' />
       <ButtonIcon flat circle colors={['transparent', 'transparent']}>
-        <img src='./search-button.svg' alt='Szukaj' />
+        <img src='./icons/search-button.svg' alt='Szukaj' />
       </ButtonIcon>
     </SearchWrapper>
   );

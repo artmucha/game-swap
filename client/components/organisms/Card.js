@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import Typography from '../atoms/Typography';
 import ButtonIcon from '../atoms/ButtonIcon';
 import Paragraph from '../atoms/Paragraph';
@@ -87,7 +88,6 @@ const Card = () => {
       </Cover>
       <ActionButtons>
         <ButtonIcon colors={['#F50057', '#FF8A80']}>
-          <img src='./favorite.svg' alt='Dodaj do listy chcę zagrać' />
         </ButtonIcon>
         <Paragraph small>Język: Angielski</Paragraph>
         <Paragraph small>Stan: Jak nowa</Paragraph>

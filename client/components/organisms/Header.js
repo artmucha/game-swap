@@ -24,15 +24,15 @@ const Header = () => {
           colors={['transparent', 'transparent']}
           onClick={() => setOpen(!open)}
         >
-          <img src='./menu-button.svg' alt="Hamburger menu" />
+          <img src='./icons/menu-button.svg' alt="Hamburger menu" />
         </ButtonIcon>
         <h1>Logo</h1>
         <div>
           <ButtonIcon flat circle colors={['transparent', 'transparent']}>
-            <img src="./user.svg" alt="Użytkownik" />
+            <img src="./icons/user.svg" alt="Użytkownik" />
           </ButtonIcon>
           <ButtonIcon circle colors={['#43A047', '#FFEB3B']}>
-            <img src="./add-button.svg" alt="Dodaj ogłoszenie" />
+            <img src="./icons/add-button.svg" alt="Dodaj ogłoszenie" />
           </ButtonIcon>
         </div>
       </Container>

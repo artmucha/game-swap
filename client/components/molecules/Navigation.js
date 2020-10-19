@@ -73,7 +73,7 @@ const Navigation = ({open, setOpen}) => (
         colors={['transparent', 'transparent']}
         onClick={() => setOpen(!open)}
       >
-        <img src='./close-button.svg' alt='Cofnij' />
+        <img src='./icons/close-button.svg' alt='Cofnij' />
       </CloseButton>
       <SearchForm />
       <NavigationList>
