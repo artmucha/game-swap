@@ -1,9 +1,11 @@
 import styled from 'styled-components';
 import Link from 'next/link';
 
-import SearchForm from './SearchForm';
-import menu from '../../constans/menu';
-import ButtonIcon from '../atoms/ButtonIcon';
+import SearchForm from 'components/molecules/SearchForm';
+import menu from 'constans/menu';
+import ButtonIcon from 'components/atoms/ButtonIcon';
+
+import CloseIcon from '../../public/icons/close-button.svg';
 
 const NavigationOverlay = styled.div`
   position: fixed;
@@ -31,10 +33,14 @@ const NavigationWrapper = styled.nav`
   transform: ${({ open }) => open ? 'translateX(0)' : 'translateX(-100%)'};
   transition: transform .2s linear;
   z-index: 999;
+
+  & > button {
+    align-self: flex-end;
+  }
 `;
 
 const NavigationList = styled.ul`
-overflow-y: auto;
+  overflow-y: auto;
 
   a,
   span {
@@ -59,22 +65,15 @@ overflow-y: auto;
   }
 `;
 
-const CloseButton = styled(ButtonIcon)`
-  align-self: flex-end;
-`;
-
 const Navigation = ({open, setOpen}) => (
   <>
     <NavigationOverlay open={open} onClick={() => setOpen(!open)} />
     <NavigationWrapper open={open} >
-      <CloseButton 
+      <ButtonIcon 
         flat 
-        circle 
-        colors={['transparent', 'transparent']}
-        onClick={() => setOpen(!open)}
-      >
-        <img src='./icons/close-button.svg' alt='Cofnij' />
-      </CloseButton>
+        size={16}
+        icon={<CloseIcon onClick={() => setOpen(!open)} />}
+      />
       <SearchForm />
       <NavigationList>
         {menu.map(({ text, link, sub }) => (

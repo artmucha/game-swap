@@ -1,9 +1,14 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 
-import Container from '../atoms/Container';
-import ButtonIcon from '../atoms/ButtonIcon';
-import Navigation from '../molecules/Navigation';
+import Container from 'components/atoms/Container';
+import ButtonIcon from 'components/atoms/ButtonIcon';
+import Navigation from 'components/molecules/Navigation';
+
+import MenuIcon from '../../public/icons/menu-button.svg';
+import UserIcon from '../../public/icons/user.svg';
+import AddIcon from '../../public/icons/add-button.svg';
+
 
 const Wrapper = styled.header`
   background-color: ${({ theme }) => theme.white};
@@ -20,20 +25,12 @@ const Header = () => {
       <Container flex spaceBetween alignCenter>
         <ButtonIcon 
           flat
-          circle 
-          colors={['transparent', 'transparent']}
-          onClick={() => setOpen(!open)}
-        >
-          <img src='./icons/menu-button.svg' alt="Hamburger menu" />
-        </ButtonIcon>
+          icon={<MenuIcon onClick={() => setOpen(!open)} />}
+        />
         <h1>Logo</h1>
         <div>
-          <ButtonIcon flat circle colors={['transparent', 'transparent']}>
-            <img src="./icons/user.svg" alt="Użytkownik" />
-          </ButtonIcon>
-          <ButtonIcon circle colors={['#43A047', '#FFEB3B']}>
-            <img src="./icons/add-button.svg" alt="Dodaj ogłoszenie" />
-          </ButtonIcon>
+          <ButtonIcon flat icon={<UserIcon />} />
+          <ButtonIcon fill="#ffffff" flat circle colors={['#43A047', '#FFEB3B']} icon={<AddIcon />} />
         </div>
       </Container>
         <Navigation open={open} setOpen={setOpen} />

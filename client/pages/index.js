@@ -1,6 +1,6 @@
-import Container from '../components/atoms/Container';
-import Grid from '../components/atoms/Grid';
-import Card from '../components/organisms/Card';
+import Container from 'components/atoms/Container';
+import Grid from 'components/atoms/Grid';
+import Card from 'components/organisms/Card';
 
 const Home = () => (
   <Container>
