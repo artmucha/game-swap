@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import Input from 'components/atoms/Input';
 import ButtonIcon from 'components/atoms/ButtonIcon';
 
+import SearchIcon from '../../public/icons/search-button.svg';
+
 const SearchWrapper = styled.form`
   display: flex;
   align-items: center;
@@ -21,9 +23,7 @@ const SearchForm = () => {
   return (
     <SearchWrapper>
       <SearchInput placeholder='szukaj' type='search' />
-      <ButtonIcon flat circle colors={['transparent', 'transparent']}>
-        <img src='./search-button.svg' alt='Szukaj' />
-      </ButtonIcon>
+      <ButtonIcon flat fill="#E6E6E6" icon={<SearchIcon />} />
     </SearchWrapper>
   );
 };
