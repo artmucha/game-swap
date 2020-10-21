@@ -5,6 +5,7 @@ import ButtonIcon from 'components/atoms/ButtonIcon';
 import Paragraph from 'components/atoms/Paragraph';
 import Badge from 'components/atoms/Badge';
 import Avatar from 'components/atoms/Avatar';
+
 import FavoriteIcon from '../../public/icons/favorite.svg';
 
 const CardWrapper = styled.article`
@@ -88,7 +89,9 @@ const Card = () => {
         </Heading>
       </Cover>
       <ActionButtons>
-        <ButtonIcon fill="#ffffff" colors={['#F50057', '#FF8A80']} icon={<FavoriteIcon />}></ButtonIcon>
+        <ButtonIcon fill="#ffffff" colors={['#F50057', '#FF8A80']}>
+          <FavoriteIcon />
+        </ButtonIcon>
         <Paragraph small>Język: Angielski</Paragraph>
         <Paragraph small>Stan: Jak nowa</Paragraph>
       </ActionButtons>

@@ -23,7 +23,9 @@ const SearchForm = () => {
   return (
     <SearchWrapper>
       <SearchInput placeholder='szukaj' type='search' />
-      <ButtonIcon flat fill="#E6E6E6" icon={<SearchIcon />} />
+      <ButtonIcon flat fill="#E6E6E6">
+        <SearchIcon />
+      </ButtonIcon>
     </SearchWrapper>
   );
 };
