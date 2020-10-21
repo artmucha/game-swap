@@ -33,10 +33,6 @@ const NavigationWrapper = styled.nav`
   transform: ${({ open }) => open ? 'translateX(0)' : 'translateX(-100%)'};
   transition: transform .2s linear;
   z-index: 999;
-
-  & > button {
-    align-self: flex-end;
-  }
 `;
 
 const NavigationList = styled.ul`
@@ -65,15 +61,17 @@ const NavigationList = styled.ul`
   }
 `;
 
+const CloseButton = styled(ButtonIcon)`
+  align-self: flex-end;
+`;
+
 const Navigation = ({open, setOpen}) => (
   <>
     <NavigationOverlay open={open} onClick={() => setOpen(!open)} />
     <NavigationWrapper open={open} >
-      <ButtonIcon 
-        flat 
-        size={16}
-        icon={<CloseIcon onClick={() => setOpen(!open)} />}
-      />
+      <CloseButton flat size={16}>
+        <CloseIcon onClick={() => setOpen(!open)} />
+      </CloseButton>
       <SearchForm />
       <NavigationList>
         {menu.map(({ text, link, sub }) => (
