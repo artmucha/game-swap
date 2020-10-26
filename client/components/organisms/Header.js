@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import Link from 'next/link';
 
 import Container from 'components/atoms/Container';
 import ButtonIcon from 'components/atoms/ButtonIcon';
 import Navigation from 'components/molecules/Navigation';
 import Badge from 'components/atoms/Badge';
-import Typography from 'components/atoms/Typography';
+
+import Logo from '../../public/icons/gamepad.svg';
 
 import MenuIcon from '../../public/icons/menu-button.svg';
 import UserIcon from '../../public/icons/user.svg';
@@ -26,12 +28,12 @@ const Header = () => {
   return (
     <Wrapper>
       <Container flex spaceBetween alignCenter>
-        <div>
         <ButtonIcon flat>
           <MenuIcon onClick={() => setOpen(!open)} />
         </ButtonIcon>
-        <Typography as="h1">Logo</Typography>
-        </div>
+        <Link href="/">
+        <a><Logo /></a>
+        </Link>
         <div>
           <ButtonIcon flat>
             <Badge circle color="#F50057">0</Badge>
