@@ -11,6 +11,10 @@ const SelectWrapper = styled.select`
   font-family: 'Kumbh Sans', sans-serif;
   outline: 0;
   color: ${({ theme }) => theme.grey300};
+
+  option {
+    padding: 15px;
+  }
 `;
 
 const Select = ({options}) => {
