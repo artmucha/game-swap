@@ -18,6 +18,12 @@ const GlobalStyle = createGlobalStyle`
     font-size: 1.6rem;
     font-family: 'Kumbh Sans', sans-serif;
     color: #1a1a1a;
+    background-color: #f5f5f5;
+  }
+
+  h1 {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
   }
 
   ul {
