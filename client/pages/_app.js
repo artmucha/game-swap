@@ -2,6 +2,7 @@ import { ThemeProvider } from 'styled-components';
 import { theme } from 'styles/theme';
 import GlobalStyle from 'styles/GlobalStyle';
 import Header from 'components/organisms/Header';
+import Footer from 'components/organisms/Footer';
 
 const App = ({ Component, pageProps }) => (
   <>
@@ -10,6 +11,7 @@ const App = ({ Component, pageProps }) => (
       <>
         <Header />
         <Component {...pageProps} />
+        <Footer />
       </>
     </ThemeProvider>
   </>
