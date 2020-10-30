@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const Button = styled.button`
   width: 180px;
@@ -10,15 +10,24 @@ const Button = styled.button`
   font-size: ${({ theme }) => theme.fontSize.s};
   color: ${({ theme }) => theme.white};
   text-align: center;
-  cursor: pointer;
   outline: 0;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   transition: all 0.2s;
+  cursor: pointer;
+  background: linear-gradient(60deg, ${({ colors }) => ([colors[0], ',', colors[1]])});
 
-  background: linear-gradient(
-    60deg,
-    ${({ colors }) => [colors[0], ',', colors[1]]}
-  );
+  ${({ center }) =>
+    center &&
+    css`
+      display: block;
+      margin: 0 auto;
+  `}
+
+  ${({ space }) =>
+    space &&
+    css`
+      margin-top: 20px;
+  `}
 
   &:hover {
     transform: translateY(-5px);

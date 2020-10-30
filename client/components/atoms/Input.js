@@ -11,8 +11,7 @@ const Input = styled.input`
   font-family: 'Kumbh Sans', sans-serif;
   outline: 0;
 
-  ::placeholder {
-    letter-spacing: 1px;
+  &::placeholder {
     color: ${({ theme }) => theme.grey300};
   }
 `;

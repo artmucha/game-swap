@@ -17,7 +17,7 @@ const SelectWrapper = styled.select`
   }
 `;
 
-const Select = ({options}) => {
+const Select = ({options, onChange}) => {
     return (
         <SelectWrapper>
             {options.map( option => <option key={option.value} value={option.value}>{option.name}</option>)}
