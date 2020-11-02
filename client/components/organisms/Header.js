@@ -20,6 +20,7 @@ const Wrapper = styled.header`
   color: ${({ theme }) => theme.black};
   padding-top: 10px;
   padding-bottom: 10px;
+  box-shadow: 0 11px 10px -10px rgba(0,0,0,.1);
 `;
 
 const Header = () => {
@@ -28,9 +29,7 @@ const Header = () => {
   return (
     <Wrapper>
       <Container flex spaceBetween alignCenter>
-        <ButtonIcon flat>
           <MenuIcon onClick={() => setOpen(!open)} />
-        </ButtonIcon>
         <Link href="/">
         <a><Logo /></a>
         </Link>
@@ -43,9 +42,13 @@ const Header = () => {
             <Badge circle color="#F50057">0</Badge>
             <UserIcon />
           </ButtonIcon>
-          <ButtonIcon flat fill="#0072ff">
-            <AddIcon />
-          </ButtonIcon>
+          <Link href="/dodaj-ogloszenie">
+            <a>
+              <ButtonIcon flat fill="#0072ff">
+                <AddIcon />
+              </ButtonIcon>
+            </a>
+          </Link>
         </div>
       </Container>
         <Navigation open={open} setOpen={setOpen} />
