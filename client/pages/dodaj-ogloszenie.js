@@ -9,6 +9,7 @@ import Input from 'components/atoms/Input';
 import Button from 'components/atoms/Button';
 
 import { platform, language, state } from 'constans/options';
+import { debounce } from 'functions/helpers';
 
 const Wrapper = styled.div`
   padding: 15px;
@@ -87,11 +88,12 @@ const NewPost = () => {
     setActive(true);
     setQuery(query);
     if(query.length >=2) {
-      setTimeout(async() => {
+      debounce(async() => {
         const res = await fetch(searchURL(query));
         const data = await res.json();
+        console.log(data.results)
         setResults(data.results);
-      }, 1000)
+      }, 2000)();
     } else {
       setActive(false);
       setResults([]);
