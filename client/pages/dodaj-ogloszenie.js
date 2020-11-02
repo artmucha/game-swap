@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import Container from 'components/atoms/Container';
 import Typography from 'components/atoms/Typography';
 import Paragraph from 'components/atoms/Paragraph';
-import Select from 'components/atoms/Select';
 import Input from 'components/atoms/Input';
 import Button from 'components/atoms/Button';
 
@@ -33,6 +32,23 @@ const SearchWrapper = styled.div`
 const SearchInput = styled(Input)`
   border: 0;
   color: ${({ theme }) => theme.grey300};
+`;
+
+const Select = styled.select`
+  width: 100%;
+  padding: 15px;
+  font-size: ${({ theme }) => theme.fontSize.s};
+  font-weight: ${({ theme }) => theme.regular};
+  background-color: ${({ theme }) => theme.white};
+  border: 1px solid ${({ theme }) => theme.grey200};
+  border-radius: 8px;
+  font-family: 'Kumbh Sans', sans-serif;
+  outline: 0;
+  color: ${({ theme }) => theme.grey300};
+
+  option {
+    padding: 15px;
+  }
 `;
 
 const ResultsList = styled.ul`
@@ -76,9 +92,11 @@ const NewPost = () => {
   const [results, setResults] = useState([]);
   const [active, setActive] = useState(false);
   const [data, setData] = useState({
-    platform: '',
-    language: '',
-    state: ''
+    platform: 'PlayStation 4',
+    title: '',
+    language: 'Polski',
+    state: 'Nowa',
+    description: '',
   });
 
   const searchURL = (query) => `https://api.rawg.io/api/games?search=${query}`;
@@ -100,22 +118,27 @@ const NewPost = () => {
     }
   }, []);
 
-  const handleClick = useCallback((event, title) => {
+  const handleClick = (event, title) => {
     if(searchRef.current && !searchRef.current.contains(event.target)) {
       setActive(false);
     } else if (searchRef.current && searchRef.current.contains(event.target)) {
       setQuery(title);
+      setData({ ...data, title: title });
       setActive(false);
     }
-  }, []);
+  };
 
-  const handleChange = useCallback((value) => {
-    console.log(value)
-  },[]);
+  const handleChange = (event) => {
+    console.log(event.target.name);
+    console.log(event.target.value);
+    setData({ ...data, [event.target.name]: event.target.value });
+    console.log(data);
+  };
 
-  const handleSubmit = useCallback((event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-  }, []);
+    console.log(data);
+  };
 
   return (
     <Container>
@@ -125,7 +148,9 @@ const NewPost = () => {
         <Paragraph>
           Platforma*
         </Paragraph>
-        <Select name="platform" options={platform} value={data.platform} onChange={handleChange} />
+        <Select name="platform" value={data.platform} onChange={handleChange} required>
+          {platform.map( option => <option key={option.value} value={option.name}>{option.name}</option>)}
+        </Select>
         <Paragraph>
           Tytuł*
         </Paragraph>
@@ -136,6 +161,7 @@ const NewPost = () => {
             value={query}
             name="title"
             onChange={handleSearch}
+            required
           />
           {active && results.length > 0 && (
             <ResultsList>
@@ -146,15 +172,24 @@ const NewPost = () => {
         <Paragraph>
           Wersja językowa*
         </Paragraph>
-        <Select name="language" options={language} value={data.language} onChange={handleChange} />
+        <Select name="language" value={data.language} value={data.language} onChange={handleChange} required>
+          {language.map( option => <option key={option.value} value={option.name}>{option.name}</option>)}
+        </Select>
         <Paragraph>
           Stan płyty*
         </Paragraph>
-        <Select name="state" options={state} value={data.state} onChange={handleChange} />
+        <Select name="state" value={data.state} value={data.state} onChange={handleChange} required>
+          {state.map( option => <option key={option.value} value={option.name}>{option.name}</option>)}
+        </Select>
         <Paragraph>
           Dodatkowe informacje
         </Paragraph>
-        <TextArea placeholder="np. opis, informacje dotyczące wydania" />
+        <TextArea 
+          placeholder="np. opis, informacje dotyczące wydania" 
+          name="description" 
+          value={data.description} 
+          onChange={handleChange}
+        />
         <Button type="submit" colors={['#0072ff', '#00c6ff']} space center>Dodaj</Button>
         </form>
       </Wrapper>
