@@ -1,5 +1,10 @@
 export const platform = [
   {
+    name: 'Wybierz platformę',
+    value: '',
+    disabled: true
+  },
+  {
     name: 'PlayStation 4',
     value: 'ps4',
   },
@@ -59,6 +64,11 @@ export const platform = [
 
 export const language = [
   {
+    name: 'Wybierz język',
+    value: '',
+    disabled: true
+  },
+  {
     name: 'Polski',
     value: 'pl'
   },
@@ -78,6 +88,11 @@ export const language = [
 
 export const state = [
   {
+    name: 'Stan płyty',
+    value: '',
+    disabled: true
+  },
+  {
     name: 'Nowa',
     value: 'new'
   },
@@ -95,6 +110,6 @@ export const state = [
   },
   {
     name: 'Porysowana',
-    value: 'scrap'
+    value: 'scratch'
   }
 ];
