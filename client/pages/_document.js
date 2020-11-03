@@ -14,6 +14,7 @@ export default class Document extends NextDocument {
         });
 
       const initialProps = await NextDocument.getInitialProps(ctx);
+
       return {
         ...initialProps,
         styles: (

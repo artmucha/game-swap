@@ -1,47 +1,59 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
-import PropTypes from 'prop-types';
 
-import Container from '../atoms/Container';
-import SearchForm from '../molecules/SearchForm';
-import ButtonIcon from '../atoms/ButtonIcon';
-import Menu from '../molecules/Menu';
+import Container from 'components/atoms/Container';
+import ButtonIcon from 'components/atoms/ButtonIcon';
+import Navigation from 'components/molecules/Navigation';
+import Badge from 'components/atoms/Badge';
+
+import Logo from '../../public/icons/gamepad.svg';
+
+import MenuIcon from '../../public/icons/menu-button.svg';
+import UserIcon from '../../public/icons/user.svg';
+import AddIcon from '../../public/icons/add-button.svg';
+import FavoriteIcon from '../../public/icons/favorite-outline.svg';
+
 
 const Wrapper = styled.header`
-  background-color: ${({ platform, theme }) =>
-    platform ? theme[platform] : theme.white};
+  background-color: ${({ theme }) => theme.white};
   color: ${({ theme }) => theme.black};
   padding-top: 10px;
+  padding-bottom: 10px;
+  box-shadow: 0 11px 10px -10px rgba(0,0,0,.1);
 `;
 
-const Header = ({ platform }) => {
+const Header = () => {
+  const [open, setOpen] = useState(false);
+
   return (
-    <Wrapper platform={platform}>
+    <Wrapper>
       <Container flex spaceBetween alignCenter>
-        <h1>Logo</h1>
-        <SearchForm />
+          <MenuIcon onClick={() => setOpen(!open)} />
+        <Link href="/">
+        <a><Logo /></a>
+        </Link>
         <div>
-          <Link href='#'>
-            <a>Zaloguj</a>
-          </Link>
-          <ButtonIcon circle colors={['#43A047', '#FFEB3B']}>
-            +
+          <ButtonIcon flat>
+            <Badge circle color="#F50057">0</Badge>
+            <FavoriteIcon />
           </ButtonIcon>
+          <ButtonIcon flat>
+            <Badge circle color="#F50057">0</Badge>
+            <UserIcon />
+          </ButtonIcon>
+          <Link href="/new" as="dodaj-ogloszenie">
+            <a>
+              <ButtonIcon flat fill="#0072ff">
+                <AddIcon />
+              </ButtonIcon>
+            </a>
+          </Link>
         </div>
       </Container>
-      <Container flex>
-        <Menu />
-      </Container>
+        <Navigation open={open} setOpen={setOpen} />
     </Wrapper>
-  );
-};
-
-Header.propTypes = {
-  platform: PropTypes.oneOf(['playstation', 'xbox', 'nintendo', 'pc', 'white']),
-};
-
-Header.defaultProps = {
-  platform: 'white',
+  )
 };
 
 export default Header;

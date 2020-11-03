@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 import Container from '../../../components/atoms/Container';
-import Grid from '../../../components/atoms/Grid';
 import Typography from '../../../components/atoms/Typography';
-import Paragraph from '../../../components/atoms/Paragraph';
 
 const Hero = styled.header`
   width: 100%;
@@ -20,6 +18,22 @@ const Hero = styled.header`
     clip-path: polygon(0 0,100% 0,100% calc(100% - 3em),6.25em 100%,0 100%);
   }
 `;
+
+export async function getStaticPaths() {
+  const res = await fetch('https://.../posts');
+  const { data } = await res.json();
+
+  const paths = data.map((game) => ({
+    params: { slug: game.slug, _id: game._id },
+  }))
+
+  return {
+    paths: [
+      { params: { slug, _id } }
+    ],
+    fallback: true
+  };
+}
 
 const Product = () => {
 
