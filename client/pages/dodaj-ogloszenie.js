@@ -8,7 +8,7 @@ import Input from 'components/atoms/Input';
 import Button from 'components/atoms/Button';
 
 import { platform, language, state } from 'constans/options';
-import { debounce } from 'functions/helpers';
+import { debounce } from 'utils/helpers';
 
 const Wrapper = styled.div`
   padding: 15px;
@@ -95,6 +95,7 @@ const NewPost = () => {
     id: null,
     platform: 'Wybierz platformę',
     title: '',
+    slug: '',
     language: 'Wybierz język',
     state: 'Stan płyty',
     description: '',
@@ -113,7 +114,6 @@ const NewPost = () => {
      debounce(async() => {
         const res = await fetch(searchURL(query));
         const data = await res.json();
-        console.log(data.results)
         setResults(data.results);
       }, 2000)();
     } else {
@@ -131,6 +131,7 @@ const NewPost = () => {
         ...data, 
         id: game.id,
         title: game.name,
+        slug: game.slug,
         cover: game.background_image,
         rating: game.rating,
         genres: game.genres,
@@ -140,15 +141,17 @@ const NewPost = () => {
   };
 
   const handleChange = (event) => {
-    console.log(event.target.name);
-    console.log(event.target.value);
     setData({ ...data, [event.target.name]: event.target.value });
-    console.log(data);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async(event) => {
     event.preventDefault();
-    console.log(data);
+    console.log(data)
+      const res = await fetch('/api/games', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: { 'Content-Type': 'application/json' }
+      });
   };
 
   return (
@@ -184,7 +187,7 @@ const NewPost = () => {
           />
           {active && results.length > 0 && (
             <ResultsList>
-              {results.map(({id, name, genres, rating, background_image}) => <li key={id} onClick={(event) => handleClick(event, {id, name, genres, rating, background_image})}>{name}</li>)}
+              {results.map(({id, name, slug, genres, rating, background_image}) => <li key={id} onClick={(event) => handleClick(event, {id, name, slug, genres, rating, background_image})}>{name}</li>)}
             </ResultsList>
           )}
         </SearchWrapper>
@@ -220,6 +223,7 @@ const NewPost = () => {
           Dodatkowe informacje
         </Paragraph>
         <TextArea 
+          rows="4"
           placeholder="np. opis, informacje dotyczące wydania" 
           name="description" 
           value={data.description} 
