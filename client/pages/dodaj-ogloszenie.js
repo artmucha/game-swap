@@ -93,11 +93,11 @@ const NewPost = () => {
   const [active, setActive] = useState(false);
   const [data, setData] = useState({
     id: null,
-    platform: 'Wybierz platformę',
+    platform: 'PlayStation 4',
     title: '',
     slug: '',
-    language: 'Wybierz język',
-    state: 'Stan płyty',
+    language: 'Polski',
+    state: 'Nowa',
     description: '',
     cover: '',
     rating: 0,
@@ -114,6 +114,7 @@ const NewPost = () => {
      debounce(async() => {
         const res = await fetch(searchURL(query));
         const data = await res.json();
+        console.log(data.results);
         setResults(data.results);
       }, 2000)();
     } else {
@@ -146,7 +147,6 @@ const NewPost = () => {
 
   const handleSubmit = async(event) => {
     event.preventDefault();
-    console.log(data)
       const res = await fetch('/api/games', {
         method: 'POST',
         body: JSON.stringify(data),
@@ -167,7 +167,6 @@ const NewPost = () => {
             <option 
               key={option.value} 
               value={option.value}
-              disabled={option.disabled}
             >
               {option.name}
           </option>)
@@ -199,7 +198,6 @@ const NewPost = () => {
             <option 
               key={option.value} 
               value={option.name}
-              disabled={option.disabled}
             >
               {option.name}
             </option>)
@@ -213,7 +211,6 @@ const NewPost = () => {
             <option 
               key={option.value} 
               value={option.name}
-              disabled={option.disabled}
             >
               {option.name}
             </option>)

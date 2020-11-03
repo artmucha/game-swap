@@ -5,7 +5,7 @@ import Card from 'components/organisms/Card';
 const Home = ({games}) => (
   <Container>
     <Grid s={2} m={3} l={4}>
-      {games.map(game => <Card {...game} />)}
+      {games.map(game =><Card key={game._id} {...game} />)}
     </Grid>
   </Container>
 );

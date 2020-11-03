@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Link from 'next/link';
 
 import Typography from 'components/atoms/Typography';
 import ButtonIcon from 'components/atoms/ButtonIcon';
@@ -6,6 +7,7 @@ import Paragraph from 'components/atoms/Paragraph';
 import Badge from 'components/atoms/Badge';
 
 import FavoriteIcon from '../../public/icons/favorite.svg';
+import StarIcon from '../../public/icons/star.svg'
 
 const CardWrapper = styled.article`
   position: relative;
@@ -71,24 +73,41 @@ const Heading = styled.header`
   }
 `;
 
-const Card = ({title, cover, platform, language, state}) => {
+const Rating = styled.span`
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  color: ${({ theme }) => theme.black};
+  font-size: ${({ theme }) => theme.fontSize.xs};
+
+  strong {
+    margin-left: 5px;
+  }
+`;
+
+const Card = ({title, cover, platform, language, state, rating, slug, _id}) => {
   return (
     <CardWrapper>
-      <Cover>
-        <img src={cover}/>
-        <Heading>
-          <Badge>{platform}</Badge>
-          <Typography as='h2' color='#ffffff'>
-            {title}
-          </Typography>
-        </Heading>
-      </Cover>
+      <Link href={`/ogloszenia/${slug}/${_id}`}>
+        <a>
+          <Cover>
+            <img src={cover}/>
+            <Heading>
+              <Badge>{platform}</Badge>
+              <Typography as='h2' color='#ffffff'>
+                {title}
+              </Typography>
+            </Heading>
+          </Cover>
+        </a>
+      </Link>
       <ActionButtons>
         <ButtonIcon fill="#ffffff" colors={['#F50057', '#FF8A80']}>
           <FavoriteIcon />
         </ButtonIcon>
         <Paragraph small>Język: {language}</Paragraph>
         <Paragraph small>Stan: {state}</Paragraph>
+        {rating && rating > 0 ? <Rating><StarIcon /><strong>{rating} / 5</strong></Rating> : null}
       </ActionButtons>
     </CardWrapper>
   );

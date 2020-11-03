@@ -42,7 +42,7 @@ const Header = () => {
             <Badge circle color="#F50057">0</Badge>
             <UserIcon />
           </ButtonIcon>
-          <Link href="/dodaj-ogloszenie">
+          <Link href="/new" as="dodaj-ogloszenie">
             <a>
               <ButtonIcon flat fill="#0072ff">
                 <AddIcon />
