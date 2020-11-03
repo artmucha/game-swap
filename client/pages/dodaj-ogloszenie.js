@@ -8,7 +8,7 @@ import Input from 'components/atoms/Input';
 import Button from 'components/atoms/Button';
 
 import { platform, language, state } from 'constans/options';
-import { debounce } from 'functions/helpers';
+import { debounce } from 'utils/helpers';
 
 const Wrapper = styled.div`
   padding: 15px;
@@ -92,11 +92,16 @@ const NewPost = () => {
   const [results, setResults] = useState([]);
   const [active, setActive] = useState(false);
   const [data, setData] = useState({
-    platform: 'PlayStation 4',
+    id: null,
+    platform: 'Wybierz platformę',
     title: '',
-    language: 'Polski',
-    state: 'Nowa',
+    slug: '',
+    language: 'Wybierz język',
+    state: 'Stan płyty',
     description: '',
+    cover: '',
+    rating: 0,
+    genres: [],
   });
 
   const searchURL = (query) => `https://api.rawg.io/api/games?search=${query}`;
@@ -106,10 +111,9 @@ const NewPost = () => {
     setActive(true);
     setQuery(query);
     if(query.length >=2) {
-      debounce(async() => {
+     debounce(async() => {
         const res = await fetch(searchURL(query));
         const data = await res.json();
-        console.log(data.results)
         setResults(data.results);
       }, 2000)();
     } else {
@@ -118,26 +122,36 @@ const NewPost = () => {
     }
   }, []);
 
-  const handleClick = (event, title) => {
+  const handleClick = (event, game) => {
     if(searchRef.current && !searchRef.current.contains(event.target)) {
       setActive(false);
     } else if (searchRef.current && searchRef.current.contains(event.target)) {
-      setQuery(title);
-      setData({ ...data, title: title });
+      setQuery(game.name);
+      setData({ 
+        ...data, 
+        id: game.id,
+        title: game.name,
+        slug: game.slug,
+        cover: game.background_image,
+        rating: game.rating,
+        genres: game.genres,
+      });
       setActive(false);
     }
   };
 
   const handleChange = (event) => {
-    console.log(event.target.name);
-    console.log(event.target.value);
     setData({ ...data, [event.target.name]: event.target.value });
-    console.log(data);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async(event) => {
     event.preventDefault();
-    console.log(data);
+    console.log(data)
+      const res = await fetch('/api/games', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: { 'Content-Type': 'application/json' }
+      });
   };
 
   return (
@@ -149,7 +163,15 @@ const NewPost = () => {
           Platforma*
         </Paragraph>
         <Select name="platform" value={data.platform} onChange={handleChange} required>
-          {platform.map( option => <option key={option.value} value={option.name}>{option.name}</option>)}
+          {platform.map( option => (
+            <option 
+              key={option.value} 
+              value={option.value}
+              disabled={option.disabled}
+            >
+              {option.name}
+          </option>)
+          )}
         </Select>
         <Paragraph>
           Tytuł*
@@ -165,7 +187,7 @@ const NewPost = () => {
           />
           {active && results.length > 0 && (
             <ResultsList>
-              {results.map(({id, name}) => <li key={id} onClick={(event) => handleClick(event, name)}>{name}</li>)}
+              {results.map(({id, name, slug, genres, rating, background_image}) => <li key={id} onClick={(event) => handleClick(event, {id, name, slug, genres, rating, background_image})}>{name}</li>)}
             </ResultsList>
           )}
         </SearchWrapper>
@@ -173,18 +195,35 @@ const NewPost = () => {
           Wersja językowa*
         </Paragraph>
         <Select name="language" value={data.language} value={data.language} onChange={handleChange} required>
-          {language.map( option => <option key={option.value} value={option.name}>{option.name}</option>)}
+          {language.map( option => (
+            <option 
+              key={option.value} 
+              value={option.name}
+              disabled={option.disabled}
+            >
+              {option.name}
+            </option>)
+          )}
         </Select>
         <Paragraph>
           Stan płyty*
         </Paragraph>
         <Select name="state" value={data.state} value={data.state} onChange={handleChange} required>
-          {state.map( option => <option key={option.value} value={option.name}>{option.name}</option>)}
+          {state.map( option => (
+            <option 
+              key={option.value} 
+              value={option.name}
+              disabled={option.disabled}
+            >
+              {option.name}
+            </option>)
+          )}
         </Select>
         <Paragraph>
           Dodatkowe informacje
         </Paragraph>
         <TextArea 
+          rows="4"
           placeholder="np. opis, informacje dotyczące wydania" 
           name="description" 
           value={data.description} 
