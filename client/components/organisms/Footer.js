@@ -71,16 +71,16 @@ const Footer = () => (
         {menu.map(({ text, link, sub }) => (
           <li key={text}>
               {link ? (
-              <Link href={`/ogloszenia/gry/${link}`}>
+              <Link href={`/gry/${link}`}>
                   <a>Gry na {text}</a>
               </Link>
               ) : null }
 
               {sub ? (
               <ul>
-                  {sub.map(({ text, link }) => (
+                  {sub.map(({ text, platform, link }) => (
                   <li key={text}>
-                      <Link href={`/ogloszenia/gry/${link}`}>
+                      <Link href={`/gry/${platform}/${link}`}>
                       <a>Gry na {text}</a>
                       </Link>
                   </li>

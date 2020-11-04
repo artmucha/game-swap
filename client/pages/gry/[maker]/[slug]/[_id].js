@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import Container from '../../../components/atoms/Container';
-import Typography from '../../../components/atoms/Typography';
+import Container from '../../../../components/atoms/Container';
+import Typography from '../../../../components/atoms/Typography';
 
 const Hero = styled.header`
   width: 100%;
@@ -20,7 +20,7 @@ const Hero = styled.header`
 `;
 
 export async function getStaticPaths() {
-  const res = await fetch('https://.../posts');
+  const res = await fetch('/api/games');
   const { data } = await res.json();
 
   const paths = data.map((game) => ({
