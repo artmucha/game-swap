@@ -26,10 +26,6 @@ const Avatar = styled.div`
       border: 4px solid ${({ theme }) => theme.white};
     `}
 
-  &:not(:first-child) {
-    margin-left: -10px;
-  }
-
   img {
     width: 100%;
     height: auto;

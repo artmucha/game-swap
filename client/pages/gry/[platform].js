@@ -10,12 +10,23 @@ const Platform = ({games}) => (
   </Container>
 );
 
-export async function getStaticProps() {
+export async function getStaticPaths() {
   const res = await fetch('http://localhost:3000/api/games');
   const {data} = await res.json();
 
+  const paths = data.map((game) => ({
+    params: { platform: game.platform },
+  }));
+
+  return { paths, fallback: true }
+}
+
+export async function getStaticProps({params}) {
+  const res = await fetch('http://localhost:3000/api/games?');
+  const {data} = await res.json();
+
   return {
-    props: {games:data}
+    props: { games: data }
   }
 }
 

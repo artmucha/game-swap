@@ -5,27 +5,27 @@ export default [
       {
         text: 'PlayStation 4',
         link: 'ps4',
-        platform: 'playstation'
+        maker: 'playstation'
       },
       {
         text: 'PlayStation 3',
         link: 'ps3',
-        platform: 'playstation'
+        maker: 'playstation'
       },
       {
         text: 'PlayStation 2',
         link: 'ps2',
-        platform: 'playstation'
+        maker: 'playstation'
       },
       {
         text: 'PlayStation Vita',
         link: 'psvita',
-        platform: 'playstation'
+        maker: 'playstation'
       },
       {
         text: 'PlayStation Portable',
         link: 'psp',
-        platform: 'playstation'
+        maker: 'playstation'
       },
     ],
   },
@@ -35,17 +35,17 @@ export default [
       {
         text: 'Xbox One',
         link: 'xone',
-        platform: 'xbox'
+        maker: 'xbox'
       },
       {
         text: 'Xbox 360',
         link: 'x360',
-        platform: 'xbox'
+        maker: 'xbox'
       },
       {
         text: 'Xbox',
         link: 'xbox',
-        platform: 'xbox'
+        maker: 'xbox'
       },
     ],
   },
@@ -55,33 +55,33 @@ export default [
       {
         text: 'Switch',
         link: 'switch',
-        platform: 'nintendo'
+        maker: 'nintendo'
       },
       {
         text: 'WII',
         link: 'wii',
-        platform: 'nintendo'
+        maker: 'nintendo'
       },
       {
         text: 'GameCube',
         link: 'gamecube',
-        platform: 'nintendo'
+        maker: 'nintendo'
       },
       {
         text: '3DS',
         link: '3ds',
-        platform: 'nintendo'
+        maker: 'nintendo'
       },
       {
         text: 'DualScreen',
         link: 'nds',
-        platform: 'nintendo'
+        maker: 'nintendo'
       },
     ],
   },
   {
     text: 'PC',
     link: 'pc',
-    platform: 'pc'
+    maker: 'pc'
   },
 ];

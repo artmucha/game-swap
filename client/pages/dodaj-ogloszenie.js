@@ -102,6 +102,7 @@ const NewPost = () => {
     cover: '',
     rating: 0,
     genres: [],
+    images: [],
   });
 
   const searchURL = (query) => `https://api.rawg.io/api/games?search=${query}`;
@@ -111,10 +112,10 @@ const NewPost = () => {
     setActive(true);
     setQuery(query);
     if(query.length >=2) {
-     debounce(async() => {
+      debounce(async() => {
         const res = await fetch(searchURL(query));
         const data = await res.json();
-        console.log(data.results);
+        console.log(data.results)
         setResults(data.results);
       }, 2000)();
     } else {
@@ -136,6 +137,7 @@ const NewPost = () => {
         cover: game.background_image,
         rating: game.rating,
         genres: game.genres,
+        images: game.short_screenshots
       });
       setActive(false);
     }
@@ -156,7 +158,7 @@ const NewPost = () => {
 
   return (
     <Container>
-      <Typography as="h1">Dodaj nowe ogłoszenie</Typography>
+      <Typography as="h1" space big>Dodaj nowe ogłoszenie</Typography>
       <Wrapper>
         <form onSubmit={handleSubmit}>
         <Paragraph>
@@ -186,7 +188,7 @@ const NewPost = () => {
           />
           {active && results.length > 0 && (
             <ResultsList>
-              {results.map(({id, name, slug, genres, rating, background_image}) => <li key={id} onClick={(event) => handleClick(event, {id, name, slug, genres, rating, background_image})}>{name}</li>)}
+              {results.map(({id, name, slug, genres, rating, background_image, short_screenshots}) => <li key={id} onClick={(event) => handleClick(event, {id, name, slug, genres, rating, background_image, short_screenshots})}>{name}</li>)}
             </ResultsList>
           )}
         </SearchWrapper>

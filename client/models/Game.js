@@ -20,6 +20,7 @@ const GameSchema = new mongoose.Schema({
   cover: String,
   rating: Number,
   genres: [{id: Number, name: String, slug: String}],
+  images: [{id: Number, image: String}],
   slug: String,
 });
 

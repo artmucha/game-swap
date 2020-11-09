@@ -86,9 +86,9 @@ const Navigation = ({open, setOpen}) => (
 
             {sub ? (
               <ul>
-                {sub.map(({ text, platform, link }) => (
+                {sub.map(({ text, link }) => (
                   <li key={text}>
-                    <Link href={`/gry/${platform}/${link}`}>
+                    <Link href={`/gry/${link}`}>
                       <a>{text}</a>
                     </Link>
                   </li>
