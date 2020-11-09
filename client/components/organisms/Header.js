@@ -31,7 +31,7 @@ const Header = () => {
       <Container flex spaceBetween alignCenter>
           <MenuIcon onClick={() => setOpen(!open)} />
         <Link href="/">
-        <a><Logo /></a>
+          <a><Logo /></a>
         </Link>
         <div>
           <ButtonIcon flat>
@@ -42,7 +42,7 @@ const Header = () => {
             <Badge circle color="#F50057">0</Badge>
             <UserIcon />
           </ButtonIcon>
-          <Link href="/new" as="dodaj-ogloszenie">
+          <Link href="/dodaj-ogloszenie">
             <a>
               <ButtonIcon flat fill="#0072ff">
                 <AddIcon />

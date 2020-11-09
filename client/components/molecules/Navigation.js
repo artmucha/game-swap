@@ -77,7 +77,7 @@ const Navigation = ({open, setOpen}) => (
         {menu.map(({ text, link, sub }) => (
           <li key={text}>
             {link ? (
-              <Link href={`/ogloszenia/gry/${link}`}>
+              <Link href={`/gry/${link}`}>
                 <a>{text}</a>
               </Link>
             ) : (
@@ -88,7 +88,7 @@ const Navigation = ({open, setOpen}) => (
               <ul>
                 {sub.map(({ text, link }) => (
                   <li key={text}>
-                    <Link href={`/ogloszenia/gry/${link}`}>
+                    <Link href={`/gry/${link}`}>
                       <a>{text}</a>
                     </Link>
                   </li>

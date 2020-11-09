@@ -7,7 +7,7 @@ import Paragraph from 'components/atoms/Paragraph';
 import menu from 'constans/menu';
 import Logo from '../../public/icons/gamepad.svg';
 
-const Wrapper = styled.header`
+const Wrapper = styled.footer`
   padding-top: 20px;
   padding-bottom: 20px;
   margin-top: 20px;
@@ -71,7 +71,7 @@ const Footer = () => (
         {menu.map(({ text, link, sub }) => (
           <li key={text}>
               {link ? (
-              <Link href={`/ogloszenia/gry/${link}`}>
+              <Link href={`/gry/${link}`}>
                   <a>Gry na {text}</a>
               </Link>
               ) : null }
@@ -80,7 +80,7 @@ const Footer = () => (
               <ul>
                   {sub.map(({ text, link }) => (
                   <li key={text}>
-                      <Link href={`/ogloszenia/gry/${link}`}>
+                      <Link href={`/gry/${link}`}>
                       <a>Gry na {text}</a>
                       </Link>
                   </li>
