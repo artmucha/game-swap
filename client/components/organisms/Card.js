@@ -76,12 +76,12 @@ const Heading = styled.header`
 const Card = ({title, cover, platform, language, state, rating, slug, _id}) => {
   return (
     <CardWrapper>
-      <Link href={`/gra/${slug}/${_id}`}>
+      <Link href={`/gra/${platform.value.name}/${slug}/${_id}`}>
         <a>
           <Cover>
             <img src={cover}/>
             <Heading>
-              <Badge>{platform}</Badge>
+              <Badge platform={platform.value.maker}>{platform.value.name}</Badge>
               <Typography as='h2' color='#ffffff'>
                 {title}
               </Typography>

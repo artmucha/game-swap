@@ -93,7 +93,10 @@ const NewPost = () => {
   const [active, setActive] = useState(false);
   const [data, setData] = useState({
     id: null,
-    platform: 'PlayStation 4',
+    platform: {
+      name: 'PlayStation 4',
+      value: {maker: 'playstation', name: 'ps4'},
+    },
     title: '',
     slug: '',
     language: 'Polski',
@@ -115,7 +118,6 @@ const NewPost = () => {
       debounce(async() => {
         const res = await fetch(searchURL(query));
         const data = await res.json();
-        console.log(data.results)
         setResults(data.results);
       }, 2000)();
     } else {
@@ -149,11 +151,12 @@ const NewPost = () => {
 
   const handleSubmit = async(event) => {
     event.preventDefault();
-      const res = await fetch('/api/games', {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: { 'Content-Type': 'application/json' }
-      });
+    const games = {...data, platform: JSON.parse(data.platform)}
+    const res = await fetch('/api/games', {
+      method: 'POST',
+      body: JSON.stringify(games),
+      headers: { 'Content-Type': 'application/json' }
+    });
   };
 
   return (
@@ -164,14 +167,14 @@ const NewPost = () => {
         <Paragraph>
           Platforma*
         </Paragraph>
-        <Select name="platform" value={data.platform} onChange={handleChange} required>
+        <Select name="platform" value={data.platform.name} onChange={handleChange} required>
           {platform.map( option => (
             <option 
-              key={option.value} 
-              value={option.value}
+              key={option.value.name} 
+              value={JSON.stringify(option)}
             >
               {option.name}
-          </option>)
+            </option>)
           )}
         </Select>
         <Paragraph>
@@ -195,7 +198,7 @@ const NewPost = () => {
         <Paragraph>
           Wersja językowa*
         </Paragraph>
-        <Select name="language" value={data.language} value={data.language} onChange={handleChange} required>
+        <Select name="language" value={data.language} onChange={handleChange} required>
           {language.map( option => (
             <option 
               key={option.value} 
@@ -208,7 +211,7 @@ const NewPost = () => {
         <Paragraph>
           Stan płyty*
         </Paragraph>
-        <Select name="state" value={data.state} value={data.state} onChange={handleChange} required>
+        <Select name="state" value={data.state} onChange={handleChange} required>
           {state.map( option => (
             <option 
               key={option.value} 

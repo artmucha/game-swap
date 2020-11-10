@@ -8,8 +8,8 @@ import Paragraph from 'components/atoms/Paragraph';
 import Rating from 'components/atoms/Rating';
 import ButtonIcon from 'components/atoms/ButtonIcon';
 
-import FavoriteIcon from '../../../public/icons/favorite.svg';
-import SwapIcon from '../../../public/icons/refresh-button.svg';
+import FavoriteIcon from '../../../../public/icons/favorite.svg';
+import SwapIcon from '../../../../public/icons/refresh-button.svg';
 
 const Article = styled.article`
   overflow-x: hidden;
@@ -99,7 +99,7 @@ const Product = ({game}) => {
         <img src={game.cover} alt={game.title} />
           <Heading>
             <Container>
-              <Badge>{game.platform}</Badge>
+              <Badge platform={game.platform.value.maker}>{game.platform.value.name}</Badge>
               <Typography as="h1" big>{game.title}</Typography>
               <Paragraph>Język: {game.language}</Paragraph>
               <Paragraph>Stan: {game.state}</Paragraph>
@@ -139,7 +139,7 @@ const Product = ({game}) => {
             <Typography as="h2" space>Galeria</Typography>
             <Grid s={2} m={4}>
               { game.images.map(screen => (
-                <img src={screen.image} alt={game.title} />
+                <img key={screen.id} src={screen.image} alt={game.title} />
               )) }
             </Grid>
           </Gallery>
@@ -155,7 +155,7 @@ export async function getStaticPaths() {
   const { data } = await res.json();
 
   const paths = data.map((game) => ({
-    params: { slug: game.slug, _id: game._id },
+    params: { name: game.platform.value.name, slug: game.slug, _id: game._id },
   }));
 
   return { paths, fallback: true }
