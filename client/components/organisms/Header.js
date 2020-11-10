@@ -14,7 +14,6 @@ import UserIcon from '../../public/icons/user.svg';
 import AddIcon from '../../public/icons/add-button.svg';
 import FavoriteIcon from '../../public/icons/favorite-outline.svg';
 
-
 const Wrapper = styled.header`
   background-color: ${({ theme }) => theme.white};
   color: ${({ theme }) => theme.black};
@@ -42,7 +41,7 @@ const Header = () => {
             <Badge circle color="#F50057">0</Badge>
             <UserIcon />
           </ButtonIcon>
-          <Link href="/dodaj-ogloszenie">
+          <Link href="/gry/dodaj">
             <a>
               <ButtonIcon flat fill="#0072ff">
                 <AddIcon />

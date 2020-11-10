@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 const GameSchema = new mongoose.Schema({
   id: Number,
   platform: {
-    type: String,
-    required: [true, 'Wybierz platformę']
+    type: Object,
+    required: [true, 'Wybierz platformę'],
   },
   title: {
     type: String,

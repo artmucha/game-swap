@@ -74,10 +74,10 @@ const Navigation = ({open, setOpen}) => (
       </CloseButton>
       <SearchForm />
       <NavigationList>
-        {menu.map(({ text, link, sub }) => (
+        {menu.map(({ text, link, maker, sub }) => (
           <li key={text}>
             {link ? (
-              <Link href={`/gry/${link}`}>
+              <Link href={`/gry/${maker}/${link}`}>
                 <a>{text}</a>
               </Link>
             ) : (
@@ -86,9 +86,9 @@ const Navigation = ({open, setOpen}) => (
 
             {sub ? (
               <ul>
-                {sub.map(({ text, link }) => (
+                {sub.map(({ text, link, maker }) => (
                   <li key={text}>
-                    <Link href={`/gry/${link}`}>
+                    <Link href={`/gry/${maker}/${link}`}>
                       <a>{text}</a>
                     </Link>
                   </li>

@@ -68,19 +68,19 @@ const Footer = () => (
       </div>
       <NavigationList>
         <NavigationHeading>Wymieniaj</NavigationHeading>
-        {menu.map(({ text, link, sub }) => (
+        {menu.map(({ text, link, maker, sub }) => (
           <li key={text}>
               {link ? (
-              <Link href={`/gry/${link}`}>
+              <Link href={`/gry/${maker}/${link}`}>
                   <a>Gry na {text}</a>
               </Link>
               ) : null }
 
               {sub ? (
               <ul>
-                  {sub.map(({ text, link }) => (
+                  {sub.map(({ text, link, maker }) => (
                   <li key={text}>
-                      <Link href={`/gry/${link}`}>
+                      <Link href={`/gry/${maker}/${link}`}>
                       <a>Gry na {text}</a>
                       </Link>
                   </li>

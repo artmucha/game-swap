@@ -11,7 +11,10 @@ const Badge = styled.span`
   font-weight: ${({ theme }) => theme.bold};
   font-size: ${({ theme }) => theme.fontSize.xxs};
   color: ${({ theme }) => theme.white};
-  background: ${({ theme, color }) => (color ? color : theme.pc)};
+  background: ${({ theme, color, platform }) => {
+    if(color) return color;
+    if(platform) return theme[platform]
+  }};
 
   ${({ circle }) =>
     circle &&

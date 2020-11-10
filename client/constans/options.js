@@ -1,59 +1,59 @@
 export const platform = [
   {
     name: 'PlayStation 4',
-    value: 'ps4',
+    value: {maker: 'playstation', name: 'ps4'},
   },
   {
     name: 'PlayStation 3',
-    value: 'ps3',
+    value: {maker: 'playstation', name: 'ps3'},
   },
   {
     name: 'PlayStation 2',
-    value: 'ps2',
+    value: {maker: 'playstation', name: 'ps2'},
   },
   {
     name: 'PlayStation Vita',
-    value: 'psvita',
+    value: {maker: 'playstation', name: 'psvita'},
   },
   {
     name: 'PlayStation Portable',
-    value: 'psp',
+    value: {maker: 'playstation', name: 'psp'},
   },
   {
     name: 'Xbox One',
-    value: 'xone',
+    value: {maker: 'xbox', name: 'xone'},
   },
   {
     name: 'Xbox 360',
-    value: 'x360',
+    value: {maker: 'xbox', name: 'x360'},
   },
   {
     name: 'Xbox',
-    value: 'xbox',
+    value: {maker: 'xbox', name: 'xbox'},
   },
   {
     name: 'Switch',
-    value: 'switch',
+    value: {maker: 'nintendo', name: 'switch'},
   },
   {
     name: 'WII',
-    value: 'wii',
+    value: {maker: 'nintendo', name: 'wii'},
   },
   {
     name: 'GameCube',
-    value: 'gamecube',
+    value: {maker: 'nintendo', name: 'gamecube'},
   },
   {
     name: '3DS',
-    value: '3ds',
+    value: {maker: 'nintendo', name: '3ds'},
   },
   {
     name: 'DualScreen',
-    value: 'nds',
+    value: {maker: 'nintendo', name: 'nds'},
   },
   {
     name: 'PC',
-    value: 'pc',
+    value: {maker: 'pc', name: 'pc'},
   },
 ];
 
