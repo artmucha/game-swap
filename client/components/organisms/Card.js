@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Link from 'next/link';
+import Image from 'next/image';
 
 import Typography from 'components/atoms/Typography';
 import ButtonIcon from 'components/atoms/ButtonIcon';
@@ -19,15 +20,8 @@ const CardWrapper = styled.article`
 
 const Cover = styled.div`
   position: relative;
-  height: 170px;
-
-  @media(min-width: 768px) {
-    height: 300px;
-  }
 
   img {
-    width: 100%;
-    height: 100%;
     object-fit: cover;
   }
 `;
@@ -79,7 +73,7 @@ const Card = ({title, cover, platform, language, state, rating, slug, _id}) => {
       <Link href={`/gra/${platform.value.name}/${slug}/${_id}`}>
         <a>
           <Cover>
-            <img src={cover}/>
+            <Image src={cover} alt={title} width={270} height={300} quality={100} />
             <Heading>
               <Badge platform={platform.value.maker}>{platform.value.name}</Badge>
               <Typography as='h2' color='#ffffff'>
