@@ -1,5 +1,10 @@
 export const platform = [
   {
+    name: 'Wybierz platformę',
+    value: {maker: '', name: ''},
+    default: true,
+  },
+  {
     name: 'PlayStation 4',
     value: {maker: 'playstation', name: 'ps4'},
   },
@@ -59,6 +64,11 @@ export const platform = [
 
 export const language = [
   {
+    name: 'Wybierz język',
+    value: '',
+    default: true,
+  },
+  {
     name: 'Polski',
     value: 'pl'
   },
@@ -77,6 +87,11 @@ export const language = [
 ];
 
 export const state = [
+  {
+    name: 'Określ stan płyty',
+    value: '',
+    default: true,
+  },
   {
     name: 'Nowa',
     value: 'new'

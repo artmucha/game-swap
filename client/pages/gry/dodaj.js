@@ -93,14 +93,11 @@ const NewPost = () => {
   const [active, setActive] = useState(false);
   const [data, setData] = useState({
     id: null,
-    platform: {
-      name: 'PlayStation 4',
-      value: {maker: 'playstation', name: 'ps4'},
-    },
+    platform: {},
     title: '',
     slug: '',
-    language: 'Polski',
-    state: 'Nowa',
+    language: '',
+    state: '',
     description: '',
     cover: '',
     rating: 0,
@@ -167,11 +164,12 @@ const NewPost = () => {
         <Paragraph>
           Platforma*
         </Paragraph>
-        <Select name="platform" value={data.platform.name} onChange={handleChange} required>
+        <Select name="platform" value={data.platform} onChange={handleChange} required>
           {platform.map( option => (
             <option 
               key={option.value.name} 
               value={JSON.stringify(option)}
+              default={option.default}
             >
               {option.name}
             </option>)
@@ -203,6 +201,7 @@ const NewPost = () => {
             <option 
               key={option.value} 
               value={option.name}
+              default={option.default}
             >
               {option.name}
             </option>)
@@ -216,6 +215,7 @@ const NewPost = () => {
             <option 
               key={option.value} 
               value={option.name}
+              default={option.default}
             >
               {option.name}
             </option>)

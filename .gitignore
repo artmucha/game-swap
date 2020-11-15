@@ -33,3 +33,6 @@
 
 # vercel
 /client/.vercel
+
+#public media
+/client/public/media
