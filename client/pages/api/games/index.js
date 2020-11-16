@@ -34,8 +34,13 @@ export default async (req, res) => {
       break;
     case 'POST':
       try {
-        const cover = download(req.body.cover, `./public/media/games/covers/${req.body.slug}.jpg`);
-        req.body.cover = cover.slice(8);
+
+        if(fs.existsSync(`./public/media/games/covers/${req.body.slug}.jpg`)) {
+          req.body.cover  = `/media/games/covers/${req.body.slug}.jpg`;
+        } else {
+          const cover = download(req.body.cover, `./public/media/games/covers/${req.body.slug}.jpg`);
+          req.body.cover = cover.slice(8);
+        }
 
         const images = req.body.images.map(({id, image}) => {
           image = download(image, `./public/media/games/images/${req.body.slug}-${id}.jpg`);
