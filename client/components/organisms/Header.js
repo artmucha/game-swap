@@ -17,6 +17,7 @@ import FavoriteIcon from '../../public/icons/favorite-outline.svg';
 const Wrapper = styled.header`
   background-color: ${({ theme }) => theme.white};
   color: ${({ theme }) => theme.black};
+  margin-bottom: 20px;
   padding-top: 10px;
   padding-bottom: 10px;
   box-shadow: 0 11px 10px -10px rgba(0,0,0,.1);
@@ -37,10 +38,14 @@ const Header = () => {
             <Badge circle color="#F50057">0</Badge>
             <FavoriteIcon />
           </ButtonIcon>
-          <ButtonIcon flat>
-            <Badge circle color="#F50057">0</Badge>
-            <UserIcon />
-          </ButtonIcon>
+          <Link href="/login">
+            <a>
+            <ButtonIcon flat>
+              <Badge circle color="#F50057">0</Badge>
+              <UserIcon />
+            </ButtonIcon>
+            </a>
+          </Link>
           <Link href="/gry/dodaj">
             <a>
               <ButtonIcon flat fill="#0072ff">
