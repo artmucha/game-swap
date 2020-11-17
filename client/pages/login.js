@@ -70,11 +70,9 @@ const Login = () => {
 
   const handleSubmit = async(event) => {
     event.preventDefault();
-    const userData = {...data, platform: JSON.parse(data.platform)}
-    console.log(userData);
     const res = await fetch('/api/user', {
       method: 'POST',
-      body: JSON.stringify(userData),
+      body: JSON.stringify(data),
       headers: { 'Content-Type': 'application/json' }
     });
   };
