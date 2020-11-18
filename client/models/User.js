@@ -13,10 +13,12 @@ const UserSchema = new mongoose.Schema({
     trim: true,
     unique: true,
   },
-  password: {
-    type: String,
-    required: [true, 'Wpisz hasło']
-  }
+  gameslist: [
+    { type: mongoose.Schema.id, ref: 'Game' }
+  ],
+  wishlist: [
+    { type: mongoose.Schema.id, ref: 'Game' }
+  ]
 });
 
 module.exports = mongoose.models.User || mongoose.model('User', UserSchema);
