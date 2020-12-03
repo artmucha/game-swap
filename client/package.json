@@ -9,11 +9,15 @@
     "v": "node -v"
   },
   "dependencies": {
+    "firebase": "^8.1.1",
+    "firebase-admin": "^9.4.1",
+    "js-cookie": "^2.2.1",
     "mongoose": "^5.10.11",
     "next": "^10.0.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
-    "styled-components": "^5.2.0"
+    "styled-components": "^5.2.0",
+    "swr": "^0.3.9"
   },
   "devDependencies": {
     "babel-plugin-inline-react-svg": "^1.1.1",
