@@ -1,6 +1,11 @@
 import { useState } from 'react';
 import styled, { css } from 'styled-components';
+import firebase from 'firebase/app';
+import 'firebase/auth';
 
+import initFirebase from 'utils/initFirebase';
+import { setUserCookie } from 'utils/userCookies';
+import { mapUserData } from 'utils/mapUserData';
 import Container from 'components/atoms/Container';
 import Paragraph from 'components/atoms/Paragraph';
 import Input from 'components/atoms/Input';
@@ -55,6 +60,8 @@ const Form = styled.form`
   }
 `;
 
+initFirebase();
+
 const Login = () => {
 
   const [selected, setSelected] = useState('login');
@@ -68,13 +75,41 @@ const Login = () => {
     setData({ ...data, [event.target.name]: event.target.value });
   };
 
-  const handleSubmit = async(event) => {
+  const handleLogin = async(event) => {
     event.preventDefault();
-    const res = await fetch('/api/user', {
-      method: 'POST',
-      body: JSON.stringify(data),
-      headers: { 'Content-Type': 'application/json' }
-    });
+
+    try {
+      const user = await firebase.auth().signInWithEmailAndPassword(data.email, data.password);
+      const userData = await mapUserData(user);
+      setUserCookie(userData);
+    } catch(error) {
+      console.log(error.code);
+      console.log(error.message);
+    };
+
+  };
+
+  const handleSignup = async(event) => {
+    event.preventDefault();
+
+    try {
+      const { user } = await firebase.auth().createUserWithEmailAndPassword(data.email, data.password);
+      const userData = await mapUserData(user);
+      setUserCookie(userData);
+
+      await fetch('/api/users', {
+        method: 'POST',
+        body: JSON.stringify({
+          username: data.name,
+          ...userData,
+        }),
+        headers: { 'Content-Type': 'application/json' }
+      });
+
+    } catch(error) {
+      console.log(error.code);
+      console.log(error.message);
+    };
   };
 
   return (
@@ -88,7 +123,7 @@ const Login = () => {
 
         {selected === 'login' && (
           <FormWrapper>
-            <Form id="login" onSubmit={handleSubmit}>
+            <Form id="login" action="/api/users" onSubmit={handleLogin}>
               <Paragraph>
                 Email*
               </Paragraph>
@@ -106,9 +141,9 @@ const Login = () => {
         {selected === 'register' && (
           
           <FormWrapper>
-            <Form id="register" onSubmit={handleSubmit}>
+            <Form id="register" action="/api/users" method="POST" onSubmit={handleSignup}>
               <Paragraph>
-                Imię/Login*
+                Login*
               </Paragraph>
               <Input type="text" name="name" value={data.name} onChange={handleChange} required />
               <Paragraph>

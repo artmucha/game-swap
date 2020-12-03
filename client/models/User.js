@@ -1,7 +1,11 @@
 const mongoose = require('mongoose');
 
 const UserSchema = new mongoose.Schema({
-  name: {
+  id: {
+    type: String,
+    unique: true,
+  },
+  username: {
     type: String,
     required: [true, 'Wpisz swoje imię lub login'],
     trim: true,
@@ -12,12 +16,16 @@ const UserSchema = new mongoose.Schema({
     required: [true, 'Podaj adres email'],
     trim: true,
     unique: true,
+    lowercase: true,
+  },
+  token: {
+    type: String,
   },
   gameslist: [
-    { type: mongoose.Schema.id, ref: 'Game' }
+    { type: Number, ref: 'Game' }
   ],
   wishlist: [
-    { type: mongoose.Schema.id, ref: 'Game' }
+    { type: Number, ref: 'Game' }
   ]
 });
 
