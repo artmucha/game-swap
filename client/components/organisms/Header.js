@@ -7,7 +7,7 @@ import ButtonIcon from 'components/atoms/ButtonIcon';
 import Navigation from 'components/molecules/Navigation';
 import Badge from 'components/atoms/Badge';
 
-import Logo from '../../public/icons/gamepad.svg';
+import Logo from '../../public/icons/uzywki_logo.svg';
 
 import MenuIcon from '../../public/icons/menu-button.svg';
 import UserIcon from '../../public/icons/user.svg';
@@ -29,7 +29,7 @@ const Header = () => {
   return (
     <Wrapper>
       <Container flex spaceBetween alignCenter>
-          <MenuIcon onClick={() => setOpen(!open)} />
+        <MenuIcon onClick={() => setOpen(!open)} />
         <Link href="/">
           <a><Logo /></a>
         </Link>

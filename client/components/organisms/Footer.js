@@ -5,7 +5,7 @@ import Container from 'components/atoms/Container';
 import Grid from 'components/atoms/Grid';
 import Paragraph from 'components/atoms/Paragraph';
 import menu from 'constans/menu';
-import Logo from '../../public/icons/gamepad.svg';
+import Logo from '../../public/icons/uzywki_logo.svg';
 
 const Wrapper = styled.footer`
   padding-top: 20px;
@@ -62,7 +62,7 @@ const Footer = () => (
         <a><Logo /></a>
       </Link>
       <Paragraph color="#B3B3B3">
-        GameSwapper to darmowy serwis służący do legalnej wymiany gier na konsole oraz PC.
+        Używki to darmowy serwis służący do legalnej wymiany gier na konsole oraz PC.
         Załóż konto i ciesz się najlepszymi grami w cenie wysyłki!
       </Paragraph>
       </div>
@@ -91,7 +91,7 @@ const Footer = () => (
         ))}
       </NavigationList>
       <NavigationList>
-        <NavigationHeading>GameSwapper</NavigationHeading>
+        <NavigationHeading>Używki</NavigationHeading>
         <li>
           <Link href="/o-nas">
             <a>O nas</a>
@@ -117,7 +117,7 @@ const Footer = () => (
     </Container>
     <Container>
       <Copyright>
-        Copyright © {new Date().getFullYear()} <Link href="https://game-swapper.pl"><a>GameSwapper</a></Link> - Wszystkie prawa zastrzeżone.
+        Copyright © {new Date().getFullYear()} <Link href="https://game-swapper.pl"><a>Używki</a></Link> - Wszystkie prawa zastrzeżone.
       </Copyright>
     </Container>
   </Wrapper>

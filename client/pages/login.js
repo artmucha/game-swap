@@ -79,7 +79,7 @@ const Login = () => {
     event.preventDefault();
 
     try {
-      const user = await firebase.auth().signInWithEmailAndPassword(data.email, data.password);
+      const { user } = await firebase.auth().signInWithEmailAndPassword(data.email, data.password);
       const userData = await mapUserData(user);
       setUserCookie(userData);
     } catch(error) {
