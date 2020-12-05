@@ -108,7 +108,7 @@ const Login = () => {
         headers: { 'Content-Type': 'application/json' }
       });
 
-      router.push('/');
+      router.push('/profil');
 
     } catch(error) {
       console.log(error.code);
