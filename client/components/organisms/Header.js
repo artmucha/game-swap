@@ -2,13 +2,14 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
 
+import { useUser } from 'utils/useUser';
+
 import Container from 'components/atoms/Container';
 import ButtonIcon from 'components/atoms/ButtonIcon';
 import Navigation from 'components/molecules/Navigation';
 import Badge from 'components/atoms/Badge';
 
 import Logo from '../../public/icons/uzywki_logo.svg';
-
 import MenuIcon from '../../public/icons/menu-button.svg';
 import UserIcon from '../../public/icons/user.svg';
 import AddIcon from '../../public/icons/add-button.svg';
@@ -24,6 +25,7 @@ const Wrapper = styled.header`
 `;
 
 const Header = () => {
+  const { user, logout } = useUser();
   const [open, setOpen] = useState(false);
 
   return (
@@ -38,21 +40,38 @@ const Header = () => {
             <Badge circle color="#F50057">0</Badge>
             <FavoriteIcon />
           </ButtonIcon>
-          <Link href="/login">
-            <a>
-            <ButtonIcon flat>
-              <Badge circle color="#F50057">0</Badge>
-              <UserIcon />
-            </ButtonIcon>
-            </a>
-          </Link>
-          <Link href="/gry/dodaj">
-            <a>
-              <ButtonIcon flat fill="#0072ff">
-                <AddIcon />
+
+          {!user ? (
+            <Link href="/login">
+              <a>
+              <ButtonIcon flat>
+                <Badge circle color="#F50057">0</Badge>
+                <UserIcon />
               </ButtonIcon>
-            </a>
-          </Link>
+              </a>
+            </Link>
+          ) : (
+            <>
+            <Link href="/profil">
+              <a>
+              <ButtonIcon flat>
+                <Badge circle color="#F50057">0</Badge>
+                <UserIcon />
+              </ButtonIcon>
+              </a>
+            </Link>
+            <Link href="/gry/dodaj">
+              <a>
+                <ButtonIcon flat fill="#0072ff">
+                  <AddIcon />
+                </ButtonIcon>
+              </a>
+            </Link>
+            <ButtonIcon flat fill="#0072ff">
+              <AddIcon onClick={ () => logout() } />
+            </ButtonIcon>
+            </>
+          )}
         </div>
       </Container>
         <Navigation open={open} setOpen={setOpen} />

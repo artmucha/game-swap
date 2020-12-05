@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 import styled, { css } from 'styled-components';
 import firebase from 'firebase/app';
 import 'firebase/auth';
@@ -63,7 +64,7 @@ const Form = styled.form`
 initFirebase();
 
 const Login = () => {
-
+  const router = useRouter();
   const [selected, setSelected] = useState('login');
   const [data, setData] = useState({
     name:'',
@@ -82,6 +83,7 @@ const Login = () => {
       const { user } = await firebase.auth().signInWithEmailAndPassword(data.email, data.password);
       const userData = await mapUserData(user);
       setUserCookie(userData);
+      router.push('/');
     } catch(error) {
       console.log(error.code);
       console.log(error.message);
@@ -105,6 +107,8 @@ const Login = () => {
         }),
         headers: { 'Content-Type': 'application/json' }
       });
+
+      router.push('/');
 
     } catch(error) {
       console.log(error.code);
