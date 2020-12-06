@@ -26,9 +26,19 @@ const Avatar = styled.div`
       border: 4px solid ${({ theme }) => theme.white};
     `}
 
+  @media(min-width: 768px) {
+    ${({ big }) =>
+    big &&
+    css`
+      width: 160px;
+      height: 160px;
+    `}
+  }
+
   img {
     width: 100%;
     height: auto;
+    object-fit: cover;
   }
 `;
 

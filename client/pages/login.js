@@ -38,6 +38,7 @@ const SwitchButton = styled.button`
   padding: 15px;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
+  font-family: 'Kumbh Sans', sans-serif;
   font-weight: ${({ theme }) => theme.bold};
   color: ${({ theme }) => theme.grey300};
   font-size: ${({ theme }) => theme.fontSize.s};
