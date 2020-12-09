@@ -18,7 +18,7 @@ const UserSchema = new mongoose.Schema({
     unique: true,
     lowercase: true,
   },
-  token: {
+  photoURL: {
     type: String,
   },
   gameslist: [

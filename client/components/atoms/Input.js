@@ -7,7 +7,7 @@ const Input = styled.input`
   font-weight: ${({ theme }) => theme.regular};
   background-color: ${({ theme }) => theme.white};
   border: 1px solid ${({ theme }) => theme.grey200};
-  border-radius: 8px;
+  border-radius: 12px;
   font-family: 'Kumbh Sans', sans-serif;
   outline: 0;
 

@@ -2,7 +2,7 @@ export const theme = {
   playstation: '#00439C',
   xbox: '#107C10',
   nintendo: '#E60012',
-  pc: '#1a1a1a',
+  pc: '#323232',
   black: '#1a1a1a',
   white: '#ffffff',
   grey100: '#f5f5f5',

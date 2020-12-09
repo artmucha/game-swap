@@ -101,7 +101,7 @@ const SwitchButton = styled.button`
 
 const Form = styled.form`
   padding: 15px;
-  border-radius: 8px;
+  border-radius: 12px;
   box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .1);
   background-color: ${({ theme }) => theme.white};
 

@@ -12,7 +12,7 @@ import FavoriteIcon from '../../public/icons/favorite.svg';
 
 const CardWrapper = styled.article`
   position: relative;
-  border-radius: 8px;
+  border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .1);
   background-color: ${({ theme }) => theme.white};
