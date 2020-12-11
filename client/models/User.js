@@ -18,7 +18,13 @@ const UserSchema = new mongoose.Schema({
     unique: true,
     lowercase: true,
   },
-  photoURL: {
+  avatar: {
+    type: String,
+  },
+  city: {
+    type: String,
+  },
+  description: {
     type: String,
   },
   gameslist: [

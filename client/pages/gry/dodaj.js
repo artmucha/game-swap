@@ -5,6 +5,7 @@ import Container from 'components/atoms/Container';
 import Typography from 'components/atoms/Typography';
 import Paragraph from 'components/atoms/Paragraph';
 import Input from 'components/atoms/Input';
+import TextArea from 'components/atom/TextArea';
 import Button from 'components/atoms/Button';
 
 import { platform, language, state } from 'constans/options';
@@ -68,20 +69,6 @@ const ResultsList = styled.ul`
     &:hover {
       background-color: ${({ theme }) => theme.grey100};
     }
-  }
-`;
-
-const TextArea = styled.textarea`
-  border-radius: 12px;
-  font-family: 'Kumbh Sans',sans-serif;
-  padding: 15px;
-  width: 100%;
-  color: ${({ theme }) => theme.grey300};
-  background-color: ${({ theme }) => theme.white};
-  border: 1px solid ${({ theme }) => theme.grey200};
-
-  &::placeholder {
-    color: ${({ theme }) => theme.grey300};
   }
 `;
 

@@ -12,6 +12,7 @@ import Typography from 'components/atoms/Typography';
 import Paragraph from 'components/atoms/Paragraph';
 import Avatar from 'components/atoms/Avatar';
 import Input from 'components/atoms/Input';
+import TextArea from 'components/atoms/TextArea';
 import Button from 'components/atoms/Button';
 
 import UserIcon from '../../public/icons/user.svg';
@@ -54,6 +55,7 @@ const Wrapper = styled.div`
 
 const Tabs = styled.div`
   width: 100%;
+  height: 400px;
   padding: 10px;
   display: flex;
   flex-direction: column;
@@ -80,10 +82,11 @@ const Tab = styled.button`
   font-family: 'Kumbh Sans', sans-serif;
   font-weight: ${({ theme }) => theme.regular};
   font-size: ${({ theme }) => theme.fontSize.xxs};
+  color: ${({ color, theme }) => color ? color : theme.black};
 
   svg {
     margin-bottom: 5px;
-    fill: ${({ theme }) => theme.grey300};
+    fill: ${({ color, theme }) => color ? color : theme.grey300};
 
     ${({ selected }) =>
     selected &&
@@ -114,13 +117,29 @@ const Form = styled.form`
   }
 `;
 
-const FileInput = styled.input`
-  width: 100%;
+const FileInputWrapper = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
-const Logout = styled(Paragraph)`
-  margin-top: 20px;
-  cursor: pointer;
+const FileInput = styled.input`
+  width: 100%;
+  outline: 0;
+  &::-webkit-file-upload-button {
+    visibility: hidden;
+  }
+  &::before {
+    content: 'Wybierz zdjęcie';
+    outline: 0;
+    cursor: pointer;
+    padding: 5px;
+    border: 0;
+    font-family: 'Kumbh Sans', sans-serif;
+    font-weight: ${({ theme }) => theme.bold};
+    font-size: ${({ theme }) => theme.fontSize.s};
+    color: ${({ theme }) => theme.playstation};
+    background: ${({ theme }) => theme.white};
+  }
 `;
 
 initFirebase();
@@ -128,6 +147,7 @@ initFirebase();
 const Profile = () => {
 	const { user, logout } = useUser();
   const [data, setData] = useState({});
+  const [password, setPassword] = useState({});
   const [selected, setSelected] = useState('settings');
   
   useEffect(() => {
@@ -144,12 +164,65 @@ const Profile = () => {
     fetchData();
   }, [user]);
 
+  const handleFile = (event) => {
+    let reader = new FileReader();
+    let file = event.target.files[0];
+
+    reader.onloadend = () => {
+      setData({ ...data, avatar: reader.result });
+    };
+
+    reader.readAsDataURL(file);
+  };
+
   const handleChange = (event) => {
     setData({ ...data, [event.target.name]: event.target.value });
   };
 
   const handleUpdate = async(event) => {
     event.preventDefault();
+
+    try {
+      await fetch(`/api/users/${user.uid}`, {
+        method: 'PUT',
+        body: JSON.stringify(data),
+        headers: { 'Content-Type': 'application/json' }
+      });
+    } catch(error) {
+      console.log(error)
+    }
+  };
+
+  const handlePassword = (event) => {
+    setPassword({ ...password, [event.target.name]: event.target.value })
+  };
+
+  const handlePasswordUpdate = async(event) => {
+    event.preventDefault();
+    try {
+      if(password.password === password.password_confirm) {
+        let user = await firebase.auth().currentUser;
+        user.updatePassword(password.password);
+      }
+    } catch(error) {
+      if (error.code === 'auth/requires-recent-login') {
+        console.log('Ustawienie nowego hasła wymaga ponownego logowania. Wyloguj i zaloguj się ponownie.');
+      }
+    }
+  };
+
+  const handleUserRemove = async() => {
+    try {
+      let user = await firebase.auth().currentUser;
+      await fetch(`/api/users/${user.uid}`, {
+        method: 'DELETE',
+        body: JSON.stringify(data),
+        headers: { 'Content-Type': 'application/json' }
+      });
+      user.delete();
+    } catch(error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -163,7 +236,11 @@ const Profile = () => {
         <Content>
           <Grid s={3}>
             <Avatar>
-              <img src="/ArturMucha.jpg" />
+              { data && data.avatar ? (
+                <img src={data.avatar} alt={data.username} />
+              ) : (
+                'A'
+              ) }
             </Avatar>
           </Grid>
         </Content>
@@ -181,11 +258,11 @@ const Profile = () => {
             <ListIcon />
             Moje gry
           </Tab>
-          <Tab title="Zmień hasło" selected={selected === 'password'} onClick={() => setSelected('password')}>
+          <Tab title="Resetuj hasło" selected={selected === 'password'} onClick={() => setSelected('password')}>
             <PasswordIcon />
-            Resetuj hasło
+            Hasło
           </Tab>
-          <Tab title="Wyloguj" selected={selected === 'logout'} onClick={() => logout()}>
+          <Tab title="Wyloguj" color="#F50057" selected={selected === 'logout'} onClick={() => logout()}>
             <LogoutIcon />
             Wyloguj
           </Tab>
@@ -193,20 +270,40 @@ const Profile = () => {
         <Content>
         {selected === 'settings' && 
           (
-            <Form id="update" action="/api/users" method="POST" onSubmit={handleUpdate}>
+            <Form id="update" action="/api/users" method="PUT" onSubmit={handleUpdate}>
               <Paragraph>
                 Avatar
               </Paragraph>
-              <FileInput type="file" name="file" value={data.avatar} onChange={handleChange} />
+              <FileInputWrapper>
+                <Avatar>
+                  <img src={data.avatar} alt={data.username} />
+                </Avatar>
+                <FileInput type="file" name="avatar" onChange={handleFile} />
+              </FileInputWrapper>
               <Paragraph>
                 Login
               </Paragraph>
-              <Input type="text" name="name" value={data.username} onChange={handleChange} required />
+              <Input type="text" name="name" value={data.username} required disabled />
               <Paragraph>
-                Zmień email*
+                Email*
               </Paragraph>
-              <Input type="email" name="email" value={data.email} onChange={handleChange} required />
+              <Input type="email" name="email" value={data.email} required disabled />
+              <Paragraph>
+                Miasto
+              </Paragraph>
+              <Input type="text" name="city" value={data.city} onChange={handleChange} />
+              <Paragraph>
+                Dodatkowe informacje
+              </Paragraph>
+              <TextArea 
+                rows="4"
+                placeholder="napisz kilka słów o sobie" 
+                name="description" 
+                value={data.description} 
+                onChange={handleChange}
+              />
               <Button type="submit" colors={['#0072ff', '#00c6ff']} space center>Zapisz</Button>
+              <Button type="submit" colors={['#F50057', '#F50057']} space center onClick={handleUserRemove}>Usuń konto</Button>
             </Form>
           )
         }
@@ -223,7 +320,17 @@ const Profile = () => {
         }
         {selected === 'password' && 
           (
-            <Typography as="h3" space>Gry, które mam:</Typography>
+            <Form id="update-password" onSubmit={handlePasswordUpdate}>
+              <Paragraph>
+                Nowe hasło*
+              </Paragraph>
+              <Input type="password" name="password" value={password.password} required onChange={handlePassword} />
+              <Paragraph>
+                Potwierdź hasło*
+              </Paragraph>
+              <Input type="password" name="password_confirm" value={password.password_confirm} required onChange={handlePassword} />
+              <Button type="submit" colors={['#0072ff', '#00c6ff']} space center>Zapisz</Button>
+            </Form>
           )
         }
         </Content> 

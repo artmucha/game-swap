@@ -21,10 +21,11 @@ export default async (req, res) => {
       break;
     case 'PUT':
       try {
-        const user = await User.findByIdAndUpdate(uid, req.body, {
-            new: true,
-            runValidators: true
+        const user = await User.findOneAndUpdate(uid, req.body, {
+          new: true,
+          runValidators: true
         });
+        console.log(user);
         if(!user) return res.status(400).json({success: false});
         res.status(200).json({success: true, data: user});
         
@@ -34,7 +35,7 @@ export default async (req, res) => {
       break;
     case 'DELETE':
       try {
-          const deletedUser = await User.deleteOne({uid : uid});
+          const deletedUser = await User.deleteOne({uid});
           if(!deletedUser) res.status(400).json({success: false});
           res.status(200).json({success: true, data: {} });
       } catch (error) {
