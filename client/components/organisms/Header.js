@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Link from 'next/link';
 
 import { useUser } from 'utils/useUser';
+import { useWishlist } from "Providers/WishlistProvider";
 
 import Container from 'components/atoms/Container';
 import ButtonIcon from 'components/atoms/ButtonIcon';
@@ -27,6 +28,8 @@ const Header = () => {
   const { user, logout } = useUser();
   const [open, setOpen] = useState(false);
 
+  const items = useWishlist();
+
   return (
     <Wrapper>
       <Container flex spaceBetween alignCenter>
@@ -36,7 +39,7 @@ const Header = () => {
         </Link>
         <div>
           <ButtonIcon flat>
-            <Badge circle color="#F50057">0</Badge>
+            <Badge circle color="#F50057">{items.length}</Badge>
             <FavoriteIcon />
           </ButtonIcon>
 

@@ -1,10 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import dynamic from 'next/dynamic';
 import styled, {css} from 'styled-components';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 
 import initFirebase from 'utils/initFirebase';
+import { debounce } from 'utils/helpers';
+import { platform } from 'constans/options';
+
+import { useDispatchWishlist, useWishlist } from 'Providers/WishlistProvider';
 
 import Container from 'components/atoms/Container';
 import Grid from 'components/atoms/Grid';
@@ -142,6 +146,62 @@ const FileInput = styled.input`
   }
 `;
 
+const Stats = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+const Select = styled.select`
+  width: 100%;
+  padding: 15px;
+  font-size: ${({ theme }) => theme.fontSize.s};
+  font-weight: ${({ theme }) => theme.regular};
+  background-color: ${({ theme }) => theme.white};
+  border: 1px solid ${({ theme }) => theme.grey200};
+  border-radius: 12px;
+  font-family: 'Kumbh Sans', sans-serif;
+  outline: 0;
+  color: ${({ theme }) => theme.grey300};
+
+  option {
+    padding: 15px;
+  }
+`;
+
+const SearchWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  background-color: ${({ theme }) => theme.white};
+  border: 1px solid ${({ theme }) => theme.grey200};
+`;
+
+const SearchInput = styled(Input)`
+  border: 0;
+  color: ${({ theme }) => theme.grey300};
+`;
+
+const ResultsList = styled.ul`
+  width: 100%;
+  max-height: 400px;
+  overflow-y: scroll;
+
+  li {
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    padding: 10px 15px;
+    color: ${({ theme }) => theme.grey300};
+    font-weight: ${({ theme }) => theme.regular};
+    font-size: ${({ theme }) => theme.fontSize.s};
+
+    &:hover {
+      background-color: ${({ theme }) => theme.grey100};
+    }
+  }
+`;
+
 initFirebase();
 
 const Profile = () => {
@@ -149,6 +209,18 @@ const Profile = () => {
   const [data, setData] = useState({});
   const [password, setPassword] = useState({});
   const [selected, setSelected] = useState('settings');
+
+  const searchRef = useRef(null);
+  const [query, setQuery] = useState('');
+  const [results, setResults] = useState([]);
+  const [userGame, setUserGame] = useState({
+    id: null,
+    title: '',
+    platform: ''
+  });
+  const [active, setActive] = useState(false);
+
+  const dispatch = useDispatchWishlist();
   
   useEffect(() => {
     const fetchData = async () => {
@@ -225,6 +297,62 @@ const Profile = () => {
     }
   };
 
+  const searchURL = (query) => `https://api.rawg.io/api/games?search=${query}`;
+
+  const handleSearch = useCallback((event) => {
+    const query = event.target.value;
+    setActive(true);
+    setQuery(query);
+    if(query.length >=2) {
+      debounce(async() => {
+        const res = await fetch(searchURL(query));
+        const data = await res.json();
+        setResults(data.results);
+      }, 2000)();
+    } else {
+      setActive(false);
+      setResults([]);
+    }
+  }, []);
+
+  const handleClick = (event, game) => {
+    if(searchRef.current && !searchRef.current.contains(event.target)) {
+      setActive(false);
+    } else if (searchRef.current && searchRef.current.contains(event.target)) {
+      setQuery(game.name);
+      setUserGame({ 
+        ...userGame,
+        id: game.id,
+        title: game.name
+      });
+      setActive(false);
+    }
+  };
+
+  const handleSelect = (event) => {
+    setUserGame({ ...userGame, [event.target.name]: event.target.value });
+  };
+
+  const addToWishlist = async(event) => {
+    event.preventDefault();
+    const res = await fetch(`/api/users/${user.uid}/wishlist`, {
+      method: 'POST',
+      body: JSON.stringify(userGame),
+      headers: { 'Content-Type': 'application/json' }
+    });
+    dispatch({ type: "ADD_TO_WISHLIST", userGame });
+  };
+
+  const removeFromWishlist = async(event, gameId) => {
+    event.preventDefault();
+    const res = await fetch(`/api/users/${user.uid}/wishlist`, {
+      method: 'DELETE',
+      body: JSON.stringify(gameId),
+      headers: { 'Content-Type': 'application/json' }
+    });
+    dispatch({ type: "REMOVE_FROM_WISHLIST", gameId });
+  }
+
   return (
     <>
       <Hero>
@@ -242,6 +370,14 @@ const Profile = () => {
                 'A'
               ) }
             </Avatar>
+            <Stats>
+              <Typography as="h3">{data.wishlist ? data.wishlist.length : 0}</Typography>
+              <Paragraph small>Chcę zagrać</Paragraph>
+            </Stats>
+            <Stats>
+              <Typography as="h3">{data.gameslist ? data.gameslist.length : 0}</Typography>
+              <Paragraph small>Moje gry</Paragraph>
+            </Stats>
           </Grid>
         </Content>
       <Wrapper>
@@ -309,13 +445,57 @@ const Profile = () => {
         }
         {selected === 'wishlist' && 
           (
-            <Typography as="h3" space>Chcę zagrać w:</Typography>
+            <>
+              <Typography as="h3" space>Chcę zagrać w:</Typography>
 
+              <ul>
+                { data.wishlist && data.wishlist.map(game => (
+                  <li key={game.id}>{game.title}<button onClick={() => removeFromWishlist(event, game.id)}>x</button></li>
+                  )) 
+                }
+              </ul>
+
+              <Form id="wislist-form" name="wishlist" method="POST" onSubmit={addToWishlist}>
+                <Paragraph>
+                  Wybierz platformę
+                </Paragraph>
+                <Select name="platform" value={userGame.platform} onChange={handleSelect} required>
+                  {platform.map( option => (
+                    <option 
+                      key={option.value.name} 
+                      value={option.value.name}
+                      default={option.default}
+                    >
+                      {option.name}
+                    </option>)
+                  )}
+                </Select>
+                <Paragraph>
+                  Dodaj grę
+                </Paragraph>
+                <SearchWrapper ref={searchRef}>
+                  <SearchInput 
+                    placeholder="Dodaj tytuł" 
+                    type="text"  
+                    value={query}
+                    name="id"
+                    onChange={handleSearch}
+                    required
+                  />
+                  {active && results.length > 0 && (
+                    <ResultsList>
+                      {results.map(({id, name}) => <li key={id} onClick={(event) => handleClick(event, { id, name })}>{name}</li>)}
+                    </ResultsList>
+                  )}
+                </SearchWrapper>
+                <Button type="submit" colors={['#0072ff', '#00c6ff']} space center>Dodaj</Button>
+              </Form>
+            </>
           )
         }
         {selected === 'gamelist' && 
           (
-            <Typography as="h3" space>Gry, które mam:</Typography>
+            <Typography as="h3" space>Moje ogłoszenia:</Typography>
           )
         }
         {selected === 'password' && 

@@ -5,9 +5,9 @@ dbConnect();
 
 export default async (req, res) => {
   const {
-      query: {uid},
-      method 
-    } = req;
+    query: {uid},
+    method 
+  } = req;
 
   switch(method) {
     case 'GET':
@@ -19,25 +19,31 @@ export default async (req, res) => {
         res.status(400).json({success: false});
       }
       break;
-    case 'PUT':
+    case 'POST':
       try {
-        const user = await User.findOneAndUpdate(uid, req.body, {
-          new: true,
-          runValidators: true
-        });
-        console.log(user);
-        if(!user) return res.status(400).json({success: false});
+        const user = await User.findOneAndUpdate(
+          uid, 
+          { $addToSet: { wishlist: req.body } },
+          { new: true,
+            useFindAndModify: true 
+          }
+        );
+
         res.status(200).json({success: true, data: user});
-        
       } catch (error) {
         res.status(400).json({success: false});
       }
       break;
     case 'DELETE':
       try {
-          const deletedUser = await User.deleteOne({uid});
-          if(!deletedUser) res.status(400).json({success: false});
-          res.status(200).json({success: true, data: {} });
+        const user = await User.findOneAndUpdate(
+          uid, 
+          { $pull: { wishlist: req.body } },
+          { new: true,
+            useFindAndModify: true 
+          }
+        );
+        res.status(200).json({success: true, data: user });
       } catch (error) {
         res.status(400).json({success: false});
       }

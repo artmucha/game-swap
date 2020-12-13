@@ -31,7 +31,7 @@ const UserSchema = new mongoose.Schema({
     { type: Number, ref: 'Game' }
   ],
   wishlist: [
-    { type: Number, ref: 'Game' }
+    { type: Object, ref: 'Game' }
   ]
 });
 

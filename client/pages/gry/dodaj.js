@@ -5,7 +5,7 @@ import Container from 'components/atoms/Container';
 import Typography from 'components/atoms/Typography';
 import Paragraph from 'components/atoms/Paragraph';
 import Input from 'components/atoms/Input';
-import TextArea from 'components/atom/TextArea';
+import TextArea from 'components/atoms/TextArea';
 import Button from 'components/atoms/Button';
 
 import { platform, language, state } from 'constans/options';
