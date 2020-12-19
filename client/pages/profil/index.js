@@ -223,6 +223,7 @@ const Profile = () => {
   const dispatch = useDispatchWishlist();
   
   useEffect(() => {
+    if(!user) return;
     const fetchData = async () => {
       try {
         const res = await fetch(`/api/users/${user.uid}`);

@@ -114,6 +114,10 @@ const Login = () => {
     } catch(error) {
       console.log(error.code);
       console.log(error.message);
+      if(error.code === 'auth/email-already-in-use') {
+        throw new Error('Istnieje już konto połączone z tym adresem email')
+      }
+
     };
   };
 

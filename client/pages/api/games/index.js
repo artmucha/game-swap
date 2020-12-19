@@ -29,7 +29,7 @@ export default async (req, res) => {
         const games = await Game.find({});
         res.status(200).json({success: true, data: games});
       } catch(error) {
-        res.status(400).json({success: false});
+        res.status(400).json({success: false, errors: {message}});
       }
       break;
     case 'POST':

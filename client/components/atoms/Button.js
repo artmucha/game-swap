@@ -1,19 +1,21 @@
 import styled, { css } from 'styled-components';
+import Spinner from 'components/atoms/Spinner';
 
-const Button = styled.button`
+const StyledButton = styled.button`
   width: 180px;
-  padding: 15px;
+  min-height: 48px;
+  padding: 0 15px;
   border: 0;
   border-radius: 50px;
-  font-family: 'Kumbh Sans', sans-serif;
-  font-weight: ${({ theme }) => theme.bold};
-  font-size: ${({ theme }) => theme.fontSize.s};
-  color: ${({ theme }) => theme.white};
-  text-align: center;
   outline: 0;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   transition: all 0.2s;
   cursor: pointer;
+  text-align: center;
+  font-family: 'Kumbh Sans', sans-serif;
+  font-weight: ${({ theme }) => theme.bold};
+  font-size: ${({ theme }) => theme.fontSize.s};
+  color: ${({ theme }) => theme.white};
   background: linear-gradient(60deg, ${({ colors }) => ([colors[0], ',', colors[1]])});
 
   ${({ center }) =>
@@ -34,5 +36,13 @@ const Button = styled.button`
     box-shadow: 0 7px 14px rgba(0, 0, 0, 0.2);
   }
 `;
+
+const Button = ({ colors, space, center, loading, success, children }) => {
+  return (
+    <StyledButton colors={colors} space={space} center={center}>
+      { loading ? <Spinner fill="#ffffff" /> : children }
+    </StyledButton>
+  );
+};
 
 export default Button;

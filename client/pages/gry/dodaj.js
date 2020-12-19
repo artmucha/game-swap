@@ -78,6 +78,8 @@ const NewPost = () => {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
   const [active, setActive] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [success, setSuccess] = useState(false);
   const [data, setData] = useState({
     id: null,
     platform: {},
@@ -135,12 +137,20 @@ const NewPost = () => {
 
   const handleSubmit = async(event) => {
     event.preventDefault();
+    setSubmitting(true);
     const games = {...data, platform: JSON.parse(data.platform)}
-    const res = await fetch('/api/games', {
-      method: 'POST',
-      body: JSON.stringify(games),
-      headers: { 'Content-Type': 'application/json' }
-    });
+
+    try {
+      const res = await fetch('/api/games', {
+        method: 'POST',
+        body: JSON.stringify(games),
+        headers: { 'Content-Type': 'application/json' }
+      });
+      setSuccess(true);
+    } catch(error) {
+      console.log(error);
+    }
+    setSubmitting(false);
   };
 
   return (
@@ -218,7 +228,7 @@ const NewPost = () => {
           value={data.description} 
           onChange={handleChange}
         />
-        <Button type="submit" colors={['#0072ff', '#00c6ff']} space center>Dodaj</Button>
+        <Button type="submit" loading={submitting} success={success} colors={['#0072ff', '#00c6ff']} space center> {success ? 'Dodano' : 'Dodaj'}</Button>
         </form>
       </Wrapper>
     </Container>
