@@ -11,6 +11,7 @@ import Container from 'components/atoms/Container';
 import Paragraph from 'components/atoms/Paragraph';
 import Input from 'components/atoms/Input';
 import Button from 'components/atoms/Button';
+import Errors from 'components/atoms/Errors';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -67,8 +68,11 @@ initFirebase();
 const Login = () => {
   const router = useRouter();
   const [selected, setSelected] = useState('login');
+  const [submitting, setSubmitting] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [errors, setErrors] = useState([]);
   const [data, setData] = useState({
-    name:'',
+    login:'',
     email: '',
     password: '',
   });
@@ -79,46 +83,55 @@ const Login = () => {
 
   const handleLogin = async(event) => {
     event.preventDefault();
-
+    setSubmitting(true);
     try {
       const { user } = await firebase.auth().signInWithEmailAndPassword(data.email, data.password);
       const userData = await mapUserData(user);
       setUserCookie(userData);
+      setSuccess(true);
       router.push('/');
     } catch(error) {
       console.log(error.code);
       console.log(error.message);
     };
+    setSubmitting(false);
 
   };
 
   const handleSignup = async(event) => {
     event.preventDefault();
-
+    setSubmitting(true);
     try {
       const { user } = await firebase.auth().createUserWithEmailAndPassword(data.email, data.password);
       const userData = await mapUserData(user);
       setUserCookie(userData);
 
-      await fetch('/api/users', {
+      const res = await fetch('/api/users', {
         method: 'POST',
         body: JSON.stringify({
-          username: data.name,
-          ...userData,
+          login: data.login,
+          email: data.email,
+          uid: userData.uid
         }),
         headers: { 'Content-Type': 'application/json' }
       });
 
-      router.push('/profil');
+      let response = await res.json();
 
-    } catch(error) {
-      console.log(error.code);
-      console.log(error.message);
-      if(error.code === 'auth/email-already-in-use') {
-        throw new Error('Istnieje już konto połączone z tym adresem email')
+      if(response.success) {
+        setSuccess(true);
+        router.push('/profil');
+        
+      } else {
+        setErrors(response.message);
+        let currentUser = await firebase.auth().currentUser;
+        currentUser.delete();
       }
-
+    } catch(error) {
+        let message = 'Istnieje już konto powiązane z tym adresem email.'
+        setErrors([message]);
     };
+    setSubmitting(false);
   };
 
   return (
@@ -141,7 +154,9 @@ const Login = () => {
                 Hasło*
               </Paragraph>
               <Input type="password" name="password" value={data.password} onChange={handleChange} required />
-              <Button type="submit" colors={['#0072ff', '#00c6ff']} space center>Zaloguj</Button>
+              { errors.length ? <Errors errors={errors} /> : null }
+              <Button type="submit" loading={submitting} success={success} colors={['#0072ff', '#00c6ff']} space center> {success ? 'Zalodowano' : 'Zaloguj'}</Button>
+
             </Form>
           </FormWrapper>
           )
@@ -154,7 +169,7 @@ const Login = () => {
               <Paragraph>
                 Login*
               </Paragraph>
-              <Input type="text" name="name" value={data.name} onChange={handleChange} required />
+              <Input type="text" name="login" value={data.name} onChange={handleChange} required />
               <Paragraph>
                 Email*
               </Paragraph>
@@ -163,7 +178,8 @@ const Login = () => {
                 Hasło*
               </Paragraph>
               <Input type="password" name="password" value={data.password} onChange={handleChange} required />
-              <Button type="submit" colors={['#0072ff', '#00c6ff']} space center>Zarejestruj</Button>
+              { errors.length ? <Errors errors={errors} /> : null }
+              <Button type="submit" loading={submitting} success={success} colors={['#0072ff', '#00c6ff']} space center> {success ? 'Zarejestrowano' : 'Zarejestruj'}</Button>
             </Form>
           </FormWrapper>
           )

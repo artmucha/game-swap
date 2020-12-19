@@ -5,17 +5,17 @@ const UserSchema = new mongoose.Schema({
     type: String,
     unique: true,
   },
-  username: {
+  login: {
     type: String,
     required: [true, 'Wpisz swój login'],
     trim: true,
-    unique: true,
+    unique: [true, 'Ten login jest już zajęty'],
   },
   email: {
     type: String,
     required: [true, 'Podaj adres email'],
     trim: true,
-    unique: true,
+    unique: [true, 'Istnieje już konto powiązane z tym adresem email'],
     lowercase: true,
   },
   avatar: {

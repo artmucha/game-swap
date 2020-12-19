@@ -125,14 +125,14 @@ const Profile = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(`/api/users/${user.uid}`);
+        const res = await fetch(`/api/users/${user._id}`);
         const userData = await res.json();
         setData(userData.data);
       } catch(error) {
         console.log(error);
       }
     };
-  
+    
     fetchData();
   }, [user]);
 
@@ -151,7 +151,7 @@ const Profile = () => {
           <Avatar big>
             <img src="/ArturMucha.jpg" />
           </Avatar>
-          <Typography as="h2">{data.username}</Typography>
+          <Typography as="h2">{data.login}</Typography>
           <Paragraph>Kraków</Paragraph>
         </Heading>
         <Switches>
@@ -169,7 +169,7 @@ const Profile = () => {
               <Paragraph>
                 Zmień login*
               </Paragraph>
-              <Input type="text" name="name" value={data.username} onChange={handleChange} required />
+              <Input type="text" name="login" value={data.login} onChange={handleChange} required />
               <Paragraph>
                 Zmień email*
               </Paragraph>

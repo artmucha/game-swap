@@ -358,7 +358,7 @@ const Profile = () => {
     <>
       <Hero>
         <Container>
-          <Typography as="h2" big>Witaj {data.username}!</Typography>
+          <Typography as="h2" big>Witaj {data.login}!</Typography>
         </Container>
       </Hero>
       <Container>
@@ -366,7 +366,7 @@ const Profile = () => {
           <Grid s={3}>
             <Avatar>
               { data && data.avatar ? (
-                <img src={data.avatar} alt={data.username} />
+                <img src={data.avatar} alt={data.login} />
               ) : (
                 'A'
               ) }
@@ -413,14 +413,14 @@ const Profile = () => {
               </Paragraph>
               <FileInputWrapper>
                 <Avatar>
-                  <img src={data.avatar} alt={data.username} />
+                  <img src={data.avatar} alt={data.login} />
                 </Avatar>
                 <FileInput type="file" name="avatar" onChange={handleFile} />
               </FileInputWrapper>
               <Paragraph>
                 Login
               </Paragraph>
-              <Input type="text" name="name" value={data.username} required disabled />
+              <Input type="text" name="login" value={data.login} required disabled />
               <Paragraph>
                 Email*
               </Paragraph>

@@ -7,13 +7,16 @@ import Paragraph from 'components/atoms/Paragraph';
 import Input from 'components/atoms/Input';
 import TextArea from 'components/atoms/TextArea';
 import Button from 'components/atoms/Button';
+import Errors from 'components/atoms/Errors';
 
 import { platform, language, state } from 'constans/options';
 import { debounce } from 'utils/helpers';
 
 const Wrapper = styled.div`
-  padding: 15px;
+  width: 100%;
+  max-width: 400px;
   border-radius: 12px;
+  padding: 15px;
   box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .1);
   background-color: ${({ theme }) => theme.white};
 
@@ -80,6 +83,7 @@ const NewPost = () => {
   const [active, setActive] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [errors, setErrors] = useState([]);
   const [data, setData] = useState({
     id: null,
     platform: {},
@@ -146,7 +150,13 @@ const NewPost = () => {
         body: JSON.stringify(games),
         headers: { 'Content-Type': 'application/json' }
       });
-      setSuccess(true);
+      let response = await res.json();
+      if(response.success) {
+        setSuccess(true);
+      } else {
+        setErrors(response.message);
+        console.log(errors)
+      }
     } catch(error) {
       console.log(error);
     }
@@ -154,7 +164,7 @@ const NewPost = () => {
   };
 
   return (
-    <Container>
+    <Container flex alignCenter column>
       <Typography as="h1" space big>Dodaj nowe ogłoszenie</Typography>
       <Wrapper>
         <form onSubmit={handleSubmit}>
@@ -228,6 +238,7 @@ const NewPost = () => {
           value={data.description} 
           onChange={handleChange}
         />
+        { errors.length ? <Errors errors={errors} /> : null }
         <Button type="submit" loading={submitting} success={success} colors={['#0072ff', '#00c6ff']} space center> {success ? 'Dodano' : 'Dodaj'}</Button>
         </form>
       </Wrapper>

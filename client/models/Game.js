@@ -8,14 +8,17 @@ const GameSchema = new mongoose.Schema({
   },
   title: {
     type: String,
-    required: [true, 'Podaj tytuł'],
+    required: [true, 'Wybierz tytuł gry'],
     trim: true,
   },
   language: {
     type: String,
     required: [true, 'Wybierz język']
   },
-  state: String,
+  state: {
+    type: String,
+    required: [true, 'Określ, w jakim stanie jest płyta']
+  },
   description: String,
   cover: String,
   rating: Number,

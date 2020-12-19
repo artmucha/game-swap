@@ -30,6 +30,12 @@ const Container = styled.div`
     css`
       align-items: center;
     `}
+
+  ${({ column }) =>
+    column &&
+    css`
+      flex-direction: column;
+    `}
 `;
 
 export default Container;

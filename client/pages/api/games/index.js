@@ -3,6 +3,7 @@ import https from 'https';
 
 import dbConnect from 'utils/dbConnect';
 import Game from 'models/Game';
+import validator from 'utils/formValidators';
 
 dbConnect();
 
@@ -56,7 +57,7 @@ export default async (req, res) => {
         const game = await Game.create(req.body);
         res.status(201).json({success: true, data: game});
       } catch (error) {
-        res.status(400).json({success: false});
+        validator(error, res);
       }
       break;
     default: 
