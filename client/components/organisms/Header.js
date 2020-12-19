@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Link from 'next/link';
 
 import { useUser } from 'utils/useUser';
+import { useWishlist } from "Providers/WishlistProvider";
 
 import Container from 'components/atoms/Container';
 import ButtonIcon from 'components/atoms/ButtonIcon';
@@ -18,15 +19,16 @@ import FavoriteIcon from '../../public/icons/favorite-outline.svg';
 const Wrapper = styled.header`
   background-color: ${({ theme }) => theme.white};
   color: ${({ theme }) => theme.black};
-  margin-bottom: 20px;
   padding-top: 10px;
   padding-bottom: 10px;
-  box-shadow: 0 11px 10px -10px rgba(0,0,0,.1);
+  box-shadow: 0 11px 10px -10px rgba(0,0,0,.5);
 `;
 
 const Header = () => {
   const { user, logout } = useUser();
   const [open, setOpen] = useState(false);
+
+  const items = useWishlist();
 
   return (
     <Wrapper>
@@ -37,7 +39,7 @@ const Header = () => {
         </Link>
         <div>
           <ButtonIcon flat>
-            <Badge circle color="#F50057">0</Badge>
+            <Badge circle color="#F50057">{items.length}</Badge>
             <FavoriteIcon />
           </ButtonIcon>
 

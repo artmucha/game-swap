@@ -18,14 +18,20 @@ const UserSchema = new mongoose.Schema({
     unique: true,
     lowercase: true,
   },
-  token: {
+  avatar: {
+    type: String,
+  },
+  city: {
+    type: String,
+  },
+  description: {
     type: String,
   },
   gameslist: [
     { type: Number, ref: 'Game' }
   ],
   wishlist: [
-    { type: Number, ref: 'Game' }
+    { type: Object, ref: 'Game' }
   ]
 });
 

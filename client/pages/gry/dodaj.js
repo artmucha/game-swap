@@ -5,6 +5,7 @@ import Container from 'components/atoms/Container';
 import Typography from 'components/atoms/Typography';
 import Paragraph from 'components/atoms/Paragraph';
 import Input from 'components/atoms/Input';
+import TextArea from 'components/atoms/TextArea';
 import Button from 'components/atoms/Button';
 
 import { platform, language, state } from 'constans/options';
@@ -12,7 +13,7 @@ import { debounce } from 'utils/helpers';
 
 const Wrapper = styled.div`
   padding: 15px;
-  border-radius: 8px;
+  border-radius: 12px;
   box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .1);
   background-color: ${({ theme }) => theme.white};
 
@@ -24,7 +25,7 @@ const Wrapper = styled.div`
 const SearchWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  border-radius: 8px;
+  border-radius: 12px;
   background-color: ${({ theme }) => theme.white};
   border: 1px solid ${({ theme }) => theme.grey200};
 `;
@@ -41,7 +42,7 @@ const Select = styled.select`
   font-weight: ${({ theme }) => theme.regular};
   background-color: ${({ theme }) => theme.white};
   border: 1px solid ${({ theme }) => theme.grey200};
-  border-radius: 8px;
+  border-radius: 12px;
   font-family: 'Kumbh Sans', sans-serif;
   outline: 0;
   color: ${({ theme }) => theme.grey300};
@@ -68,20 +69,6 @@ const ResultsList = styled.ul`
     &:hover {
       background-color: ${({ theme }) => theme.grey100};
     }
-  }
-`;
-
-const TextArea = styled.textarea`
-  border-radius: 8px;
-  font-family: 'Kumbh Sans',sans-serif;
-  padding: 15px;
-  width: 100%;
-  color: ${({ theme }) => theme.grey300};
-  background-color: ${({ theme }) => theme.white};
-  border: 1px solid ${({ theme }) => theme.grey200};
-
-  &::placeholder {
-    color: ${({ theme }) => theme.grey300};
   }
 `;
 

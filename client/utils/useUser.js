@@ -24,8 +24,8 @@ const useUser = () => {
         router.push('/login')
       })
       .catch((e) => {
-        console.error(e)
-      })
+        console.error(e);
+      });
   };
 
   useEffect(() => {
@@ -33,19 +33,19 @@ const useUser = () => {
       .auth()
       .onIdTokenChanged(async (user) => {
         if (user) {
-          const userData = await mapUserData(user)
-          setUserCookie(userData)
-          setUser(userData)
+          const userData = await mapUserData(user);
+          setUserCookie(userData);
+          setUser(userData);
         } else {
-          removeUserCookie()
-          setUser()
+          removeUserCookie();
+          setUser();
         }
       })
 
     const userFromCookie = getUserFromCookie();
     if (!userFromCookie) {
-      router.push('/')
-      return
+      router.push('/');
+      return;
     }
     setUser(userFromCookie);
 
@@ -54,7 +54,7 @@ const useUser = () => {
     }
   }, []);
 
-  return { user, logout }
+  return { user, logout };
 };
 
 export { useUser };
