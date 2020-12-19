@@ -31,6 +31,12 @@ const StyledButton = styled.button`
       margin-top: 20px;
   `}
 
+  ${({ success }) =>
+    success &&
+    css`
+      background:linear-gradient(60deg, #43A047, #CDDC39);
+  `}
+
   &:hover {
     transform: translateY(-5px);
     box-shadow: 0 7px 14px rgba(0, 0, 0, 0.2);
@@ -39,7 +45,7 @@ const StyledButton = styled.button`
 
 const Button = ({ colors, space, center, loading, success, children }) => {
   return (
-    <StyledButton colors={colors} space={space} center={center}>
+    <StyledButton colors={colors} space={space} center={center} success={success}>
       { loading ? <Spinner fill="#ffffff" /> : children }
     </StyledButton>
   );
