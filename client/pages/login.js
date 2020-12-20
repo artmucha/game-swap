@@ -91,8 +91,14 @@ const Login = () => {
       setSuccess(true);
       router.push('/');
     } catch(error) {
-      console.log(error.code);
-      console.log(error.message);
+      let message = '';
+      if(error.code == 'auth/user-not-found') {
+        message = 'Konto o podanym adresie email nie istnieje';
+      } else {
+        message = 'Hasło nieprawidłowe'
+      }
+      
+      setErrors([message]);
     };
     setSubmitting(false);
 

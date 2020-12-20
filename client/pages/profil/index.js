@@ -18,6 +18,7 @@ import Avatar from 'components/atoms/Avatar';
 import Input from 'components/atoms/Input';
 import TextArea from 'components/atoms/TextArea';
 import Button from 'components/atoms/Button';
+import Errors from 'components/atoms/Errors';
 
 import UserIcon from '../../public/icons/user.svg';
 import FavoriteIcon from '../../public/icons/favorite-outline.svg';
@@ -209,6 +210,9 @@ const Profile = () => {
   const [data, setData] = useState({});
   const [password, setPassword] = useState({});
   const [selected, setSelected] = useState('settings');
+  const [submitting, setSubmitting] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [errors, setErrors] = useState([]);
 
   const searchRef = useRef(null);
   const [query, setQuery] = useState('');
@@ -254,16 +258,18 @@ const Profile = () => {
 
   const handleUpdate = async(event) => {
     event.preventDefault();
-
+    setSubmitting(true);
     try {
       await fetch(`/api/users/${user.uid}`, {
         method: 'PUT',
         body: JSON.stringify(data),
         headers: { 'Content-Type': 'application/json' }
       });
+      setSuccess(true);
     } catch(error) {
       console.log(error)
     }
+    setSubmitting(false);
   };
 
   const handlePassword = (event) => {
@@ -272,16 +278,20 @@ const Profile = () => {
 
   const handlePasswordUpdate = async(event) => {
     event.preventDefault();
+    setSubmitting(true);
     try {
       if(password.password === password.password_confirm) {
         let user = await firebase.auth().currentUser;
         user.updatePassword(password.password);
       }
+      setSuccess(true);
     } catch(error) {
       if (error.code === 'auth/requires-recent-login') {
-        console.log('Ustawienie nowego hasła wymaga ponownego logowania. Wyloguj i zaloguj się ponownie.');
+        let message = 'Ustawienie nowego hasła wymaga ponownego logowania. Wyloguj i zaloguj się ponownie.';
+        setErrors([message]);
       }
     }
+    setSubmitting(false);
   };
 
   const handleUserRemove = async() => {
@@ -439,7 +449,7 @@ const Profile = () => {
                 value={data.description} 
                 onChange={handleChange}
               />
-              <Button type="submit" colors={['#0072ff', '#00c6ff']} space center>Zapisz</Button>
+              <Button type="submit" loading={submitting} success={success} colors={['#0072ff', '#00c6ff']} space center>{success ? 'Zapisano' : 'Zapisz'}</Button>
               <Button type="submit" colors={['#F50057', '#F50057']} space center onClick={handleUserRemove}>Usuń konto</Button>
             </Form>
           )
@@ -489,7 +499,7 @@ const Profile = () => {
                     </ResultsList>
                   )}
                 </SearchWrapper>
-                <Button type="submit" colors={['#0072ff', '#00c6ff']} space center>Dodaj</Button>
+                <Button type="submit" loading={submitting} success={success} colors={['#0072ff', '#00c6ff']} space center>{success ? 'Dodano' : 'Dodaj'}</Button>
               </Form>
             </>
           )
@@ -510,7 +520,8 @@ const Profile = () => {
                 Potwierdź hasło*
               </Paragraph>
               <Input type="password" name="password_confirm" value={password.password_confirm} required onChange={handlePassword} />
-              <Button type="submit" colors={['#0072ff', '#00c6ff']} space center>Zapisz</Button>
+              { errors.length ? <Errors errors={errors} /> : null }
+              <Button type="submit" loading={submitting} success={success} colors={['#0072ff', '#00c6ff']} space center>{success ? 'Zapisano' : 'Zapisz'}</Button>
             </Form>
           )
         }
