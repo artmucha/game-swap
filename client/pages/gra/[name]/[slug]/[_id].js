@@ -5,7 +5,6 @@ import Grid from 'components/atoms/Grid';
 import Typography from 'components/atoms/Typography';
 import Badge from 'components/atoms/Badge';
 import Paragraph from 'components/atoms/Paragraph';
-import Rating from 'components/atoms/Rating';
 import ButtonIcon from 'components/atoms/ButtonIcon';
 
 import FavoriteIcon from '../../../../public/icons/favorite.svg';
@@ -99,11 +98,10 @@ const Product = ({game}) => {
         <img src={game.cover} alt={game.title} />
           <Heading>
             <Container>
-              <Badge platform={game.platform.value.maker}>{game.platform.value.name}</Badge>
+              <Badge platform={game.platform.value.maker}>{game.platform.value.label}</Badge>
               <Typography as="h1" big>{game.title}</Typography>
               <Paragraph>Język: {game.language}</Paragraph>
               <Paragraph>Stan: {game.state}</Paragraph>
-              {game.rating && game.rating > 0 ? <Rating rating={game.rating} /> : null}
             </Container>
           </Heading>
 			</Hero>
@@ -155,7 +153,7 @@ export async function getStaticPaths() {
   const { data } = await res.json();
 
   const paths = data.map((game) => ({
-    params: { name: game.platform.value.name, slug: game.slug, _id: game._id },
+    params: { maker: game.platform.value.maker, name: game.platform.value.name, slug: game.slug, _id: game._id },
   }));
 
   return { paths, fallback: true }

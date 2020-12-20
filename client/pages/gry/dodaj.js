@@ -174,7 +174,7 @@ const NewPost = () => {
         <Select name="platform" value={data.platform} onChange={handleChange} required>
           {platform.map( option => (
             <option 
-              key={option.value.name} 
+              key={option.value.label} 
               value={JSON.stringify(option)}
               default={option.default}
             >

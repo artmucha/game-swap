@@ -1,64 +1,64 @@
 export const platform = [
   {
     name: 'Wybierz platformę',
-    value: {maker: '', name: ''},
+    value: {label: '', name: ''},
     default: true,
   },
   {
     name: 'PlayStation 4',
-    value: {maker: 'playstation', name: 'ps4'},
+    value: {maker: 'playstation', name: 'playstation-4', label: 'ps4'},
   },
   {
     name: 'PlayStation 3',
-    value: {maker: 'playstation', name: 'ps3'},
+    value: {maker: 'playstation', name: 'playstation-3', label: 'ps3'},
   },
   {
     name: 'PlayStation 2',
-    value: {maker: 'playstation', name: 'ps2'},
+    value: {maker: 'playstation', name: 'playstation-2', label: 'ps2'},
   },
   {
     name: 'PlayStation Vita',
-    value: {maker: 'playstation', name: 'psvita'},
+    value: {maker: 'playstation', name: 'playstation-vita', label: 'psvita'},
   },
   {
     name: 'PlayStation Portable',
-    value: {maker: 'playstation', name: 'psp'},
+    value: {maker: 'playstation', name: 'playstation-portable', label: 'psp'},
   },
   {
     name: 'Xbox One',
-    value: {maker: 'xbox', name: 'xone'},
+    value: {maker: 'xbox', name: 'xbox-one', label: 'xone'},
   },
   {
     name: 'Xbox 360',
-    value: {maker: 'xbox', name: 'x360'},
+    value: {maker: 'xbox', name: 'xbox-360', label: 'x360'},
   },
   {
     name: 'Xbox',
-    value: {maker: 'xbox', name: 'xbox'},
+    value: {maker: 'xbox', name: 'xbox', label: 'xbox'},
   },
   {
     name: 'Switch',
-    value: {maker: 'nintendo', name: 'switch'},
+    value: {maker: 'nintendo', name: 'nintendo-switch', label: 'switch'},
   },
   {
     name: 'WII',
-    value: {maker: 'nintendo', name: 'wii'},
+    value: {maker: 'nintendo', name: 'nintendo-wii', label: 'wii'},
   },
   {
     name: 'GameCube',
-    value: {maker: 'nintendo', name: 'gamecube'},
+    value: {maker: 'nintendo', name: 'nintendo-gamecube', label: 'gamecube'},
   },
   {
     name: '3DS',
-    value: {maker: 'nintendo', name: '3ds'},
+    value: {maker: 'nintendo', name: 'nintendo-3ds', label: '3ds'},
   },
   {
     name: 'DualScreen',
-    value: {maker: 'nintendo', name: 'nds'},
+    value: {maker: 'nintendo', name: 'nintendo-ds', label: 'nds'},
   },
   {
     name: 'PC',
-    value: {maker: 'pc', name: 'pc'},
+    value: {maker: 'pc', name: 'pc', label: 'pc'},
   },
 ];
 

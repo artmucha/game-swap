@@ -6,7 +6,6 @@ import Typography from 'components/atoms/Typography';
 import ButtonIcon from 'components/atoms/ButtonIcon';
 import Paragraph from 'components/atoms/Paragraph';
 import Badge from 'components/atoms/Badge';
-import Rating from 'components/atoms/Rating';
 
 import FavoriteIcon from '../../public/icons/favorite.svg';
 
@@ -67,7 +66,7 @@ const Heading = styled.header`
   }
 `;
 
-const Card = ({title, cover, platform, language, state, rating, slug, _id}) => {
+const Card = ({title, cover, platform, language, state, slug, _id}) => {
   return (
     <CardWrapper>
       <Link href={`/gra/${platform.value.name}/${slug}/${_id}`}>
@@ -75,7 +74,7 @@ const Card = ({title, cover, platform, language, state, rating, slug, _id}) => {
           <Cover>
             <Image src={cover} alt={title} width={270} height={300} quality={100} />
             <Heading>
-              <Badge platform={platform.value.maker}>{platform.value.name}</Badge>
+              <Badge platform={platform.value.maker}>{platform.value.label}</Badge>
               <Typography as='h2' color='#ffffff'>
                 {title}
               </Typography>
@@ -89,7 +88,6 @@ const Card = ({title, cover, platform, language, state, rating, slug, _id}) => {
         </ButtonIcon>
         <Paragraph small>Język: {language}</Paragraph>
         <Paragraph small>Stan: {state}</Paragraph>
-        {rating && rating > 0 ? <Rating rating={rating} /> : null}
       </ActionButtons>
     </CardWrapper>
   );

@@ -86,12 +86,10 @@ const CategoriesHeader = styled(Typography)`
 const Platform = ({games, params}) => {
   const [open, setOpen] = useState(false);
 
-  console.log(params)
-
   return (
     <>
       <Container>
-        <Typography as="h1" space big>Gry na {params.name}</Typography>
+        <Typography as="h1" space big>Gry na {params.platform}</Typography>
       </Container>
       <MobileFilters flex spaceBetween alignCenter>
         <Typography as="h3" space small>Kategorie</Typography>
@@ -107,7 +105,7 @@ const Platform = ({games, params}) => {
             </CategoriesHeader>
             { categories.map(category => (
                 <li key={category.value}>
-                <Link href={`/gry/${params.maker}/${params.name}/${category.slug}`}>
+                <Link href={`/gry/${params.name}/${category.slug}`}>
                   <a>{category.name}</a>
                 </Link>
               </li>
@@ -127,7 +125,7 @@ export async function getStaticPaths() {
   const {data} = await res.json();
 
   const paths = data.map((game) => ({
-    params: { maker: game.platform.value.maker, name: game.platform.value.name },
+    params: { maker: game.platform.value.maker, platform: game.platform.name, name: game.platform.value.name },
   }));
 
   return { paths, fallback: true }
