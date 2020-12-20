@@ -13,6 +13,13 @@ import BackButton from '../../../public/icons/right-arrow.svg';
 
 import { categories } from 'constans/filters';
 
+const PageTitle = styled(Typography)`
+
+  strong {
+    text-transform: capitalize;
+  }
+`;
+
 const MobileFilters = styled(Container)`
   @media(min-width: 992px) {
     display: none;
@@ -89,7 +96,7 @@ const Platform = ({games, params}) => {
   return (
     <>
       <Container>
-        <Typography as="h1" space big>Gry na {params.platform}</Typography>
+        <PageTitle as="h1" space big>Gry na <strong>{params.name.split('-').join(' ')}</strong></PageTitle>
       </Container>
       <MobileFilters flex spaceBetween alignCenter>
         <Typography as="h3" space small>Kategorie</Typography>
@@ -125,7 +132,7 @@ export async function getStaticPaths() {
   const {data} = await res.json();
 
   const paths = data.map((game) => ({
-    params: { maker: game.platform.value.maker, platform: game.platform.name, name: game.platform.value.name },
+    params: { name: game.platform.value.name },
   }));
 
   return { paths, fallback: true }

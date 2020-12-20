@@ -26,7 +26,7 @@ const GameSchema = new mongoose.Schema({
   images: [{id: Number, image: String}],
   slug: String,
   owner: {
-    type: mongoose.Schema.ObjectId,
+    type: String,
     ref: 'User'
   }
 });

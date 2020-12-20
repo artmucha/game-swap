@@ -10,6 +10,7 @@ import Badge from 'components/atoms/Badge';
 import FavoriteIcon from '../../public/icons/favorite.svg';
 
 const CardWrapper = styled.article`
+  max-height: 380px;
   position: relative;
   border-radius: 12px;
   overflow: hidden;

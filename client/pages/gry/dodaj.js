@@ -12,6 +12,8 @@ import Errors from 'components/atoms/Errors';
 import { platform, language, state } from 'constans/options';
 import { debounce } from 'utils/helpers';
 
+import { useUser } from 'utils/useUser';
+
 const Wrapper = styled.div`
   width: 100%;
   max-width: 400px;
@@ -76,6 +78,7 @@ const ResultsList = styled.ul`
 `;
 
 const NewPost = () => {
+  const { user } = useUser();
 
   const searchRef = useRef(null);
   const [query, setQuery] = useState('');
@@ -142,7 +145,7 @@ const NewPost = () => {
   const handleSubmit = async(event) => {
     event.preventDefault();
     setSubmitting(true);
-    const games = {...data, platform: JSON.parse(data.platform)}
+    const games = {...data, owner: user.uid, platform: JSON.parse(data.platform)}
 
     try {
       const res = await fetch('/api/games', {
