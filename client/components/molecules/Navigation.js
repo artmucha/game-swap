@@ -4,6 +4,7 @@ import Link from 'next/link';
 import SearchForm from 'components/molecules/SearchForm';
 import menu from 'constans/menu';
 import ButtonIcon from 'components/atoms/ButtonIcon';
+import NavigationList from 'components/atoms/NavigationList';
 
 import CloseIcon from '../../public/icons/close-button.svg';
 
@@ -33,32 +34,6 @@ const NavigationWrapper = styled.nav`
   transform: ${({ open }) => open ? 'translateX(0)' : 'translateX(-100%)'};
   transition: transform .2s linear;
   z-index: 999;
-`;
-
-const NavigationList = styled.ul`
-  overflow-y: auto;
-
-  a,
-  span {
-    display: block;
-    padding: 10px 15px;
-    color: ${({ theme }) => theme.black};
-    font-weight: ${({ theme }) => theme.bold};
-    border-bottom: 1px solid ${({ theme }) => theme.grey200};
-  }
-
-  a:hover {
-    background-color: ${({ theme }) => theme.grey100};
-  }
-
-  li {
-    ul {
-      a {
-        padding: 10px 15px 10px 30px;
-        font-weight: ${({ theme }) => theme.regular};
-      }
-    }
-  }
 `;
 
 const CloseButton = styled(ButtonIcon)`
