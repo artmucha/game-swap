@@ -282,11 +282,11 @@ const Profile = () => {
     try {
       if(password.password === password.password_confirm) {
         let user = await firebase.auth().currentUser;
-        user.updatePassword(password.password);
+        await user.updatePassword(password.password);
+        setSuccess(true);
       }
-      setSuccess(true);
     } catch(error) {
-      if (error.code === 'auth/requires-recent-login') {
+      if (error.code == 'auth/requires-recent-login') {
         let message = 'Ustawienie nowego hasła wymaga ponownego logowania. Wyloguj i zaloguj się ponownie.';
         setErrors([message]);
       }
