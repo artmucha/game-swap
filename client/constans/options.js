@@ -46,7 +46,7 @@ export const platform = [
   },
   {
     name: 'GameCube',
-    value: {maker: 'nintendo', name: 'nintendo-gamecube', label: 'gamecube'},
+    value: {maker: 'nintendo', name: 'nintendo-game-cube', label: 'gamecube'},
   },
   {
     name: '3DS',
@@ -54,7 +54,7 @@ export const platform = [
   },
   {
     name: 'DualScreen',
-    value: {maker: 'nintendo', name: 'nintendo-ds', label: 'nds'},
+    value: {maker: 'nintendo', name: 'nintendo-dual-screen', label: 'nds'},
   },
   {
     name: 'PC',

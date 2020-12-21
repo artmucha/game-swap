@@ -129,23 +129,22 @@ const Platform = ({games, params}) => {
 
 export async function getStaticPaths() {
   const res = await fetch('http://localhost:3000/api/games');
-  const {data} = await res.json();
+  const { data } = await res.json();
 
   const paths = data.map((game) => ({
     params: { name: game.platform.value.name },
   }));
 
   return { paths, fallback: true }
-}
+};
 
 export async function getStaticProps({params}) {
-  const res = await fetch('http://localhost:3000/api/games');
+  const res = await fetch(`http://localhost:3000/api/games/${params.name}`);
   const {data} = await res.json();
 
   return {
     props: { games: data, params: params }
   }
 }
-
 
 export default Platform;

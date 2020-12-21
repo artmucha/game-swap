@@ -54,7 +54,7 @@ export default [
       },
       {
         text: 'GameCube',
-        link: 'nintendo-gamecube',
+        link: 'nintendo-game-cube',
       },
       {
         text: '3DS',
@@ -62,7 +62,7 @@ export default [
       },
       {
         text: 'DualScreen',
-        link: 'nintendo-ds',
+        link: 'nintendo-dual-screen',
       },
     ],
   },

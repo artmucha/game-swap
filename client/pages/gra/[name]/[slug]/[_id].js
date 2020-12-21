@@ -160,7 +160,7 @@ export async function getStaticPaths() {
 };
 
 export async function getStaticProps({params}) {
-  const res = await fetch(`http://localhost:3000/api/games/${params._id}`);
+  const res = await fetch(`http://localhost:3000/api/game/${params._id}`);
   const {data} = await res.json();
 
   return {
