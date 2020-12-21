@@ -127,12 +127,14 @@ const Platform = ({games, params}) => {
   );
 };
 
-export async function getServerSideProps({params}) {
-  
-  const res = await fetch(`http://localhost:3000/api/games/${params.name}`);
-  const {data} = await res.json();
+export async function getServerSideProps({params, query}) {
 
-  console.log(data)
+  const res = await fetch(`http://localhost:3000/api/games/${params.name}`, {
+    method: 'POST',
+    body: JSON.stringify(query),
+    headers: { 'Content-Type': 'application/json'},
+  });
+  const {data} = await res.json();
 
   return {
     props: { games: data, params: params }
