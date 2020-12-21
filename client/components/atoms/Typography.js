@@ -6,12 +6,6 @@ const Typography = styled.div`
   font-weight: ${({ theme }) => theme.bold};
   color: ${({ theme, color }) => (color ? color : theme.black)};
 
-  ${({ big }) =>
-    big &&
-    css`
-      font-size: ${({ theme }) => theme.fontSize.xl};
-  `}
-
   ${({ small }) =>
     small &&
     css`
@@ -28,16 +22,20 @@ const Typography = styled.div`
     space &&
     css`
       margin: 2rem 0;
-    `
-  }
+    `}
 
   @media(min-width: 768px) {
     ${({ space }) => 
     space &&
     css`
       margin: 4rem 0 2rem 0;
-    `
-  }
+    `}
+
+    ${({ big }) =>
+    big &&
+    css`
+      font-size: ${({ theme }) => theme.fontSize.xl};
+    `}
   }
 
 `;

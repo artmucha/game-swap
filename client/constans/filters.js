@@ -31,7 +31,7 @@ export const categories = [
   },
   {
     id: 83,
-    name: 'Platformowe',
+    name: 'Platformówki',
     value: 'platformer',
     slug: 'gry-platformowe'
   },
@@ -67,9 +67,9 @@ export const categories = [
   },
   {
     id: 14,
-    name: 'Symulacja',
+    name: 'Symulacje',
     value: 'simulation',
-    slug: 'symulacja'
+    slug: 'symulacje'
   },
   {
     id: 19,
@@ -81,7 +81,7 @@ export const categories = [
     id: 1,
     name: 'Wyścigi',
     value: 'racing',
-    slug: 'gry-wyscigowe'
+    slug: 'wyscigi'
   },
   {
     id: 11,

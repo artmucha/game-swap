@@ -96,7 +96,7 @@ const Platform = ({games, params}) => {
   return (
     <>
       <Container>
-        <PageTitle as="h1" space big>Gry na <strong>{params.name.split('-').join(' ')}</strong></PageTitle>
+        <PageTitle as="h1" space big><strong>{params.slug.split('-').join(' ')}</strong> na <strong>{params.name.split('-').join(' ')}</strong></PageTitle>
       </Container>
       <MobileFilters flex spaceBetween alignCenter>
         <Typography as="h3" space small>Kategorie</Typography>
