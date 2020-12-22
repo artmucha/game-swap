@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Link from 'next/link';
+import Router, { useRouter } from 'next/router';
 import styled from 'styled-components';
 
 import Container from 'components/atoms/Container';
@@ -91,8 +92,21 @@ const CategoriesHeader = styled(Typography)`
   }
 `;
 
-const Platform = ({games, params}) => {
+const Platform = ({games, page, params}) => {
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const startLoading = () => setLoading(true);
+  const stopLoading = () => setLoading(false);
+
+  useEffect(() => {
+    Router.events.on("routeChangeStart", startLoading)
+    Router.events.on("routeChangeComplete", stopLoading)
+    return () => {
+      Router.events.off("routeChangeStart", startLoading)
+      Router.events.off("routeChangeComplete", stopLoading)
+    }
+  }, [])
 
   return (
     <>
@@ -125,20 +139,28 @@ const Platform = ({games, params}) => {
         </Grid>
       </Container>
       <Container>
-        <Pagination />
+        <Pagination
+          initialPage={page.currentPage - 1}
+          currentPage={page.currentPage}
+          totalPages={page.maxPage}
+        />
       </Container>
     </>
   );
 };
 
-export async function getServerSideProps({params}) {
+export async function getServerSideProps({params, query}) {
   
-  const res = await fetch(`http://localhost:3000/api/games/${params.name}`);
-  const {data} = await res.json();
+  const res = await fetch(`http://localhost:3000/api/games/${params.name}`, {
+    method: 'POST',
+    body: JSON.stringify(query),
+    headers: { 'Content-Type': 'application/json'},
+  });
+  const {data, currentPage, maxPage } = await res.json();
 
   return {
-    props: { games: data, params: params }
+    props: { games: data, page: {currentPage, maxPage}, params: params }
   }
-}
+};
 
 export default Platform;

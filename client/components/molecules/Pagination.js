@@ -1,4 +1,6 @@
-import styled from 'styled-components';
+import { useState } from 'react';
+import { useRouter } from "next/router";
+import styled, { css } from 'styled-components';
 
 const StyledPagination = styled.ul`
   display: flex;
@@ -20,35 +22,47 @@ const StyledPagination = styled.ul`
 			margin: 0 10px;
 			border-radius: 50%;
 			text-align: center;
+			cursor: pointer;
 			font-size: ${({ theme }) => theme.fontSize.s};
 			font-weight: ${({ theme }) => theme.bold};
 		}
-		&:nth-of-type(3) {
+
+		${({ currentPage }) =>
+    currentPage &&
+    css`
+      &:nth-of-type(${currentPage}) {
 			a {
 				background: linear-gradient(60deg,#0072ff,#00c6ff);
-				box-shadow: 2px 2px 16px rgba(0, 0, 0, 0.15);
 				color: ${({ theme }) => theme.white};
 			}
 		}
+    `}
 	}
-
 `;
 
-const Pagination = ({}) => {
+const Pagination = ({initialPage, currentPage, totalPages}) => {
+	const router = useRouter();
+
+  const handlePagination = (page) => {
+    const path = router.pathname;
+		const query = router.query;
+
+    query.page = page + 1;
+    router.push({
+      pathname: path,
+      query: query,
+		});
+	};
+
+	const paginationList = [...Array(totalPages).keys()];
+	
   return (
-    <StyledPagination>
-      <li>
-          <a>1</a>
-      </li>
-      <li>
-          <a>2</a>
-      </li>
-      <li>
-          <a>3</a>
-      </li>
-      <li>
-          <a>4</a>
-      </li>
+    <StyledPagination currentPage={currentPage}>
+      { paginationList.length > 1 && paginationList.map(item => (
+				<li key={item}>
+					<a onClick={() => handlePagination(item)}>{item + 1}</a>
+				</li>
+			)) }
     </StyledPagination>
   );
 };
