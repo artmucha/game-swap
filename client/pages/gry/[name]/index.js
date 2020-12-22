@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Router, { useRouter } from 'next/router';
+import Router from 'next/router';
 import styled from 'styled-components';
 
 import Container from 'components/atoms/Container';
@@ -9,6 +9,7 @@ import Card from 'components/organisms/Card';
 import Typography from 'components/atoms/Typography';
 import NavigationList from 'components/atoms/NavigationList';
 import Pagination from 'components/molecules/Pagination';
+import PageLoader from 'components/molecules/PageLoader';
 
 import FilterButton from '../../../public/icons/filters.svg';
 import BackButton from '../../../public/icons/right-arrow.svg';
@@ -110,6 +111,7 @@ const Platform = ({games, page, params}) => {
 
   return (
     <>
+    { loading && <PageLoader /> }
       <Container>
         <PageTitle as="h1" space big>Gry na <strong>{params.name.split('-').join(' ')}</strong></PageTitle>
       </Container>
