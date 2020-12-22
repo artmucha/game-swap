@@ -61,7 +61,7 @@ export const categories = [
   },
   {
     id: 2,
-    name: 'Strzelaniny (FPS)',
+    name: 'Strzelaniny',
     value: 'shooter',
     slug: 'strzelaniny'
   },

@@ -7,6 +7,7 @@ import Grid from 'components/atoms/Grid';
 import Card from 'components/organisms/Card';
 import Typography from 'components/atoms/Typography';
 import NavigationList from 'components/atoms/NavigationList';
+import Pagination from 'components/molecules/Pagination';
 
 import FilterButton from '../../../public/icons/filters.svg';
 import BackButton from '../../../public/icons/right-arrow.svg';
@@ -90,7 +91,7 @@ const CategoriesHeader = styled(Typography)`
   }
 `;
 
-const Platform = ({games, params}) => {
+const Category = ({games, page, params}) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -123,22 +124,29 @@ const Platform = ({games, params}) => {
           {games.map(game =><Card key={game._id} {...game} />)}
         </Grid>
       </Container>
+      <Container>
+        <Pagination
+          initialPage={page.currentPage - 1}
+          currentPage={page.currentPage}
+          totalPages={page.maxPage}
+        />
+      </Container>
     </>
   );
 };
 
 export async function getServerSideProps({params, query}) {
-
+  
   const res = await fetch(`http://localhost:3000/api/games/${params.name}`, {
     method: 'POST',
     body: JSON.stringify(query),
     headers: { 'Content-Type': 'application/json'},
   });
-  const {data} = await res.json();
+  const {data, currentPage, maxPage } = await res.json();
 
   return {
-    props: { games: data, params: params }
+    props: { games: data, page: {currentPage, maxPage}, params: params }
   }
-}
+};
 
-export default Platform;
+export default Category;
