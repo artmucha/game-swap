@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useRouter } from "next/router";
 import styled, { css } from 'styled-components';
 
@@ -31,11 +30,11 @@ const StyledPagination = styled.ul`
     currentPage &&
     css`
       &:nth-of-type(${currentPage}) {
-			a {
-				background: linear-gradient(60deg,#0072ff,#00c6ff);
-				color: ${({ theme }) => theme.white};
+				a {
+					background: linear-gradient(60deg,#0072ff,#00c6ff);
+					color: ${({ theme }) => theme.white};
+				}
 			}
-		}
     `}
 	}
 `;
