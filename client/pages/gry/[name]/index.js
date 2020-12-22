@@ -7,6 +7,7 @@ import Grid from 'components/atoms/Grid';
 import Card from 'components/organisms/Card';
 import Typography from 'components/atoms/Typography';
 import NavigationList from 'components/atoms/NavigationList';
+import Pagination from 'components/molecules/Pagination';
 
 import FilterButton from '../../../public/icons/filters.svg';
 import BackButton from '../../../public/icons/right-arrow.svg';
@@ -123,6 +124,9 @@ const Platform = ({games, params}) => {
           {games.map(game =><Card key={game._id} {...game} />)}
         </Grid>
       </Container>
+      <Container>
+        <Pagination />
+      </Container>
     </>
   );
 };
@@ -131,8 +135,6 @@ export async function getServerSideProps({params}) {
   
   const res = await fetch(`http://localhost:3000/api/games/${params.name}`);
   const {data} = await res.json();
-
-  console.log(data)
 
   return {
     props: { games: data, params: params }

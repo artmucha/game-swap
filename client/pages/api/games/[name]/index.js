@@ -10,8 +10,6 @@ export default async (req, res) => {
     body: { id }, 
  } = req;
 
- console.log(name)
-
   switch(method) {
     case 'GET':
       try {
