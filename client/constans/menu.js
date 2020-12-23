@@ -3,6 +3,10 @@ export default [
     text: 'PlayStation',
     sub: [
       {
+        text: 'PlayStation 5',
+        link: 'playstation-5',
+      },
+      {
         text: 'PlayStation 4',
         link: 'playstation-4',
       },
@@ -27,6 +31,10 @@ export default [
   {
     text: 'Xbox',
     sub: [
+      {
+        text: 'Xbox Series X/S',
+        link: 'xbox-series-x',
+      },
       {
         text: 'Xbox One',
         link: 'xbox-one',

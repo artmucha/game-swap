@@ -5,6 +5,10 @@ export const platform = [
     default: true,
   },
   {
+    name: 'PlayStation 5',
+    value: {maker: 'playstation', name: 'playstation-5', label: 'ps5'},
+  },
+  {
     name: 'PlayStation 4',
     value: {maker: 'playstation', name: 'playstation-4', label: 'ps4'},
   },
@@ -23,6 +27,10 @@ export const platform = [
   {
     name: 'PlayStation Portable',
     value: {maker: 'playstation', name: 'playstation-portable', label: 'psp'},
+  },
+  {
+    name: 'Xbox Series X/S',
+    value: {maker: 'xbox', name: 'xbox-series-x', label: 'xsx'},
   },
   {
     name: 'Xbox One',
