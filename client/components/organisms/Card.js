@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -6,7 +7,7 @@ import { useDispatchWishlist, useWishlist } from 'Providers/WishlistProvider';
 import { useUser } from 'utils/useUser';
 
 import Typography from 'components/atoms/Typography';
-import ButtonIcon from 'components/atoms/ButtonIcon';
+import WishlistButton from 'components/molecules/WishlistButton';
 import Paragraph from 'components/atoms/Paragraph';
 import Badge from 'components/atoms/Badge';
 
@@ -73,14 +74,21 @@ const Heading = styled.header`
 const Card = ({id, title, cover, platform, language, state, slug, _id}) => {
   const { user } = useUser();
   const dispatch = useDispatchWishlist();
+  const [adding, setAdding] = useState(false);
 
   const toggleWishlist = async(gameID) => {
-    const res = await fetch(`/api/users/${user.uid}/wishlist`, {
-      method: 'POST',
-      body: JSON.stringify({id: gameID}),
-      headers: { 'Content-Type': 'application/json' }
-    });
-    dispatch({ type: 'TOGGLE_WISHLIST', gameID });
+    console.log(gameID)
+    setAdding(true);
+    try {
+      const res = await fetch(`/api/users/${user.uid}/wishlist`, {
+        method: 'POST',
+        body: JSON.stringify({id: gameID}),
+        headers: { 'Content-Type': 'application/json' }
+      });
+      dispatch({ type: 'TOGGLE_WISHLIST', gameID });
+    } catch(error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -99,9 +107,9 @@ const Card = ({id, title, cover, platform, language, state, slug, _id}) => {
         </a>
       </Link>
       <ActionButtons>
-        <ButtonIcon fill="#ffffff" colors={['#F50057', '#FF8A80']} onClick={() => toggleWishlist(id)}>
-          <FavoriteIcon />
-        </ButtonIcon>
+        <WishlistButton fill="#ffffff" colors={['#F50057', '#FF8A80']} adding={adding}>
+          <FavoriteIcon onClick={() => toggleWishlist(id)} />
+        </WishlistButton>
         <Paragraph small>Język: {language}</Paragraph>
         <Paragraph small>Stan: {state}</Paragraph>
       </ActionButtons>

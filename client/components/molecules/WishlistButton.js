@@ -33,11 +33,11 @@ const StyledButton = styled(ButtonIcon)`
     position: absolute;
     content: '';
     display: block;
-    width: 140%;
+    width: 160%;
     height: 100%;
     left: -20%;
     z-index: -1000;
-    transition: all ease-in-out 0.5s;
+    transition: all ease-in-out 1s;
     background-repeat: no-repeat;
   }
 
@@ -45,52 +45,60 @@ const StyledButton = styled(ButtonIcon)`
     display: none;
     top: -75%;
     background-image:  
-      radial-gradient(circle, #F50057 20%, transparent 20%),
-			radial-gradient(circle,  transparent 20%, #F50057 20%, transparent 30%),
-			radial-gradient(circle, #F50057 20%, transparent 20%), 
-			radial-gradient(circle, #F50057 20%, transparent 20%),
-			radial-gradient(circle,  transparent 10%, #F50057 15%, transparent 20%),
-			radial-gradient(circle, #F50057 20%, transparent 20%),
-			radial-gradient(circle, #F50057 20%, transparent 20%),
-			radial-gradient(circle, #F50057 20%, transparent 20%),
-			radial-gradient(circle, #F50057 20%, transparent 20%);
+      radial-gradient(circle, #F50057 40%, transparent 40%),
+			radial-gradient(circle,  transparent 40%, #F50057 40%, transparent 60%),
+			radial-gradient(circle, #F50057 40%, transparent 40%), 
+			radial-gradient(circle, #F50057 40%, transparent 40%),
+			radial-gradient(circle,  transparent 20%, #F50057 30%, transparent 40%),
+			radial-gradient(circle, #F50057 40%, transparent 40%),
+			radial-gradient(circle, #FF8A80 40%, transparent 40%),
+			radial-gradient(circle, #F50057 40%, transparent 40%),
+			radial-gradient(circle, #FF8A80 40%, transparent 40%);
 			background-size: 10% 10%, 20% 20%, 15% 15%, 20% 20%, 18% 18%, 10% 10%, 15% 15%, 10% 10%, 18% 18%;
-			//background-position: 0% 80%, -5% 20%, 10% 40%, 20% 0%, 30% 30%, 22% 50%, 50% 50%, 65% 20%, 85% 30%;
   }
 
 	&:after {
     display: none;
     bottom: -75%;
     background-image:  
-    radial-gradient(circle, #F50057 20%, transparent 20%), 
-    radial-gradient(circle, #F50057 20%, transparent 20%),
-    radial-gradient(circle,  transparent 10%, #F50057 15%, transparent 20%),
-    radial-gradient(circle, #F50057 20%, transparent 20%),
-    radial-gradient(circle, #F50057 20%, transparent 20%),
-    radial-gradient(circle, #F50057 20%, transparent 20%),
-    radial-gradient(circle, #F50057 20%, transparent 20%);
+    radial-gradient(circle, #F50057 40%, transparent 40%), 
+    radial-gradient(circle, #FF8A80 40%, transparent 40%),
+    radial-gradient(circle,  transparent 20%, #F50057 30%, transparent 40%),
+    radial-gradient(circle, #F50057 40%, transparent 40%),
+    radial-gradient(circle, #FF8A80 40%, transparent 40%),
+    radial-gradient(circle,  transparent 40%, #F50057 40%, transparent 60%),
+    radial-gradient(circle, #F50057 40%, transparent 40%);
 		background-size: 15% 15%, 20% 20%, 18% 18%, 20% 20%, 15% 15%, 10% 10%, 20% 20%;
-		//background-position: 5% 90%, 10% 90%, 10% 90%, 15% 90%, 25% 90%, 25% 90%, 40% 90%, 55% 90%, 70% 90%;
   }
 
 	${({ adding }) =>
     adding &&
     css`
-			&:before {
-      display: block;
-      animation: ${topBubbles} ease-in-out .75s forwards;
-    }
+      background: ${({ theme }) => theme.white};
+      transition: background 1s ease-in-out;
+      &:before {
+        display: block;
+        animation: ${topBubbles} ease-in-out 1s forwards;
+      }
 
 		&:after {
       display: block;
-      animation: ${bottomBubbles} ease-in-out .75s forwards;
+      animation: ${bottomBubbles} ease-in-out 1s forwards;
+    }
+
+    svg {
+      fill: #F50057;
+      transition: fill 1s ease-in-out;
     }
   `}
 `;
 
-const WishlistButton = ({adding}) => {
+const WishlistButton = ({fill, colors, adding, children}) => {
+
 	return (
-		<StyledButton adding={adding}></StyledButton>
+		<StyledButton fill={fill} colors={colors} adding={adding}>
+      {children}
+    </StyledButton>
 	)
 };
 

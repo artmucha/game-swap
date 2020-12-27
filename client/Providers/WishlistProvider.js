@@ -9,9 +9,9 @@ const reducer = (state, action) => {
       if(state.includes(action.gameID)) {
         const newWishlist = [...state];
         newWishlist.splice(action.index, 1);
-        return newWishlist
+        return newWishlist;
       } else {
-        return [...state, action.gameID]
+        return [...state, action.gameID];
       }
     default:
       throw new Error(`Unknown action: ${action.type}`)
