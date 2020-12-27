@@ -25,8 +25,8 @@ const Container = styled.div`
       justify-content: space-between;
     `}
   
-    ${({ start }) =>
-    start &&
+    ${({ flexStart }) =>
+    flexStart &&
     css`
       justify-content: flex-start;
     `}

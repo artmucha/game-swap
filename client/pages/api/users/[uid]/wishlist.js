@@ -5,8 +5,9 @@ dbConnect();
 
 export default async (req, res) => {
   const {
+    method,
     query: {uid},
-    method 
+    body: {id}
   } = req;
 
   switch(method) {
@@ -21,11 +22,14 @@ export default async (req, res) => {
       break;
     case 'POST':
       try {
+        const likedID = await User.findOne({wishlist: { $in: id }});
+        const operator = likedID ? '$pull' : '$addToSet';
+
         const user = await User.findOneAndUpdate(
           uid, 
-          { $addToSet: { wishlist: req.body } },
+          { [operator]: { wishlist: id } },
           { new: true,
-            useFindAndModify: true 
+            useFindAndModify: false 
           }
         );
 
@@ -40,7 +44,7 @@ export default async (req, res) => {
           uid, 
           { $pull: { wishlist: req.body } },
           { new: true,
-            useFindAndModify: true 
+            useFindAndModify: false 
           }
         );
         res.status(200).json({success: true, data: user });

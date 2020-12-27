@@ -2,6 +2,9 @@ import styled from 'styled-components';
 import Link from 'next/link';
 import Image from 'next/image';
 
+import { useDispatchWishlist, useWishlist } from 'Providers/WishlistProvider';
+import { useUser } from 'utils/useUser';
+
 import Typography from 'components/atoms/Typography';
 import ButtonIcon from 'components/atoms/ButtonIcon';
 import Paragraph from 'components/atoms/Paragraph';
@@ -67,7 +70,19 @@ const Heading = styled.header`
   }
 `;
 
-const Card = ({title, cover, platform, language, state, slug, _id}) => {
+const Card = ({id, title, cover, platform, language, state, slug, _id}) => {
+  const { user, logout } = useUser();
+  const dispatch = useDispatchWishlist();
+
+  const toggleWishlist = async(gameID) => {
+    const res = await fetch(`/api/users/${user.uid}/wishlist`, {
+      method: 'POST',
+      body: JSON.stringify({id: gameID}),
+      headers: { 'Content-Type': 'application/json' }
+    });
+    dispatch({ type: 'TOGGLE_WISHLIST', gameID });
+  };
+
   return (
     <CardWrapper>
       <Link href={`/gra/${platform.value.name}/${slug}/${_id}`}>
@@ -84,7 +99,7 @@ const Card = ({title, cover, platform, language, state, slug, _id}) => {
         </a>
       </Link>
       <ActionButtons>
-        <ButtonIcon fill="#ffffff" colors={['#F50057', '#FF8A80']}>
+        <ButtonIcon fill="#ffffff" colors={['#F50057', '#FF8A80']} onClick={() => toggleWishlist(id)}>
           <FavoriteIcon />
         </ButtonIcon>
         <Paragraph small>Język: {language}</Paragraph>

@@ -5,7 +5,7 @@ const WishlistDispatchContext = createContext();
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case 'ADD_TO_WISHLIST':
+    case 'TOGGLE_WISHLIST':
       return [...state, action.payload]
     case 'REMOVE_FROM_WISHLIST':
     	const newWishlist = [...state];
