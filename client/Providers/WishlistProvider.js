@@ -19,7 +19,7 @@ const reducer = (state, action) => {
 };
 
 export const WishlistProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, [])
+  const [state, dispatch] = useReducer(reducer, []);
   return (
     <WishlistDispatchContext.Provider value={dispatch}>
       <WishlistStateContext.Provider value={state}>
