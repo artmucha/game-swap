@@ -71,7 +71,7 @@ const Heading = styled.header`
 `;
 
 const Card = ({id, title, cover, platform, language, state, slug, _id}) => {
-  const { user, logout } = useUser();
+  const { user } = useUser();
   const dispatch = useDispatchWishlist();
 
   const toggleWishlist = async(gameID) => {
