@@ -103,7 +103,7 @@ const Category = ({games, page, params}) => {
         <Typography as="h3" space small>Kategorie</Typography>
         <FilterButton onClick={() => setOpen(!open)} />
       </MobileFilters>
-      <Container flex start>
+      <Container flex flexStart>
         <CategoriesOverlay open={open} onClick={() => setOpen(!open)}></CategoriesOverlay>
         <CategoriesWrapper open={open}>
           <CategoriesList>

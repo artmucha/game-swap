@@ -1,31 +1,38 @@
 import dbConnect from 'utils/dbConnect';
 import User from 'models/User';
+import Game from 'models/Game';
 
 dbConnect();
 
 export default async (req, res) => {
   const {
+    method,
     query: {uid},
-    method 
+    body: {id}
   } = req;
 
   switch(method) {
     case 'GET':
       try {
         const user = await User.findOne({uid});
-        if(!user) return res.status(400).json({success: false});
-        res.status(200).json({success: true, data: user});
+        const games = await Game.find({
+          id: { $in: user.wishlist }
+        });
+        res.status(200).json({success: true, data: games});
       } catch(error) {
         res.status(400).json({success: false});
       }
       break;
     case 'POST':
       try {
+        const likedID = await User.findOne({wishlist: { $in: id }});
+        const operator = likedID ? '$pull' : '$addToSet';
+
         const user = await User.findOneAndUpdate(
           uid, 
-          { $addToSet: { wishlist: req.body } },
+          { [operator]: { wishlist: id } },
           { new: true,
-            useFindAndModify: true 
+            useFindAndModify: false 
           }
         );
 
@@ -40,7 +47,7 @@ export default async (req, res) => {
           uid, 
           { $pull: { wishlist: req.body } },
           { new: true,
-            useFindAndModify: true 
+            useFindAndModify: false 
           }
         );
         res.status(200).json({success: true, data: user });
