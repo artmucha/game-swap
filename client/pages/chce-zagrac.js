@@ -40,7 +40,7 @@ const Wishlist = () => {
         console.log(error);
       }
 		};
-
+		
 		fetchData();
     
   }, [user, games]);
