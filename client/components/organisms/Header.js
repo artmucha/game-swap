@@ -38,15 +38,6 @@ const Header = () => {
           <a><Logo /></a>
         </Link>
         <div>
-          <Link href="/chce-zagrac">
-            <a>
-              <ButtonIcon flat>
-                <Badge circle color="#F50057">{items.length}</Badge>
-                <FavoriteIcon />
-              </ButtonIcon>
-            </a>
-          </Link>
-
           {!user ? (
             <Link href="/login">
               <a>
@@ -58,6 +49,14 @@ const Header = () => {
             </Link>
           ) : (
             <>
+            <Link href="/chce-zagrac">
+              <a>
+                <ButtonIcon flat>
+                  <Badge circle color="#F50057">{items.length}</Badge>
+                  <FavoriteIcon />
+                </ButtonIcon>
+              </a>
+            </Link>
             <Link href="/profil">
               <a>
               <ButtonIcon flat>
@@ -73,9 +72,6 @@ const Header = () => {
                 </ButtonIcon>
               </a>
             </Link>
-            <ButtonIcon flat fill="#0072ff">
-              <AddIcon onClick={ () => logout() } />
-            </ButtonIcon>
             </>
           )}
         </div>
