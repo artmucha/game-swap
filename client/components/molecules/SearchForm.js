@@ -10,7 +10,7 @@ const SearchWrapper = styled.form`
   align-items: center;
   border: 1px solid ${({ theme }) => theme.grey200};
   border-radius: 12px;
-  margin: 15px;
+  margin: 0 0 30px 0;
   background-color: ${({ theme }) => theme.white};
 `;
 

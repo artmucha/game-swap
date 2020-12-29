@@ -8,6 +8,7 @@ import Grid from 'components/atoms/Grid';
 import Card from 'components/organisms/Card';
 import Typography from 'components/atoms/Typography';
 import NavigationList from 'components/atoms/NavigationList';
+import SearchForm from 'components/molecules/SearchForm';
 import Pagination from 'components/molecules/Pagination';
 import PageLoader from 'components/molecules/PageLoader';
 
@@ -136,9 +137,12 @@ const Platform = ({games, page, params}) => {
             )) }
           </CategoriesList>
         </CategoriesWrapper>
-        <Grid s={2} m={3}>
-          {games.map(game =><Card key={game._id} {...game} />)}
-        </Grid>
+        <div>
+          <SearchForm />
+          <Grid s={2} m={3}>
+            {games.map(game =><Card key={game._id} {...game} />)}
+          </Grid>
+        </div>
       </Container>
       <Container>
         <Pagination
