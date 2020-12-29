@@ -71,8 +71,8 @@ const StyledButton = styled(ButtonIcon)`
 		background-size: 15% 15%, 20% 20%, 18% 18%, 20% 20%, 15% 15%, 10% 10%, 20% 20%;
   }
 
-	${({ adding }) =>
-    adding &&
+	${({ added }) =>
+    added &&
     css`
       background: ${({ theme }) => theme.white};
       transition: background 1s ease-in-out;
@@ -93,10 +93,10 @@ const StyledButton = styled(ButtonIcon)`
   `}
 `;
 
-const WishlistButton = ({fill, colors, adding, children}) => {
+const WishlistButton = ({fill, colors, added, children}) => {
 
 	return (
-		<StyledButton fill={fill} colors={colors} adding={adding}>
+		<StyledButton fill={fill} colors={colors} added={added}>
       {children}
     </StyledButton>
 	)

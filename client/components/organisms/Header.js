@@ -38,10 +38,14 @@ const Header = () => {
           <a><Logo /></a>
         </Link>
         <div>
-          <ButtonIcon flat>
-            <Badge circle color="#F50057">{items.length}</Badge>
-            <FavoriteIcon />
-          </ButtonIcon>
+          <Link href="/chce-zagrac">
+            <a>
+              <ButtonIcon flat>
+                <Badge circle color="#F50057">{items.length}</Badge>
+                <FavoriteIcon />
+              </ButtonIcon>
+            </a>
+          </Link>
 
           {!user ? (
             <Link href="/login">

@@ -1,5 +1,6 @@
 import dbConnect from 'utils/dbConnect';
 import User from 'models/User';
+import Game from 'models/Game';
 
 dbConnect();
 
@@ -14,8 +15,10 @@ export default async (req, res) => {
     case 'GET':
       try {
         const user = await User.findOne({uid});
-        if(!user) return res.status(400).json({success: false});
-        res.status(200).json({success: true, data: user});
+        const games = await Game.find({
+          id: { $in: user.wishlist }
+        });
+        res.status(200).json({success: true, data: games});
       } catch(error) {
         res.status(400).json({success: false});
       }

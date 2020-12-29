@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Link from 'next/link';
 import Image from 'next/image';
 
-import { useDispatchWishlist, useWishlist } from 'Providers/WishlistProvider';
+import { useDispatchWishlist } from 'Providers/WishlistProvider';
 import { useUser } from 'utils/useUser';
 
 import Typography from 'components/atoms/Typography';
@@ -74,11 +74,10 @@ const Heading = styled.header`
 const Card = ({id, title, cover, platform, language, state, slug, _id}) => {
   const { user } = useUser();
   const dispatch = useDispatchWishlist();
-  const [adding, setAdding] = useState(false);
+  const [added, setAdded] = useState(false);
 
   const toggleWishlist = async(gameID) => {
-    console.log(gameID)
-    setAdding(true);
+    setAdded(true);
     try {
       const res = await fetch(`/api/users/${user.uid}/wishlist`, {
         method: 'POST',
@@ -107,7 +106,7 @@ const Card = ({id, title, cover, platform, language, state, slug, _id}) => {
         </a>
       </Link>
       <ActionButtons>
-        <WishlistButton fill="#ffffff" colors={['#F50057', '#FF8A80']} adding={adding}>
+        <WishlistButton fill="#ffffff" colors={['#F50057', '#FF8A80']} added={added}>
           <FavoriteIcon onClick={() => toggleWishlist(id)} />
         </WishlistButton>
         <Paragraph small>Język: {language}</Paragraph>
