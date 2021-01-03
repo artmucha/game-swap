@@ -6,8 +6,7 @@ dbConnect();
 export default async (req, res) => {
   const { 
     method,
-    query: { name }, 
-    body: { id, page }, 
+    body: { page }, 
   } = req;
 
   const currentPage = page || 1;
@@ -15,20 +14,15 @@ export default async (req, res) => {
 
   switch(method) {
     case 'POST':
-      let games = [];
-      let totalGames = null;
+      const name = req.query.name ? { 'platform.value.name' : req.query.name } : {};
+      const title = req.body.title ? { title: { $regex : new RegExp(req.body.title, 'i') } } : {};
+      const id = req.body.id ? { 'genres.id': req.body.id } : {};
+
       try {
-        if(id) {
-          games = await Game.find({ 'platform.value.name' : name, 'genres.id' : id })
-            .skip((currentPage - 1) * perPage)
-            .limit(perPage);
-          totalGames = await Game.find({ 'platform.value.name' : name, 'genres.id' : id }).countDocuments();
-        } else {
-          games = await Game.find({ 'platform.value.name' : name })
-            .skip((currentPage - 1) * perPage)
-            .limit(perPage);
-          totalGames = await Game.find({ 'platform.value.name' : name }).countDocuments();
-        }
+        const games = await Game.find({ ...name, ...title, ...id })
+          .skip((currentPage - 1) * perPage)
+          .limit(perPage);
+        const totalGames = await Game.find({ ...name, ...title, ...id }).countDocuments();
 
         res.status(200).json({
           success: true, 

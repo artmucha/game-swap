@@ -9,7 +9,6 @@ const GameSchema = new mongoose.Schema({
   title: {
     type: String,
     required: [true, 'Wybierz tytuł gry'],
-    trim: true,
   },
   language: {
     type: String,
