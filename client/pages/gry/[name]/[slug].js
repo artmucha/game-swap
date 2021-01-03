@@ -3,6 +3,7 @@ import Link from 'next/link';
 import styled from 'styled-components';
 
 import Container from 'components/atoms/Container';
+import Input from 'components/atoms/Input';
 import Grid from 'components/atoms/Grid';
 import Card from 'components/organisms/Card';
 import Typography from 'components/atoms/Typography';
@@ -91,8 +92,22 @@ const CategoriesHeader = styled(Typography)`
   }
 `;
 
+const SearchWrapper = styled.form`
+  display: flex;
+  border-radius: 12px;
+  background-color: ${({ theme }) => theme.white};
+  border: 1px solid ${({ theme }) => theme.grey200};
+  margin-bottom: 30px;
+`;
+
+const SearchInput = styled(Input)`
+  border: 0;
+  color: ${({ theme }) => theme.grey300};
+`;
+
 const Category = ({games, page, params}) => {
   const [open, setOpen] = useState(false);
+  const [query, setQuery] = useState('');
 
   return (
     <>
@@ -120,9 +135,20 @@ const Category = ({games, page, params}) => {
             )) }
           </CategoriesList>
         </CategoriesWrapper>
-        <Grid s={2} m={3}>
-          {games.map(game =><Card key={game._id} {...game} />)}
-        </Grid>
+        <div>
+          <SearchWrapper method="GET">
+            <SearchInput 
+              placeholder="Wpisz tytuł i naciśnij enter" 
+              type="text"
+              name="title"
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+            />
+          </SearchWrapper>
+          <Grid s={2} m={3}>
+            {games.map(game =><Card key={game._id} {...game} />)}
+          </Grid>
+        </div>
       </Container>
       <Container>
         <Pagination
@@ -136,7 +162,7 @@ const Category = ({games, page, params}) => {
 };
 
 export async function getServerSideProps({params, query}) {
-  
+
   const res = await fetch(`http://localhost:3000/api/games/${params.name}`, {
     method: 'POST',
     body: JSON.stringify(query),

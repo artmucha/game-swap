@@ -4,11 +4,11 @@ import Router from 'next/router';
 import styled from 'styled-components';
 
 import Container from 'components/atoms/Container';
+import Input from 'components/atoms/Input';
 import Grid from 'components/atoms/Grid';
 import Card from 'components/organisms/Card';
 import Typography from 'components/atoms/Typography';
 import NavigationList from 'components/atoms/NavigationList';
-import SearchForm from 'components/molecules/SearchForm';
 import Pagination from 'components/molecules/Pagination';
 import PageLoader from 'components/molecules/PageLoader';
 
@@ -53,13 +53,14 @@ const CategoriesWrapper = styled.nav`
   width: 100%;
   max-width: 400px;
   height: 100vh;
-  background-color: ${({ theme }) => theme.white};
   position: fixed;
   top: 0;
   left: 0;
   transform: ${({ open }) => open ? 'translateX(0)' : 'translateX(-100%)'};
   transition: all .2s linear;
   z-index: 99;
+  background-color: ${({ theme }) => theme.white};
+  border: 1px solid ${({ theme }) => theme.grey200};
 
   @media(min-width: 992px) {
     position: static;
@@ -94,9 +95,23 @@ const CategoriesHeader = styled(Typography)`
   }
 `;
 
+const SearchWrapper = styled.form`
+  display: flex;
+  border-radius: 12px;
+  background-color: ${({ theme }) => theme.white};
+  border: 1px solid ${({ theme }) => theme.grey200};
+  margin-bottom: 30px;
+`;
+
+const SearchInput = styled(Input)`
+  border: 0;
+  color: ${({ theme }) => theme.grey300};
+`;
+
 const Platform = ({games, page, params}) => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [query, setQuery] = useState('');
 
   const startLoading = () => setLoading(true);
   const stopLoading = () => setLoading(false);
@@ -108,7 +123,7 @@ const Platform = ({games, page, params}) => {
       Router.events.off("routeChangeStart", startLoading)
       Router.events.off("routeChangeComplete", stopLoading)
     }
-  }, [])
+  }, []);
 
   return (
     <>
@@ -138,7 +153,15 @@ const Platform = ({games, page, params}) => {
           </CategoriesList>
         </CategoriesWrapper>
         <div>
-          <SearchForm />
+          <SearchWrapper method="GET">
+            <SearchInput 
+              placeholder="Wpisz tytuł i naciśnij enter" 
+              type="text"
+              name="title"
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+            />
+          </SearchWrapper>
           <Grid s={2} m={3}>
             {games.map(game =><Card key={game._id} {...game} />)}
           </Grid>
