@@ -7,7 +7,7 @@ const StyledPagination = styled.ul`
   align-items: center;
 	width: 100%;
 	max-width: 400px;
-	margin: 30px auto 0 auto;
+	margin: 20px auto 0 auto;
 
 	li {
 
@@ -36,6 +36,10 @@ const StyledPagination = styled.ul`
 				}
 			}
     `}
+	}
+
+	@media(min-width: 768px) {
+		margin: 30px auto 0 auto;
 	}
 `;
 

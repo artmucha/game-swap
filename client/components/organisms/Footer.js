@@ -19,6 +19,7 @@ const Wrapper = styled.footer`
   text-align: center;
 
   @media(min-width: 768px) {
+    margin-top: 40px;
     text-align: left;
   }
 `;
