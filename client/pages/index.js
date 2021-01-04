@@ -1,27 +1,36 @@
+import styled from 'styled-components';
+import Link from 'next/link';
+import Image from 'next/image';
+
 import Container from 'components/atoms/Container';
 import Grid from 'components/atoms/Grid';
-import Card from 'components/organisms/Card';
+import Box from 'components/atoms/Box';
 
-const Home = ({games}) => {
+import homeMenu from 'constans/homeMenu';
 
-  return (
-    <Container>
-      <Grid s={2} m={3} l={4}>
-        {games.map(game =><Card key={game._id} {...game} />)}
-      </Grid>
-    </Container>
-  )
-
-};
-
-export async function getStaticProps() {
-  const res = await fetch('http://localhost:3000/api/games');
-  const {data} = await res.json();
-
-  return {
-    props: {games:data}
+const Tile = styled(Box)`
+  padding: 10px;
+  img {
+    object-fit: contain;
   }
-}
 
+  @media(min-width: 768px) {
+    padding: 15px;
+  }
+`;
+
+const Home = () => (
+  <Container space flex>
+    <Grid s={1} m={2}>
+    {homeMenu.map(({ text, link, logo }) => (
+      <Tile key={text}>
+        <Link href={`/gry/${link}`}>
+          <a><Image src={logo} layout="responsive" alt={text} width={300} height={100} quality={100}/></a>
+        </Link>
+      </Tile>
+    ))}
+    </Grid>
+  </Container>
+);
 
 export default Home;

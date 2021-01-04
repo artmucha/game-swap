@@ -21,7 +21,7 @@ const Wrapper = styled.header`
   color: ${({ theme }) => theme.black};
   padding-top: 10px;
   padding-bottom: 10px;
-  box-shadow: 0 11px 10px -10px rgba(0,0,0,.5);
+  box-shadow: 0 11px 10px -10px rgba(0,0,0,.1);
 `;
 
 const Header = () => {
