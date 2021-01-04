@@ -92,6 +92,10 @@ const CategoriesHeader = styled(Typography)`
   }
 `;
 
+const GameListWrapper = styled.div`
+  width: 100%;
+`;
+
 const SearchWrapper = styled.form`
   display: flex;
   border-radius: 12px;
@@ -135,7 +139,7 @@ const Category = ({games, page, params}) => {
             )) }
           </CategoriesList>
         </CategoriesWrapper>
-        <div>
+        <GameListWrapper>
           <SearchWrapper method="GET">
             <SearchInput 
               placeholder="Wpisz tytuł i naciśnij enter" 
@@ -145,10 +149,16 @@ const Category = ({games, page, params}) => {
               onChange={(event) => setQuery(event.target.value)}
             />
           </SearchWrapper>
-          <Grid s={2} m={3}>
-            {games.map(game =><Card key={game._id} {...game} />)}
-          </Grid>
-        </div>
+          {games.length === 0 ? (
+            <Container flex alignCenter>
+              <Typography as="h2" space>Brak gier w tej kategorii wyszukiwania</Typography>
+            </Container>
+            ) : (
+            <Grid s={2} m={3}>
+              {games.map(game =><Card key={game._id} {...game} />)}
+            </Grid>
+          )}
+        </GameListWrapper>
       </Container>
       <Container>
         <Pagination

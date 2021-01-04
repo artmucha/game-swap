@@ -25,7 +25,7 @@ const Home = () => (
     {homeMenu.map(({ text, link, logo }) => (
       <Tile key={text}>
         <Link href={`/gry/${link}`}>
-          <a><Image src={logo} layout="responsive" alt={text} width={300} height={100} quality={100}/></a>
+          <a><Image src={logo} width={300} height={100} quality={100} alt={text} /></a>
         </Link>
       </Tile>
     ))}
