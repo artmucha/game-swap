@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
+import Router from 'next/router';
 
 import { useUser } from 'utils/useUser';
 import { useWishlist } from "Providers/WishlistProvider";
@@ -27,6 +28,13 @@ const Wrapper = styled.header`
 const Header = () => {
   const { user, logout } = useUser();
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    Router.events.on("routeChangeStart", () => setOpen(false))
+    return () => {
+      Router.events.off("routeChangeStart", () => setOpen(false))
+    }
+  }, []);
 
   const items = useWishlist();
 

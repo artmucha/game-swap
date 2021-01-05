@@ -104,7 +104,11 @@ const SearchWrapper = styled.form`
   border-radius: 12px;
   background-color: ${({ theme }) => theme.white};
   border: 1px solid ${({ theme }) => theme.grey200};
-  margin-bottom: 30px;
+  margin-bottom: 20px;
+
+  @media(min-width: 768px) {
+    margin-bottom: 30px;
+  }
 `;
 
 const SearchInput = styled(Input)`
