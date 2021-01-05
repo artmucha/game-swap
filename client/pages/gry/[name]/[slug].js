@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
 
+import Layout from 'components/layouts/Layout';
 import Container from 'components/atoms/Container';
 import Input from 'components/atoms/Input';
 import Grid from 'components/atoms/Grid';
@@ -114,7 +115,7 @@ const Category = ({games, page, params}) => {
   const [query, setQuery] = useState('');
 
   return (
-    <>
+    <Layout>
       <Container>
         <PageTitle as="h1" space big><strong>{params.slug.split('-').join(' ')}</strong> na <strong>{params.name.split('-').join(' ')}</strong></PageTitle>
       </Container>
@@ -167,7 +168,7 @@ const Category = ({games, page, params}) => {
           totalPages={page.maxPage}
         />
       </Container>
-    </>
+    </Layout>
   );
 };
 

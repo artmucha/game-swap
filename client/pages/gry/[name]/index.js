@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Router from 'next/router';
 import styled from 'styled-components';
 
+import Layout from 'components/layouts/Layout';
 import Container from 'components/atoms/Container';
 import Input from 'components/atoms/Input';
 import Grid from 'components/atoms/Grid';
@@ -134,7 +135,7 @@ const Platform = ({games, page, params}) => {
   }, []);
 
   return (
-    <>
+    <Layout>
     { loading && <PageLoader /> }
       <Container>
         <PageTitle as="h1" space big>Gry na <strong>{params.name.split('-').join(' ')}</strong></PageTitle>
@@ -188,7 +189,7 @@ const Platform = ({games, page, params}) => {
           totalPages={page.maxPage}
         />
       </Container>
-    </>
+    </Layout>
   );
 };
 

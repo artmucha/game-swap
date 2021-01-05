@@ -10,6 +10,7 @@ import { platform } from 'constans/options';
 
 import { useDispatchWishlist, useWishlist } from 'Providers/WishlistProvider';
 
+import Layout from 'components/layouts/Layout';
 import Container from 'components/atoms/Container';
 import Grid from 'components/atoms/Grid';
 import Typography from 'components/atoms/Typography';
@@ -365,7 +366,7 @@ const Profile = () => {
   }
 
   return (
-    <>
+    <Layout>
       <Hero>
         <Container>
           <Typography as="h2" big>Witaj {data.login}!</Typography>
@@ -528,7 +529,7 @@ const Profile = () => {
         </Content> 
         </Wrapper>
       </Container>
-    </>
+    </Layout>
   )
 
 };

@@ -7,6 +7,8 @@ import 'firebase/auth';
 import initFirebase from 'utils/initFirebase';
 import { setUserCookie } from 'utils/userCookies';
 import { mapUserData } from 'utils/mapUserData';
+
+import Layout from 'components/layouts/Layout';
 import Container from 'components/atoms/Container';
 import Paragraph from 'components/atoms/Paragraph';
 import Input from 'components/atoms/Input';
@@ -141,58 +143,60 @@ const Login = () => {
   };
 
   return (
-    <Container flex>
-      <Wrapper>
+    <Layout>
+      <Container flex>
+        <Wrapper>
 
-        <Switches>
-          <SwitchButton selected={selected === 'login'} onClick={() => setSelected('login')}>Zaloguj się</SwitchButton>
-          <SwitchButton selected={selected === 'register'} onClick={() => setSelected('register')}>Zarejestruj się</SwitchButton>
-        </Switches>
+          <Switches>
+            <SwitchButton selected={selected === 'login'} onClick={() => setSelected('login')}>Zaloguj się</SwitchButton>
+            <SwitchButton selected={selected === 'register'} onClick={() => setSelected('register')}>Zarejestruj się</SwitchButton>
+          </Switches>
 
-        {selected === 'login' && (
-          <FormWrapper>
-            <Form id="login" action="/api/users" onSubmit={handleLogin}>
-              <Paragraph>
-                Email*
-              </Paragraph>
-              <Input type="email" name="email" value={data.email} onChange={handleChange} required />
-              <Paragraph>
-                Hasło*
-              </Paragraph>
-              <Input type="password" name="password" value={data.password} onChange={handleChange} required />
-              { errors.length ? <Errors errors={errors} /> : null }
-              <Button type="submit" loading={submitting} success={success} colors={['#0072ff', '#00c6ff']} space center> {success ? 'Zalodowano' : 'Zaloguj'}</Button>
+          {selected === 'login' && (
+            <FormWrapper>
+              <Form id="login" action="/api/users" onSubmit={handleLogin}>
+                <Paragraph>
+                  Email*
+                </Paragraph>
+                <Input type="email" name="email" value={data.email} onChange={handleChange} required />
+                <Paragraph>
+                  Hasło*
+                </Paragraph>
+                <Input type="password" name="password" value={data.password} onChange={handleChange} required />
+                { errors.length ? <Errors errors={errors} /> : null }
+                <Button type="submit" loading={submitting} success={success} colors={['#0072ff', '#00c6ff']} space center> {success ? 'Zalodowano' : 'Zaloguj'}</Button>
 
-            </Form>
-          </FormWrapper>
-          )
-        }
-        
-        {selected === 'register' && (
+              </Form>
+            </FormWrapper>
+            )
+          }
           
-          <FormWrapper>
-            <Form id="register" action="/api/users" method="POST" onSubmit={handleSignup}>
-              <Paragraph>
-                Login*
-              </Paragraph>
-              <Input type="text" name="login" value={data.name} onChange={handleChange} required />
-              <Paragraph>
-                Email*
-              </Paragraph>
-              <Input type="email" name="email" value={data.email} onChange={handleChange} required />
-              <Paragraph>
-                Hasło*
-              </Paragraph>
-              <Input type="password" name="password" value={data.password} onChange={handleChange} required />
-              { errors.length ? <Errors errors={errors} /> : null }
-              <Button type="submit" loading={submitting} success={success} colors={['#0072ff', '#00c6ff']} space center> {success ? 'Zarejestrowano' : 'Zarejestruj'}</Button>
-            </Form>
-          </FormWrapper>
-          )
-        }
+          {selected === 'register' && (
+            
+            <FormWrapper>
+              <Form id="register" action="/api/users" method="POST" onSubmit={handleSignup}>
+                <Paragraph>
+                  Login*
+                </Paragraph>
+                <Input type="text" name="login" value={data.name} onChange={handleChange} required />
+                <Paragraph>
+                  Email*
+                </Paragraph>
+                <Input type="email" name="email" value={data.email} onChange={handleChange} required />
+                <Paragraph>
+                  Hasło*
+                </Paragraph>
+                <Input type="password" name="password" value={data.password} onChange={handleChange} required />
+                { errors.length ? <Errors errors={errors} /> : null }
+                <Button type="submit" loading={submitting} success={success} colors={['#0072ff', '#00c6ff']} space center> {success ? 'Zarejestrowano' : 'Zarejestruj'}</Button>
+              </Form>
+            </FormWrapper>
+            )
+          }
 
-      </Wrapper>
-    </Container>
+        </Wrapper>
+      </Container>
+    </Layout>
   )
 };
 

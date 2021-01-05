@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import Link from 'next/link';
 import Image from 'next/image';
 
+import Layout from 'components/layouts/Layout';
 import Container from 'components/atoms/Container';
 import Grid from 'components/atoms/Grid';
 import Box from 'components/atoms/Box';
@@ -20,17 +21,19 @@ const Tile = styled(Box)`
 `;
 
 const Home = () => (
-  <Container space flex>
-    <Grid s={1} m={2}>
-    {homeMenu.map(({ text, link, logo }) => (
-      <Tile key={text}>
-        <Link href={`/gry/${link}`}>
-          <a><Image src={logo} width={300} height={100} quality={100} alt={text} /></a>
-        </Link>
-      </Tile>
-    ))}
-    </Grid>
-  </Container>
+  <Layout>
+    <Container space flex>
+      <Grid s={1} m={2}>
+      {homeMenu.map(({ text, link, logo }) => (
+        <Tile key={text}>
+          <Link href={`/gry/${link}`}>
+            <a><Image src={logo} width={300} height={100} quality={100} alt={text} /></a>
+          </Link>
+        </Tile>
+      ))}
+      </Grid>
+    </Container>
+  </Layout>
 );
 
 export default Home;

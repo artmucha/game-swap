@@ -1,6 +1,7 @@
 import { useState, useCallback, useRef } from 'react';
 import styled from 'styled-components';
 
+import Layout from 'components/layouts/Layout';
 import Container from 'components/atoms/Container';
 import Typography from 'components/atoms/Typography';
 import Paragraph from 'components/atoms/Paragraph';
@@ -167,85 +168,87 @@ const NewPost = () => {
   };
 
   return (
-    <Container flex alignCenter column>
-      <Typography as="h1" space big>Dodaj nowe ogłoszenie</Typography>
-      <Wrapper>
-        <form onSubmit={handleSubmit}>
-        <Paragraph>
-          Platforma*
-        </Paragraph>
-        <Select name="platform" value={data.platform} onChange={handleChange} required>
-          {platform.map( option => (
-            <option 
-              key={option.value.label} 
-              value={JSON.stringify(option)}
-              default={option.default}
-            >
-              {option.name}
-            </option>)
-          )}
-        </Select>
-        <Paragraph>
-          Tytuł*
-        </Paragraph>
-        <SearchWrapper ref={searchRef}>
-          <SearchInput 
-            placeholder="Wyszukaj tytuł (wpisz conajmniej 2 znaki)" 
-            type="text"  
-            value={query}
-            name="title"
-            onChange={handleSearch}
-            required
+    <Layout>
+      <Container flex alignCenter column>
+        <Typography as="h1" space big>Dodaj nowe ogłoszenie</Typography>
+        <Wrapper>
+          <form onSubmit={handleSubmit}>
+          <Paragraph>
+            Platforma*
+          </Paragraph>
+          <Select name="platform" value={data.platform} onChange={handleChange} required>
+            {platform.map( option => (
+              <option 
+                key={option.value.label} 
+                value={JSON.stringify(option)}
+                default={option.default}
+              >
+                {option.name}
+              </option>)
+            )}
+          </Select>
+          <Paragraph>
+            Tytuł*
+          </Paragraph>
+          <SearchWrapper ref={searchRef}>
+            <SearchInput 
+              placeholder="Wyszukaj tytuł (wpisz conajmniej 2 znaki)" 
+              type="text"  
+              value={query}
+              name="title"
+              onChange={handleSearch}
+              required
+            />
+            {active && results.length > 0 && (
+              <ResultsList>
+                {results.map(({id, name, slug, genres, rating, background_image, short_screenshots}) => <li key={id} onClick={(event) => handleClick(event, {id, name, slug, genres, rating, background_image, short_screenshots})}>{name}</li>)}
+              </ResultsList>
+            )}
+          </SearchWrapper>
+          <Paragraph>
+            Wersja językowa*
+          </Paragraph>
+          <Select name="language" value={data.language} onChange={handleChange} required>
+            {language.map( option => (
+              <option 
+                key={option.value} 
+                value={option.name}
+                default={option.default}
+              >
+                {option.name}
+              </option>)
+            )}
+          </Select>
+          <Paragraph>
+            Stan płyty*
+          </Paragraph>
+          <Select name="state" value={data.state} onChange={handleChange} required>
+            {state.map( option => (
+              <option 
+                key={option.value} 
+                value={option.name}
+                default={option.default}
+              >
+                {option.name}
+              </option>)
+            )}
+          </Select>
+          <Paragraph>
+            Dodatkowe informacje
+          </Paragraph>
+          <TextArea 
+            rows="4"
+            placeholder="np. opis, informacje dotyczące wydania" 
+            name="description" 
+            value={data.description} 
+            onChange={handleChange}
           />
-          {active && results.length > 0 && (
-            <ResultsList>
-              {results.map(({id, name, slug, genres, rating, background_image, short_screenshots}) => <li key={id} onClick={(event) => handleClick(event, {id, name, slug, genres, rating, background_image, short_screenshots})}>{name}</li>)}
-            </ResultsList>
-          )}
-        </SearchWrapper>
-        <Paragraph>
-          Wersja językowa*
-        </Paragraph>
-        <Select name="language" value={data.language} onChange={handleChange} required>
-          {language.map( option => (
-            <option 
-              key={option.value} 
-              value={option.name}
-              default={option.default}
-            >
-              {option.name}
-            </option>)
-          )}
-        </Select>
-        <Paragraph>
-          Stan płyty*
-        </Paragraph>
-        <Select name="state" value={data.state} onChange={handleChange} required>
-          {state.map( option => (
-            <option 
-              key={option.value} 
-              value={option.name}
-              default={option.default}
-            >
-              {option.name}
-            </option>)
-          )}
-        </Select>
-        <Paragraph>
-          Dodatkowe informacje
-        </Paragraph>
-        <TextArea 
-          rows="4"
-          placeholder="np. opis, informacje dotyczące wydania" 
-          name="description" 
-          value={data.description} 
-          onChange={handleChange}
-        />
-        { errors.length ? <Errors errors={errors} /> : null }
-        <Button type="submit" loading={submitting} success={success} colors={['#0072ff', '#00c6ff']} space center> {success ? 'Dodano' : 'Dodaj'}</Button>
-        </form>
-      </Wrapper>
-    </Container>
+          { errors.length ? <Errors errors={errors} /> : null }
+          <Button type="submit" loading={submitting} success={success} colors={['#0072ff', '#00c6ff']} space center> {success ? 'Dodano' : 'Dodaj'}</Button>
+          </form>
+        </Wrapper>
+      </Container>
+    </Layout>
   )
 };
 

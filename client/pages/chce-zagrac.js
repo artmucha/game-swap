@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 import { useUser } from 'utils/useUser';
 
+import Layout from 'components/layouts/Layout';
 import Container from 'components/atoms/Container';
 import Grid from 'components/atoms/Grid';
 import Card from 'components/organisms/Card';
@@ -46,7 +47,7 @@ const Wishlist = () => {
   }, [user, games]);
 
   return (
-    <>
+    <Layout>
     { loading && <PageLoader /> }
       <Container>
         <Typography as="h1" space big>Chcę zagrać</Typography>
@@ -68,7 +69,7 @@ const Wishlist = () => {
         </Grid>
       </Container>
 			)}
-    </>
+    </Layout>
   );
 };
 

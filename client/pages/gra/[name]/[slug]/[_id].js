@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+import Layout from 'components/layouts/Layout';
 import Container from 'components/atoms/Container';
 import Grid from 'components/atoms/Grid';
 import Typography from 'components/atoms/Typography';
@@ -93,58 +94,60 @@ const ActionButtons = styled.div`
 const Product = ({game}) => {
 
   return (
-    <Article>
-			<Hero>
-        <img src={game.cover} alt={game.title} />
-          <Heading>
-            <Container>
-              <Badge platform={game.platform.value.maker}>{game.platform.value.label}</Badge>
-              <Typography as="h1" big>{game.title}</Typography>
-              <Paragraph>Język: {game.language}</Paragraph>
-              <Paragraph>Stan: {game.state}</Paragraph>
-            </Container>
-          </Heading>
-			</Hero>
-      <Container>
-        <AuthorContent>
-          <div>
-            <Paragraph>Dodał: <strong>Artur</strong></Paragraph>
-            <Paragraph>Skąd: <strong>Kraków</strong></Paragraph>
-            <Paragraph>Dodano: <strong>08.11.2020</strong></Paragraph>
-          </div>
-          <ActionButtons>
-            <ButtonIcon fill="#ffffff" colors={['#F50057', '#FF8A80']} title="Dodaj do Wishlisty">
-              <FavoriteIcon />
-            </ButtonIcon>
-            <ButtonIcon fill="#ffffff" colors={['#0072ff', '#00c6ff']} title="Zaproponuj wymianę">
-              <SwapIcon />
-            </ButtonIcon>
-          </ActionButtons>
-        </AuthorContent>
-      </Container>
-      {game.description ? 
-        (
-          <Container>
-          <Typography as="h2" space>Opis</Typography>
-            <Paragraph>{game.description}</Paragraph>
-            </Container>
-        ) : null
-      }
-      
-      {game.images && game.images.length ?
-        (<Container>
-          <Gallery>
-            <Typography as="h2" space>Galeria</Typography>
-            <Grid s={2} m={4}>
-              { game.images.map(screen => (
-                <img key={screen.id} src={screen.image} alt={game.title} />
-              )) }
-            </Grid>
-          </Gallery>
+    <Layout>
+      <Article>
+        <Hero>
+          <img src={game.cover} alt={game.title} />
+            <Heading>
+              <Container>
+                <Badge platform={game.platform.value.maker}>{game.platform.value.label}</Badge>
+                <Typography as="h1" big>{game.title}</Typography>
+                <Paragraph>Język: {game.language}</Paragraph>
+                <Paragraph>Stan: {game.state}</Paragraph>
+              </Container>
+            </Heading>
+        </Hero>
+        <Container>
+          <AuthorContent>
+            <div>
+              <Paragraph>Dodał: <strong>Artur</strong></Paragraph>
+              <Paragraph>Skąd: <strong>Kraków</strong></Paragraph>
+              <Paragraph>Dodano: <strong>08.11.2020</strong></Paragraph>
+            </div>
+            <ActionButtons>
+              <ButtonIcon fill="#ffffff" colors={['#F50057', '#FF8A80']} title="Dodaj do Wishlisty">
+                <FavoriteIcon />
+              </ButtonIcon>
+              <ButtonIcon fill="#ffffff" colors={['#0072ff', '#00c6ff']} title="Zaproponuj wymianę">
+                <SwapIcon />
+              </ButtonIcon>
+            </ActionButtons>
+          </AuthorContent>
         </Container>
-        ) : null
-      }
-    </Article>
+        {game.description ? 
+          (
+            <Container>
+            <Typography as="h2" space>Opis</Typography>
+              <Paragraph>{game.description}</Paragraph>
+              </Container>
+          ) : null
+        }
+        
+        {game.images && game.images.length ?
+          (<Container>
+            <Gallery>
+              <Typography as="h2" space>Galeria</Typography>
+              <Grid s={2} m={4}>
+                { game.images.map(screen => (
+                  <img key={screen.id} src={screen.image} alt={game.title} />
+                )) }
+              </Grid>
+            </Gallery>
+          </Container>
+          ) : null
+        }
+      </Article>
+    </Layout>
   ) 
 };
 
