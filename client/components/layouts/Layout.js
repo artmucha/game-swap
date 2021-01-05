@@ -7,6 +7,7 @@ import Router from 'next/router';
 import { useUser } from 'utils/useUser';
 import { useWishlist } from "Providers/WishlistProvider";
 
+import PageLoader from 'components/molecules/PageLoader';
 import Container from 'components/atoms/Container';
 import Grid from 'components/atoms/Grid';
 import Paragraph from 'components/atoms/Paragraph';
@@ -79,14 +80,26 @@ const Copyright = styled.p`
 
 const Layout = ({ children, title = 'Używki'}) => {
 	const { user } = useUser();
-  const [open, setOpen] = useState(false);
+	const [loading, setLoading] = useState(false);
+	const [open, setOpen] = useState(false);
+	
+	const startLoading = () => setLoading(true);
+  const stopLoading = () => setLoading(false);
 
   useEffect(() => {
-    Router.events.on("routeChangeStart", () => setOpen(false))
+		Router.events.on("routeChangeStart", () => { 
+			setOpen(false);
+			startLoading();
+		});
+    Router.events.on("routeChangeComplete", stopLoading);
     return () => {
-      Router.events.off("routeChangeStart", () => setOpen(false))
+      Router.events.off("routeChangeStart", () => {
+				setOpen(false);
+				startLoading();
+			});
+			Router.events.off("routeChangeComplete", stopLoading);
     }
-  }, []);
+	}, []);
 
 	const items = useWishlist();
 	
@@ -98,6 +111,7 @@ const Layout = ({ children, title = 'Używki'}) => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <link href='https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@300;400;700&display=swap' rel='stylesheet'/>
       </Head>
+			{ loading && <PageLoader /> }
 			<Header>
 				<Container flex spaceBetween alignCenter>
 					<MenuIcon onClick={() => setOpen(!open)} />

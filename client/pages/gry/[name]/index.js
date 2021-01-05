@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
-import Router from 'next/router';
 import styled from 'styled-components';
 
 import Layout from 'components/layouts/Layout';
@@ -11,7 +10,6 @@ import Card from 'components/organisms/Card';
 import Typography from 'components/atoms/Typography';
 import NavigationList from 'components/atoms/NavigationList';
 import Pagination from 'components/molecules/Pagination';
-import PageLoader from 'components/molecules/PageLoader';
 
 import FilterButton from '../../../public/icons/filters.svg';
 import BackButton from '../../../public/icons/right-arrow.svg';
@@ -119,24 +117,10 @@ const SearchInput = styled(Input)`
 
 const Platform = ({games, page, params}) => {
   const [open, setOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [query, setQuery] = useState('');
-
-  const startLoading = () => setLoading(true);
-  const stopLoading = () => setLoading(false);
-
-  useEffect(() => {
-    Router.events.on("routeChangeStart", startLoading)
-    Router.events.on("routeChangeComplete", stopLoading)
-    return () => {
-      Router.events.off("routeChangeStart", startLoading)
-      Router.events.off("routeChangeComplete", stopLoading)
-    }
-  }, []);
 
   return (
     <Layout>
-    { loading && <PageLoader /> }
       <Container>
         <PageTitle as="h1" space big>Gry na <strong>{params.name.split('-').join(' ')}</strong></PageTitle>
       </Container>
