@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 
 import { useUser } from 'utils/useUser';
+import { fetchWishlist, useDispatchWishlist, useWishlist } from 'Providers/WishlistProvider';
 
 import Layout from 'components/layouts/Layout';
 import Container from 'components/atoms/Container';
@@ -11,23 +12,23 @@ import Pagination from 'components/molecules/Pagination';
 
 const Wishlist = () => {
 	const { user } = useUser();
+	const items = useWishlist();
+	const dispatch = useDispatchWishlist();
+
 	const [games, setGames] = useState([]);
 
 	useEffect(() => {
 		if(!user) return;
-    const fetchData = async () => {
-      try {
-        const res = await fetch(`/api/users/${user.uid}/wishlist`);
-				const { data } = await res.json();
-				setGames(data);
-      } catch(error) {
-        console.log(error);
-      }
-		};
-		
-		fetchData();
-    
-  }, [user, games]);
+		const fetchWishlistData = async(userUID, dispatch) => {
+			try {
+				await fetchWishlist(userUID, dispatch);
+				setGames(items);
+			} catch(error) {
+				console.log(error)
+			}
+		} 
+		fetchWishlistData(user.uid, dispatch);
+	}, [user, games]);
 
   return (
     <Layout>
