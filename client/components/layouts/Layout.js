@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import Router from 'next/router';
 
 import { useUser } from 'utils/useUser';
-import { useWishlist } from "Providers/WishlistProvider";
+import { fetchWishlist, useDispatchWishlist, useWishlist } from 'Providers/WishlistProvider';
 
 import PageLoader from 'components/molecules/PageLoader';
 import Container from 'components/atoms/Container';
@@ -80,11 +80,28 @@ const Copyright = styled.p`
 
 const Layout = ({ children, title = 'Używki'}) => {
 	const { user } = useUser();
+	const items = useWishlist();
+	const dispatch = useDispatchWishlist();
+
 	const [loading, setLoading] = useState(false);
 	const [open, setOpen] = useState(false);
+	const [games, setGames] = useState([]);
 	
 	const startLoading = () => setLoading(true);
-  const stopLoading = () => setLoading(false);
+	const stopLoading = () => setLoading(false);
+	
+	useEffect(() => {
+		if(!user) return;
+		const fetchWishlistData = async(userUID, dispatch) => {
+			try {
+				await fetchWishlist(userUID, dispatch);
+				setGames(items);
+			} catch(error) {
+				console.log(error)
+			}
+		} 
+		fetchWishlistData(user.uid, dispatch);
+	}, [user, games]);
 
   useEffect(() => {
 		Router.events.on("routeChangeStart", () => { 
@@ -100,8 +117,6 @@ const Layout = ({ children, title = 'Używki'}) => {
 			Router.events.off("routeChangeComplete", stopLoading);
     }
 	}, []);
-
-	const items = useWishlist();
 	
   return (
     <>

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Link from 'next/link';
 import Image from 'next/image';
 
-import { useDispatchWishlist } from 'Providers/WishlistProvider';
+import { useDispatchWishlist, toggleWishlist } from 'Providers/WishlistProvider';
 import { useUser } from 'utils/useUser';
 
 import Typography from 'components/atoms/Typography';
@@ -76,15 +76,10 @@ const Card = ({id, title, cover, platform, language, state, slug, _id}) => {
   const dispatch = useDispatchWishlist();
   const [added, setAdded] = useState(false);
 
-  const toggleWishlist = async(gameID) => {
-    setAdded(true);
+  const handleWishlist = async(userUID, gameID, dispatch) => {
     try {
-      const res = await fetch(`/api/users/${user.uid}/wishlist`, {
-        method: 'POST',
-        body: JSON.stringify({id: gameID}),
-        headers: { 'Content-Type': 'application/json' }
-      });
-      dispatch({ type: 'TOGGLE_WISHLIST', gameID });
+      await toggleWishlist(userUID, gameID, dispatch);
+      setAdded(true);
     } catch(error) {
       console.log(error);
     }
@@ -107,7 +102,7 @@ const Card = ({id, title, cover, platform, language, state, slug, _id}) => {
       </Link>
       <ActionButtons>
         <WishlistButton fill="#ffffff" colors={['#F50057', '#FF8A80']} added={added}>
-          <FavoriteIcon onClick={() => toggleWishlist(id)} />
+          <FavoriteIcon onClick={() => handleWishlist(user.uid, id, dispatch)} />
         </WishlistButton>
         <Paragraph small>Język: {language}</Paragraph>
         <Paragraph small>Stan: {state}</Paragraph>
