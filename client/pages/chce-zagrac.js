@@ -8,7 +8,6 @@ import Container from 'components/atoms/Container';
 import Grid from 'components/atoms/Grid';
 import Card from 'components/organisms/Card';
 import Typography from 'components/atoms/Typography';
-import Pagination from 'components/molecules/Pagination';
 
 const Wishlist = () => {
 	const { user } = useUser();
