@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { useState } from 'react';
 
 import Layout from 'components/layouts/Layout';
 import Container from 'components/atoms/Container';
@@ -7,6 +8,7 @@ import Typography from 'components/atoms/Typography';
 import Badge from 'components/atoms/Badge';
 import Paragraph from 'components/atoms/Paragraph';
 import ButtonIcon from 'components/atoms/ButtonIcon';
+import Modal from 'components/organisms/Modal';
 
 import FavoriteIcon from '../../../../public/icons/favorite.svg';
 import SwapIcon from '../../../../public/icons/refresh-button.svg';
@@ -67,6 +69,7 @@ const Heading = styled.div`
 const Gallery = styled.div`
   img {
     width: 100%;
+    cursor: pointer;
   }
 `;
 
@@ -92,6 +95,13 @@ const ActionButtons = styled.div`
 `;
 
 const Product = ({game}) => {
+  const [open, setOpen] = useState(false);
+  const [img, setImg] = useState('');
+
+  const handleResize = (image) => {
+    setImg(image);
+    setOpen(true);
+  }
 
   return (
     <Layout>
@@ -137,9 +147,9 @@ const Product = ({game}) => {
           (<Container>
             <Gallery>
               <Typography as="h2" space>Galeria</Typography>
-              <Grid s={2} m={4}>
+              <Grid s={1} m={2} l={4}>
                 { game.images.map(screen => (
-                  <img key={screen.id} src={screen.image} alt={game.title} />
+                  <img key={screen.id} src={screen.image} alt={game.title} onClick={() => handleResize(screen.image)} />
                 )) }
               </Grid>
             </Gallery>
@@ -147,6 +157,9 @@ const Product = ({game}) => {
           ) : null
         }
       </Article>
+      <Modal open={open} image setOpen={setOpen}>
+        <img src={img} />
+      </Modal>
     </Layout>
   ) 
 };
