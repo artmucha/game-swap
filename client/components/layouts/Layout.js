@@ -193,23 +193,23 @@ const Layout = ({ children, title = 'Używki'}) => {
 						<NavigationHeading>Wymieniaj</NavigationHeading>
 						{menu.map(({ text, link, maker, sub }) => (
 							<li key={text}>
-									{link ? (
-									<Link href={`/gry/${maker}/${link}`}>
-											<a>Gry na {text}</a>
-									</Link>
-									) : null }
+								{link ? (
+								<Link href={`/gry/${maker}/${link}`}>
+										<a>Gry na {text}</a>
+								</Link>
+								) : null }
 
-									{sub ? (
-									<ul>
-											{sub.map(({ text, link, maker }) => (
-											<li key={text}>
-													<Link href={`/gry/${maker}/${link}`}>
-													<a>Gry na {text}</a>
-													</Link>
-											</li>
-											))}
-									</ul>
-									) : null}
+								{sub ? (
+								<ul>
+									{sub.map(({ text, link, maker }) => (
+									<li key={text}>
+											<Link href={`/gry/${maker}/${link}`}>
+											<a>Gry na {text}</a>
+											</Link>
+									</li>
+									))}
+								</ul>
+								) : null}
 							</li>
 						))}
 					</NavigationList>

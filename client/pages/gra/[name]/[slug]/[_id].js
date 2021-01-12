@@ -8,9 +8,9 @@ import Typography from 'components/atoms/Typography';
 import Badge from 'components/atoms/Badge';
 import Paragraph from 'components/atoms/Paragraph';
 import ButtonIcon from 'components/atoms/ButtonIcon';
-import Modal from 'components/organisms/Modal';
+import WishlistButton from 'components/molecules/WishlistButton';
+import Modal from 'components/molecules/Modal';
 
-import FavoriteIcon from '../../../../public/icons/favorite.svg';
 import SwapIcon from '../../../../public/icons/refresh-button.svg';
 
 const Article = styled.article`
@@ -125,9 +125,7 @@ const Product = ({game}) => {
               <Paragraph>Dodano: <strong>08.11.2020</strong></Paragraph>
             </div>
             <ActionButtons>
-              <ButtonIcon fill="#ffffff" colors={['#F50057', '#FF8A80']} title="Dodaj do Wishlisty">
-                <FavoriteIcon />
-              </ButtonIcon>
+              <WishlistButton fill="#ffffff" colors={['#F50057', '#FF8A80']} id={game.id} title="Dodaj do Wishlisty" />
               <ButtonIcon fill="#ffffff" colors={['#0072ff', '#00c6ff']} title="Zaproponuj wymianę">
                 <SwapIcon />
               </ButtonIcon>

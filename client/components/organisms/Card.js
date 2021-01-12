@@ -1,17 +1,11 @@
-import { useState } from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
 import Image from 'next/image';
-
-import { useDispatchWishlist, toggleWishlist } from 'Providers/WishlistProvider';
-import { useUser } from 'utils/useUser';
 
 import Typography from 'components/atoms/Typography';
 import WishlistButton from 'components/molecules/WishlistButton';
 import Paragraph from 'components/atoms/Paragraph';
 import Badge from 'components/atoms/Badge';
-
-import FavoriteIcon from '../../public/icons/favorite.svg';
 
 const CardWrapper = styled.article`
   max-height: 380px;
@@ -72,19 +66,7 @@ const Heading = styled.header`
 `;
 
 const Card = ({id, title, cover, platform, language, state, slug, _id}) => {
-  const { user } = useUser();
-  const dispatch = useDispatchWishlist();
-  const [added, setAdded] = useState(false);
-
-  const handleWishlist = async(userUID, gameID, dispatch) => {
-    try {
-      await toggleWishlist(userUID, gameID, dispatch);
-      setAdded(true);
-    } catch(error) {
-      console.log(error);
-    }
-  };
-
+  
   return (
     <CardWrapper>
       <Link href={`/gra/${platform.value.name}/${slug}/${_id}`}>
@@ -101,9 +83,7 @@ const Card = ({id, title, cover, platform, language, state, slug, _id}) => {
         </a>
       </Link>
       <ActionButtons>
-        <WishlistButton fill="#ffffff" colors={['#F50057', '#FF8A80']} added={added}>
-          <FavoriteIcon onClick={() => handleWishlist(user.uid, id, dispatch)} />
-        </WishlistButton>
+        <WishlistButton fill="#ffffff" colors={['#F50057', '#FF8A80']} id={id} title="Dodaj do Wishlisty" />
         <Paragraph small>Język: {language}</Paragraph>
         <Paragraph small>Stan: {state}</Paragraph>
       </ActionButtons>

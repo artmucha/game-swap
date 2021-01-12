@@ -24,10 +24,8 @@ const GameSchema = new mongoose.Schema({
   genres: [{id: Number, name: String, slug: String}],
   images: [{id: Number, image: String}],
   slug: String,
-  owner: {
-    type: String,
-    ref: 'User'
-  }
+  owner: {type: String, ref: 'User'},
+  likes: [{type: String, ref: 'User'}]
 });
 
 module.exports = mongoose.models.Game || mongoose.model('Game', GameSchema);

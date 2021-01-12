@@ -1,5 +1,11 @@
+import { useState } from 'react';
 import styled, { css, keyframes } from 'styled-components';
+
+import { useDispatchWishlist, toggleWishlist } from 'Providers/WishlistProvider';
+import { useUser } from 'utils/useUser';
+
 import ButtonIcon from 'components/atoms/ButtonIcon';
+import FavoriteIcon from '../../public/icons/favorite.svg';
 
 const topBubbles = keyframes`
   0% {
@@ -93,11 +99,23 @@ const StyledButton = styled(ButtonIcon)`
   `}
 `;
 
-const WishlistButton = ({fill, colors, added, children}) => {
+const WishlistButton = ({fill, colors, id}) => {
+  const { user } = useUser();
+  const dispatch = useDispatchWishlist();
+  const [added, setAdded] = useState(false);
+
+  const handleWishlist = async(userUID, gameID, dispatch) => {
+    try {
+      await toggleWishlist(userUID, gameID, dispatch);
+      setAdded(true);
+    } catch(error) {
+      console.log(error);
+    }
+  };
 
 	return (
-		<StyledButton fill={fill} colors={colors} added={added}>
-      {children}
+		<StyledButton fill={fill} colors={colors} added={added} onClick={() => handleWishlist(user.uid, id, dispatch)} >
+      <FavoriteIcon />
     </StyledButton>
 	)
 };
